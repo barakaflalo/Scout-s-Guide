@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0d">
+<title>המדריך לצופה</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<style>
+:root{
+  --accent:#d4af37; --accent-soft:#d4af3722;
+  --bg:#0d0d0d; --card:#161616; --card2:#1e1e1e; --text:#f3efe4; --muted:#9a948a; --line:#2c2c2c;
+  --danger:#e0524d; --danger-bg:#e0524d1a; --ok:#5fbf73; --font-scale:1;
+}
+[data-theme="forest"]{--accent:#6fbf73; --accent-soft:#6fbf7322;}
+[data-theme="desert"]{--accent:#e0a458; --accent-soft:#e0a45822;}
+[data-theme="ocean"] {--accent:#4db8d4; --accent-soft:#4db8d422;}
+[data-theme="crimson"]{--accent:#d4746b; --accent-soft:#d4746b22;}
+[data-mode="light"]{
+  --bg:#f4efe4; --card:#fffdf7; --card2:#f0e9da; --text:#221d13; --muted:#6a6153; --line:#ddd3bf;
+  --danger:#c0392b; --danger-bg:#c0392b12; --ok:#3f8a4f;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+html,body{margin:0; padding:0;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:calc(16px * var(--font-scale)); line-height:1.55;
+  min-height:100vh; overflow-x:hidden;
+  transition:background .25s, color .25s;
+}
+h1,h2,h3{font-weight:800; letter-spacing:-.01em; margin:0;}
+button{font-family:inherit; cursor:pointer; color:inherit;}
+.wrap{max-width:760px; margin:0 auto; padding:0 16px 120px;}
+/* ---------- top bar ---------- */
+.topbar{position:sticky; top:0; z-index:40; background:var(--bg);
+  display:flex; align-items:center; gap:10px; padding:12px 16px; border-bottom:1px solid var(--line);}
+.topbar .brand{font-size:1.15em; font-weight:800; color:var(--accent); display:flex; align-items:center; gap:8px;}
+.topbar .brand svg{width:26px; height:26px;}
+.topbar .spacer{flex:1;}
+.iconbtn{background:var(--card); border:1px solid var(--line); border-radius:12px; width:44px; height:44px;
+  display:grid; place-items:center; font-size:1.15em; transition:.15s;}
+.iconbtn:hover{border-color:var(--accent);}
+.ai-dot{position:absolute; margin-top:-30px; margin-inline-start:30px; width:9px; height:9px; border-radius:50%; background:var(--muted); border:2px solid var(--bg);}
+.ai-dot.on{background:var(--ok);}
+/* ---------- screens ---------- */
+.screen{display:none; animation:fade .22s ease;}
+.screen.active{display:block;}
+@keyframes fade{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none;} }
+.backbtn{display:inline-flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line);
+  border-radius:12px; padding:11px 18px; font-weight:700; font-size:1em; margin:16px 0; color:var(--accent);}
+.backbtn:hover{border-color:var(--accent);}
+/* ---------- home ---------- */
+.hero{padding:26px 0 6px; text-align:center;}
+.hero .compass{width:120px; height:120px; margin:0 auto 10px; display:block;}
+.hero h1{font-size:2em; color:var(--accent);}
+.hero p{color:var(--muted); margin:8px 0 0; font-size:1.02em;}
+.search{display:flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line);
+  border-radius:14px; padding:12px 14px; margin:20px 0;}
+.search input{flex:1; background:transparent; border:none; outline:none; color:var(--text); font-size:1em;}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.cat{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px 16px; text-align:start;
+  display:flex; flex-direction:column; gap:6px; transition:.15s; position:relative; overflow:hidden;}
+.cat:hover{border-color:var(--accent); transform:translateY(-2px);}
+.cat .emoji{font-size:2em;}
+.cat h3{font-size:1.15em;}
+.cat small{color:var(--muted);}
+.cat .bar{position:absolute; inset-inline-start:0; top:0; bottom:0; width:4px; background:var(--accent);}
+.emergency{grid-column:1/-1; background:var(--danger-bg); border:1px solid var(--danger);}
+.emergency .bar{background:var(--danger);}
+.emergency h3{color:var(--danger);}
+/* ---------- list ---------- */
+.item{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:12px;
+  display:flex; align-items:center; gap:14px; text-align:start; transition:.15s; width:100%;}
+.item:hover{border-color:var(--accent);}
+.item .ic{width:52px; height:52px; flex:none; background:var(--card2); border-radius:12px; display:grid; place-items:center;}
+.item .ic svg{width:38px; height:38px;}
+.item .meta{flex:1; min-width:0;}
+.item .meta h3{font-size:1.08em; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.item .meta p{margin:3px 0 0; color:var(--muted); font-size:.9em;}
+.tag{font-size:.72em; font-weight:800; padding:2px 8px; border-radius:20px; border:1px solid var(--line); color:var(--muted);}
+.tag.lock{color:var(--danger); border-color:var(--danger);}
+.tag.easy{color:var(--ok); border-color:var(--ok);}
+.star{font-size:1.3em; color:var(--muted); background:none; border:none; padding:6px;}
+.star.on{color:var(--accent);}
+/* ---------- detail ---------- */
+.detail h1{font-size:1.6em; color:var(--accent); margin-bottom:6px;}
+.detail .lead{color:var(--muted); margin:0 0 16px;}
+.safety{background:var(--danger-bg); border:1px solid var(--danger); border-radius:14px; padding:14px 16px; margin:16px 0;}
+.safety h4{color:var(--danger); margin:0 0 8px; display:flex; align-items:center; gap:8px;}
+.safety ul{margin:0; padding-inline-start:20px;} .safety li{margin:4px 0;}
+.step{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:14px;}
+.step .num{display:inline-grid; place-items:center; width:30px; height:30px; border-radius:50%;
+  background:var(--accent); color:#000; font-weight:800; margin-inline-end:10px;}
+[data-mode="light"] .step .num{color:#fff;}
+.step .diagram{background:var(--card2); border-radius:12px; margin:12px 0; padding:12px; text-align:center;}
+.step .diagram svg{width:100%; max-width:300px; height:auto;}
+.step p{margin:6px 0 0;}
+.tips{background:var(--accent-soft); border:1px solid var(--accent); border-radius:14px; padding:0; margin:16px 0; overflow:hidden;}
+.tips summary{padding:14px 16px; font-weight:800; color:var(--accent); cursor:pointer; list-style:none;}
+.tips summary::-webkit-details-marker{display:none;}
+.tips[open] summary{border-bottom:1px solid var(--accent);}
+.tips .body{padding:14px 16px;}
+.tips ul{margin:0; padding-inline-start:20px;} .tips li{margin:5px 0;}
+.readbtn{display:inline-flex; gap:8px; align-items:center; background:var(--card); border:1px solid var(--line);
+  border-radius:12px; padding:10px 16px; font-weight:700; margin:4px 0 8px;}
+/* ---------- badges / kids ---------- */
+.badgebar{display:flex; gap:10px; flex-wrap:wrap; margin:16px 0;}
+.badge{background:var(--card); border:1px dashed var(--line); border-radius:14px; padding:10px 12px; text-align:center; opacity:.45; min-width:78px;}
+.badge.earned{opacity:1; border-style:solid; border-color:var(--accent);}
+.badge .b-ic{font-size:1.6em;}
+.badge small{display:block; color:var(--muted); font-size:.72em;}
+[data-age="kids"] .adults-only{display:none;}
+[data-age="kids"] .checkdone{background:var(--ok); color:#000;}
+/* ---------- settings ---------- */
+.card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px; margin-bottom:14px;}
+.card h3{font-size:1.05em; margin-bottom:12px; color:var(--accent);}
+.row{display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--line);}
+.row:last-child{border-bottom:none;}
+.row label{flex:1;}
+.pillrow{display:flex; gap:8px; flex-wrap:wrap;}
+.pill{background:var(--card2); border:1px solid var(--line); border-radius:20px; padding:8px 14px; font-weight:700; font-size:.9em;}
+.pill.on{background:var(--accent); color:#000; border-color:var(--accent);}
+[data-mode="light"] .pill.on{color:#fff;}
+input[type=text],input[type=password],select{background:var(--card2); border:1px solid var(--line); color:var(--text);
+  border-radius:10px; padding:10px 12px; font-size:1em; width:100%; outline:none;}
+input:focus,select:focus{border-color:var(--accent);}
+.btn{background:var(--accent); color:#000; border:none; border-radius:12px; padding:12px 18px; font-weight:800; font-size:1em; width:100%;}
+[data-mode="light"] .btn{color:#fff;}
+.btn.ghost{background:var(--card); color:var(--text); border:1px solid var(--line);}
+.btn.danger{background:var(--danger); color:#fff;}
+.swatch{width:30px; height:30px; border-radius:50%; border:2px solid var(--line);}
+.swatch.on{border-color:var(--text); transform:scale(1.12);}
+.hint{color:var(--muted); font-size:.85em; margin:6px 0 0;}
+a{color:var(--accent);}
+/* ---------- modal / onboarding ---------- */
+.overlay{position:fixed; inset:0; background:#000a; z-index:60; display:none; align-items:center; justify-content:center; padding:16px;}
+.overlay.show{display:flex;}
+.modal{background:var(--card); border:1px solid var(--line); border-radius:20px; max-width:440px; width:100%; padding:24px; text-align:center;}
+.modal .ob-emoji{font-size:3em;}
+.modal h2{color:var(--accent); margin:10px 0;}
+.modal p{color:var(--muted);}
+.dots{display:flex; gap:6px; justify-content:center; margin:16px 0;}
+.dots i{width:8px; height:8px; border-radius:50%; background:var(--line);}
+.dots i.on{background:var(--accent);}
+/* ---------- AI assistant ---------- */
+.fab{position:fixed; inset-inline-end:16px; bottom:20px; z-index:45; background:var(--accent); color:#000;
+  border:none; border-radius:50px; padding:14px 20px; font-weight:800; font-size:1em; box-shadow:0 6px 20px #0007;}
+[data-mode="light"] .fab{color:#fff;}
+.chatpanel{position:fixed; inset:0; z-index:70; background:var(--bg); display:none; flex-direction:column;}
+.chatpanel.show{display:flex;}
+.chathead{display:flex; align-items:center; gap:10px; padding:14px 16px; border-bottom:1px solid var(--line);}
+.chathead h3{flex:1; color:var(--accent);}
+.chatbody{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:12px;}
+.msg{max-width:85%; padding:11px 14px; border-radius:16px; white-space:pre-wrap; line-height:1.5;}
+.msg.user{align-self:flex-start; background:var(--accent); color:#000; border-bottom-inline-start-radius:4px;}
+[data-mode="light"] .msg.user{color:#fff;}
+[dir="rtl"] .msg.user{align-self:flex-end; border-bottom-inline-start-radius:16px; border-bottom-inline-end-radius:4px;}
+.msg.bot{align-self:flex-start; background:var(--card); border:1px solid var(--line);}
+[dir="rtl"] .msg.bot{align-self:flex-start;}
+.chatsug{display:flex; gap:8px; flex-wrap:wrap; padding:0 16px 8px;}
+.chatsug button{background:var(--card); border:1px solid var(--accent); color:var(--accent); border-radius:20px; padding:8px 12px; font-size:.85em;}
+.chatinput{display:flex; gap:8px; padding:12px 16px; border-top:1px solid var(--line);}
+.chatinput input{flex:1;}
+.chatinput .send{background:var(--accent); color:#000; border:none; border-radius:12px; width:48px; font-size:1.2em; flex:none;}
+[data-mode="light"] .chatinput .send{color:#fff;}
+.appnest-badge{text-align:center; color:var(--muted); font-size:.82em; padding:24px 0 8px;}
+.appnest-badge b{color:var(--accent);}
+.toast{position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:var(--card2); border:1px solid var(--accent);
+  color:var(--text); padding:12px 18px; border-radius:12px; z-index:90; opacity:0; transition:.25s; pointer-events:none;}
+.toast.show{opacity:1;}
+/* badges + quiz cta */
+.catbadge{position:absolute; top:10px; inset-inline-end:12px; font-size:1.3em;}
+.quizcta{display:flex; align-items:center; gap:12px; background:var(--accent-soft); border:1px solid var(--accent);
+  border-radius:16px; padding:14px 16px; margin-bottom:14px;}
+.quizcta .qtxt{flex:1;} .quizcta .qtxt b{color:var(--accent);} .quizcta .qtxt small{color:var(--muted); display:block;}
+.quizcta button{background:var(--accent); color:#000; border:none; border-radius:12px; padding:11px 16px; font-weight:800; white-space:nowrap;}
+[data-mode="light"] .quizcta button{color:#fff;}
+/* quiz modal */
+.qopt{display:block; width:100%; text-align:start; background:var(--card2); border:1px solid var(--line); color:var(--text);
+  border-radius:12px; padding:13px 16px; margin:8px 0; font-size:1em; font-weight:600; transition:.15s;}
+.qopt:hover{border-color:var(--accent);}
+.qopt.correct{background:var(--ok); color:#000; border-color:var(--ok);}
+.qopt.wrong{background:var(--danger); color:#fff; border-color:var(--danger);}
+.qfeedback{margin:10px 0; font-weight:800; min-height:24px;}
+.qprog{color:var(--muted); font-size:.85em; margin-bottom:6px;}
+.qscore{font-size:2.4em; font-weight:800; color:var(--accent); margin:10px 0;}
+/* timer */
+.tdisplay{font-size:3em; font-weight:800; color:var(--accent); margin:12px 0; font-variant-numeric:tabular-nums;}
+.tpreset{display:flex; gap:8px; flex-wrap:wrap; justify-content:center; margin:10px 0;}
+.tpreset button{background:var(--card2); border:1px solid var(--line); color:var(--text); border-radius:20px; padding:9px 13px; font-weight:700; font-size:.85em;}
+.tpreset button:hover{border-color:var(--accent);}
+.trow{display:flex; gap:8px; margin-top:10px;}
+.trow input{flex:1;}
+/* diagram draw animation */
+@media (prefers-reduced-motion:no-preference){
+  .diagram.anim [data-draw]{stroke-dasharray:var(--len); stroke-dashoffset:var(--len); animation:draw .9s ease forwards;}
+}
+@keyframes draw{to{stroke-dashoffset:0;}}
+.diagram{cursor:pointer;}
+</style>
+</head>
+<body data-theme="gold" data-mode="dark" data-age="youth">
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <span class="brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2" stroke-width="1.5"/><path d="M15 9l-2.5 5.5L9 15l2.5-5.5z" fill="currentColor" stroke="none"/></svg>
+    <span id="brandName">המדריך לצופה</span>
+  </span>
+  <div class="spacer"></div>
+  <button class="iconbtn" onclick="openTimers()" title="טיימר">⏱️</button>
+  <button class="iconbtn" onclick="toggleMode()" title="יום/לילה" id="modeBtn">🌙</button>
+  <button class="iconbtn" onclick="go('settings')" title="הגדרות">⚙️</button>
+</div>
+
+<div class="wrap">
+
+<!-- ============ HOME ============ -->
+<section id="home" class="screen active">
+  <div class="hero">
+    <svg class="compass" viewBox="0 0 120 120" fill="none">
+      <circle cx="60" cy="60" r="54" stroke="var(--accent)" stroke-width="3"/>
+      <circle cx="60" cy="60" r="44" stroke="var(--line)" stroke-width="1.5"/>
+      <polygon points="60,20 68,60 60,52 52,60" fill="var(--accent)"/>
+      <polygon points="60,100 52,60 60,68 68,60" fill="var(--muted)"/>
+      <circle cx="60" cy="60" r="5" fill="var(--accent)"/>
+      <text x="60" y="15" fill="var(--text)" font-size="9" text-anchor="middle" font-weight="800">N</text>
+    </svg>
+    <h1 id="heroTitle">המדריך לצופה</h1>
+    <p id="heroSub">מדריך הישרדות בשטח — לכל גיל, גם בלי אינטרנט</p>
+  </div>
+
+  <div class="search">
+    <span>🔍</span>
+    <input id="searchInput" oninput="doSearch(this.value)" placeholder="חיפוש...">
+  </div>
+
+  <div id="searchResults"></div>
+
+  <div class="grid" id="catGrid"></div>
+
+  <div class="appnest-badge">נבנה עם ❤️ ב-<b>AppNest</b></div>
+</section>
+
+<!-- ============ CATEGORY LIST ============ -->
+<section id="list" class="screen">
+  <button class="backbtn" onclick="go('home')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <h1 id="listTitle" style="color:var(--accent)"></h1>
+  <p id="listSub" class="hint" style="margin-bottom:12px"></p>
+  <div id="badgeBar" class="badgebar"></div>
+  <div id="listItems"></div>
+</section>
+
+<!-- ============ DETAIL ============ -->
+<section id="detail" class="screen detail">
+  <button class="backbtn" onclick="go('list')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <div id="detailBody"></div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section id="checklist" class="screen">
+  <button class="backbtn" onclick="go('home')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <h1 style="color:var(--accent)" data-t="gearTitle">רשימת ציוד</h1>
+  <p class="hint" data-t="gearSub" style="margin-bottom:14px">סמן מה ארזת לפני היציאה</p>
+  <div id="checkItems"></div>
+</section>
+
+<!-- ============ SETTINGS ============ -->
+<section id="settings" class="screen">
+  <button class="backbtn" onclick="go('home')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <h1 style="color:var(--accent); margin-bottom:14px" data-t="settings">הגדרות</h1>
+
+  <div class="card">
+    <h3 data-t="ageMode">מצב גיל</h3>
+    <p class="hint" data-t="ageHint">משנה את השפה, גודל הטקסט ורמת הפירוט</p>
+    <div class="pillrow" id="agePills" style="margin-top:10px">
+      <button class="pill" data-age-opt="kids" onclick="setAge('kids')" data-t="ageKids">ילדים</button>
+      <button class="pill" data-age-opt="youth" onclick="setAge('youth')" data-t="ageYouth">נוער</button>
+      <button class="pill" data-age-opt="adults" onclick="setAge('adults')" data-t="ageAdults">בוגרים</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 data-t="language">שפה</h3>
+    <div class="pillrow" id="langPills" style="margin-top:6px"></div>
+  </div>
+
+  <div class="card">
+    <h3 data-t="theme">ערכת צבע</h3>
+    <div class="pillrow" id="themeSwatches" style="margin-top:6px"></div>
+    <div class="row" style="margin-top:6px">
+      <label data-t="darkMode">מצב לילה</label>
+      <button class="pill" id="darkToggle" onclick="toggleMode()">🌙</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 data-t="profile">פרופיל</h3>
+    <div class="row"><label data-t="username">שם משתמש</label></div>
+    <input type="text" id="usernameInput" oninput="setUsername(this.value)" placeholder="שם / כינוי">
+  </div>
+
+  <div class="card">
+    <h3>🧭 <span data-t="aiTitle">שאל את המדריך (בינה)</span></h3>
+    <p class="hint" data-t="aiHint">האפליקציה עובדת מצוין גם בלי בינה. רוצה תשובות חכמות יותר? חבר מפתח API משלך — הוא נשמר על המכשיר בלבד.</p>
+    <div class="row" style="margin-top:8px"><label data-t="aiProvider">ספק</label></div>
+    <select id="aiProvider" onchange="onProviderChange()">
+      <option value="gemini">Gemini (Google) — FREE</option>
+      <option value="claude">Claude (Anthropic) — API</option>
+      <option value="openai">ChatGPT (OpenAI) — API</option>
+      <option value="local">מקומי (Ollama/LM Studio) — LOCAL</option>
+      <option value="custom">Endpoint מותאם</option>
+    </select>
+    <p class="hint" id="providerHelp" style="margin-top:8px"></p>
+    <div class="row" style="margin-top:4px"><label data-t="apiKey">מפתח API</label></div>
+    <input type="password" id="aiKey" placeholder="הדבק מפתח כאן" oninput="saveAiConfig()">
+    <div class="row" style="margin-top:4px"><label data-t="model">מודל</label></div>
+    <div style="display:flex; gap:8px">
+      <select id="aiModel" onchange="saveAiConfig()" style="flex:1"></select>
+      <button class="btn ghost" style="width:auto; white-space:nowrap" onclick="refreshModels()" data-t="refreshModels">רענן</button>
+    </div>
+    <button class="btn ghost" style="margin-top:12px" onclick="testAi()" data-t="testConn">בדוק חיבור</button>
+    <p class="hint" id="aiStatus"></p>
+  </div>
+
+  <div class="card">
+    <h3 data-t="backup">גיבוי ושחזור</h3>
+    <button class="btn ghost" onclick="exportBackup()" style="margin-bottom:8px" data-t="exportBtn">ייצוא גיבוי (JSON)</button>
+    <button class="btn ghost" onclick="document.getElementById('importFile').click()" data-t="importBtn">ייבוא גיבוי</button>
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(this)">
+  </div>
+
+  <div class="card">
+    <button class="btn ghost" onclick="showOnboarding()" style="margin-bottom:8px" data-t="showGuide">הצג מדריך פתיחה</button>
+    <button class="btn ghost" onclick="go('about')" data-t="about">אודות</button>
+  </div>
+
+  <div class="card">
+    <button class="btn danger" onclick="resetAll()" data-t="resetAll">מחיקת כל הנתונים</button>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" class="screen">
+  <button class="backbtn" onclick="go('settings')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <div style="text-align:center; padding:20px 0">
+    <div style="font-size:3em">🧭</div>
+    <h1 style="color:var(--accent)">המדריך לצופה</h1>
+    <p class="hint" id="aboutVer">גרסה 1.1</p>
+  </div>
+  <div class="card">
+    <div class="row"><label data-t="version">גרסה</label><b>1.1</b></div>
+    <div class="row"><label data-t="developer">פותח</label><b>Barak Aflalo</b></div>
+    <div class="row"><label>פלטפורמה</label><b>PWA · HTML5</b></div>
+    <div class="row"><label data-t="storage">אחסון</label><b data-t="onDevice">על המכשיר בלבד</b></div>
+    <div class="row"><label data-t="license">רישיון</label><b>© AppNest 2026</b></div>
+  </div>
+  <div class="card">
+    <button class="btn ghost" onclick="shareApp()" style="margin-bottom:8px" data-t="shareApp">שתף את האפליקציה</button>
+    <button class="btn ghost" onclick="location.href='mailto:appnest55@gmail.com'" style="margin-bottom:8px" data-t="feedback">שלח משוב</button>
+    <a class="btn ghost" href="https://barakaflalo.github.io/appnest" style="display:block; text-align:center; text-decoration:none; margin-bottom:8px" data-t="store">חנות AppNest</a>
+    <a class="btn ghost" href="privacy_policy.html" style="display:block; text-align:center; text-decoration:none" data-t="privacy">🔒 מדיניות פרטיות</a>
+  </div>
+  <div class="card" style="background:var(--danger-bg); border-color:var(--danger)">
+    <p style="margin:0; color:var(--danger); font-weight:700" data-t="disclaimer">הסרת אחריות</p>
+    <p class="hint" data-t="disclaimerText">התוכן במדריך הוא מידע חינוכי כללי בלבד ואינו מחליף הדרכה מקצועית או טיפול רפואי. במצב חירום התקשרו 101 (מד"א), 100 (משטרה), 102 (כבאות). פעולות בטבע, אש ועזרה ראשונה — באחריות המשתמש ובליווי מבוגר אחראי.</p>
+  </div>
+</section>
+
+</div><!-- /wrap -->
+
+<!-- ============ AI FAB + CHAT ============ -->
+<button class="fab" onclick="openChat()">🧭 <span data-t="askGuide">שאל את המדריך</span></button>
+<div class="chatpanel" id="chatPanel">
+  <div class="chathead">
+    <span style="font-size:1.4em">🧭</span>
+    <h3 data-t="askGuide">שאל את המדריך</h3>
+    <button class="iconbtn" onclick="clearChat()" title="נקה">🗑️</button>
+    <button class="iconbtn" onclick="closeChat()">✕</button>
+  </div>
+  <div class="chatbody" id="chatBody"></div>
+  <div class="chatsug" id="chatSug"></div>
+  <div class="chatinput">
+    <button class="iconbtn" onclick="micInput()" title="דיבור" id="micBtn">🎤</button>
+    <input id="chatText" placeholder="הקלד שאלה..." onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="send" onclick="sendChat()">➤</button>
+  </div>
+</div>
+
+<!-- ============ ONBOARDING ============ -->
+<div class="overlay" id="obOverlay">
+  <div class="modal">
+    <div class="ob-emoji" id="obEmoji">🧭</div>
+    <h2 id="obTitle"></h2>
+    <p id="obText"></p>
+    <div class="dots" id="obDots"></div>
+    <button class="btn" onclick="obNext()" id="obBtn"></button>
+    <button class="btn ghost" onclick="closeOnboarding()" style="margin-top:8px" data-t="skip">דלג</button>
+  </div>
+</div>
+
+<div class="overlay" id="quizOverlay"><div class="modal" id="quizModal"></div></div>
+<div class="overlay" id="timerOverlay"><div class="modal" id="timerModal"></div></div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   STORAGE SHIM (works even when localStorage is blocked)
+   ============================================================ */
+const mem={};
+const store={
+  get(k){ try{return localStorage.getItem(k);}catch(e){return mem[k]??null;} },
+  set(k,v){ try{localStorage.setItem(k,v);}catch(e){mem[k]=v;} },
+  del(k){ try{localStorage.removeItem(k);}catch(e){delete mem[k];} }
+};
+function saveJSON(k,o){store.set(k,JSON.stringify(o));}
+function loadJSON(k,d){try{return JSON.parse(store.get(k))??d;}catch(e){return d;}}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let S={
+  lang: store.get('sg_lang')||'he',
+  theme: store.get('sg_theme')||'gold',
+  mode: store.get('sg_mode')||'dark',
+  age: store.get('sg_age')||'youth',
+  username: store.get('sg_user')||'',
+  favorites: loadJSON('sg_fav',[]),
+  checklist: loadJSON('sg_check',{}),
+  badges: loadJSON('sg_badges',[]),
+  quizBadges: loadJSON('sg_qbadges',[]),
+  ai: loadJSON('sg_ai',{provider:'gemini',key:'',model:''})
+};
+
+/* ============================================================
+   LANGUAGES (UI)
+   ============================================================ */
+const LANG={
+he:{ back:"חזרה", settings:"הגדרות", ageMode:"מצב גיל", ageHint:"משנה את השפה, גודל הטקסט ורמת הפירוט",
+  ageKids:"ילדים", ageYouth:"נוער", ageAdults:"בוגרים", language:"שפה", theme:"ערכת צבע", darkMode:"מצב לילה",
+  profile:"פרופיל", username:"שם משתמש", aiTitle:"שאל את המדריך (בינה)",
+  aiHint:"האפליקציה עובדת מצוין גם בלי בינה. רוצה תשובות חכמות יותר? חבר מפתח API משלך — נשמר על המכשיר בלבד.",
+  aiProvider:"ספק", apiKey:"מפתח API", model:"מודל", refreshModels:"רענן", testConn:"בדוק חיבור",
+  backup:"גיבוי ושחזור", exportBtn:"ייצוא גיבוי (JSON)", importBtn:"ייבוא גיבוי", showGuide:"הצג מדריך פתיחה",
+  about:"אודות", resetAll:"מחיקת כל הנתונים", version:"גרסה", developer:"פותח", storage:"אחסון",
+  onDevice:"על המכשיר בלבד", license:"רישיון", shareApp:"שתף את האפליקציה", feedback:"שלח משוב",
+  store:"חנות AppNest", privacy:"🔒 מדיניות פרטיות", disclaimer:"הסרת אחריות",
+  disclaimerText:'התוכן הוא מידע חינוכי כללי בלבד ואינו מחליף הדרכה מקצועית או טיפול רפואי. במצב חירום התקשרו 101 (מד"א), 100 (משטרה), 102 (כבאות). פעולות בטבע, אש ועזרה ראשונה — באחריות המשתמש ובליווי מבוגר אחראי.',
+  askGuide:"שאל את המדריך", gearTitle:"רשימת ציוד", gearSub:"סמן מה ארזת לפני היציאה", skip:"דלג",
+  search:"חיפוש...", steps:"שלבים", tips:"טיפים מתקדמים", safetyTitle:"בטיחות", readAloud:"הקראה",
+  adultsLock:"מבוגר בלבד", easy:"קל", noResults:"לא נמצאו תוצאות", emergency:"מצב חירום",
+  emergencyDesc:"מספרי חירום ופעולות מיד", earned:"הושג!", gearReset:"אפס רשימה" },
+
+en:{ back:"Back", settings:"Settings", ageMode:"Age mode", ageHint:"Changes language, text size and detail level",
+  ageKids:"Kids", ageYouth:"Youth", ageAdults:"Adults", language:"Language", theme:"Color theme", darkMode:"Dark mode",
+  profile:"Profile", username:"Username", aiTitle:"Ask the Guide (AI)",
+  aiHint:"The app works great without AI. Want smarter answers? Connect your own API key — stored on your device only.",
+  aiProvider:"Provider", apiKey:"API key", model:"Model", refreshModels:"Refresh", testConn:"Test connection",
+  backup:"Backup & restore", exportBtn:"Export backup (JSON)", importBtn:"Import backup", showGuide:"Show intro guide",
+  about:"About", resetAll:"Delete all data", version:"Version", developer:"Developer", storage:"Storage",
+  onDevice:"On device only", license:"License", shareApp:"Share the app", feedback:"Send feedback",
+  store:"AppNest store", privacy:"🔒 Privacy policy", disclaimer:"Disclaimer",
+  disclaimerText:"This is general educational information only and does not replace professional guidance or medical care. In an emergency call your local services. Outdoor, fire and first-aid actions are at the user's own risk and with responsible adult supervision.",
+  askGuide:"Ask the Guide", gearTitle:"Gear checklist", gearSub:"Check what you packed before heading out", skip:"Skip",
+  search:"Search...", steps:"Steps", tips:"Advanced tips", safetyTitle:"Safety", readAloud:"Read aloud",
+  adultsLock:"Adults only", easy:"Easy", noResults:"No results found", emergency:"Emergency",
+  emergencyDesc:"Emergency numbers and quick actions", earned:"Earned!", gearReset:"Reset list" },
+
+ru:{ back:"Назад", settings:"Настройки", ageMode:"Возраст", ageHint:"Меняет язык, размер текста и уровень деталей",
+  ageKids:"Дети", ageYouth:"Подростки", ageAdults:"Взрослые", language:"Язык", theme:"Цветовая тема", darkMode:"Ночной режим",
+  profile:"Профиль", username:"Имя пользователя", aiTitle:"Спросить гида (ИИ)",
+  aiHint:"Приложение отлично работает без ИИ. Хотите умнее ответы? Подключите свой ключ API — хранится только на устройстве.",
+  aiProvider:"Провайдер", apiKey:"Ключ API", model:"Модель", refreshModels:"Обновить", testConn:"Проверить связь",
+  backup:"Резервная копия", exportBtn:"Экспорт (JSON)", importBtn:"Импорт", showGuide:"Показать гид",
+  about:"О приложении", resetAll:"Удалить все данные", version:"Версия", developer:"Разработчик", storage:"Хранение",
+  onDevice:"Только на устройстве", license:"Лицензия", shareApp:"Поделиться", feedback:"Отзыв",
+  store:"Магазин AppNest", privacy:"🔒 Конфиденциальность", disclaimer:"Отказ от ответственности",
+  disclaimerText:"Это только общая образовательная информация и не заменяет профессиональную помощь. В экстренной ситуации звоните в службы. Действия на природе, с огнём и первой помощью — на ваш риск и под присмотром взрослого.",
+  askGuide:"Спросить гида", gearTitle:"Список снаряжения", gearSub:"Отметьте, что собрали перед выходом", skip:"Пропустить",
+  search:"Поиск...", steps:"Шаги", tips:"Доп. советы", safetyTitle:"Безопасность", readAloud:"Озвучить",
+  adultsLock:"Только взрослым", easy:"Легко", noResults:"Ничего не найдено", emergency:"Экстренно",
+  emergencyDesc:"Экстренные номера и действия", earned:"Получено!", gearReset:"Сбросить" },
+
+es:{ back:"Atrás", settings:"Ajustes", ageMode:"Modo edad", ageHint:"Cambia idioma, tamaño de texto y nivel de detalle",
+  ageKids:"Niños", ageYouth:"Jóvenes", ageAdults:"Adultos", language:"Idioma", theme:"Tema de color", darkMode:"Modo noche",
+  profile:"Perfil", username:"Usuario", aiTitle:"Pregunta al guía (IA)",
+  aiHint:"La app funciona genial sin IA. ¿Quieres respuestas más inteligentes? Conecta tu clave API — se guarda solo en tu dispositivo.",
+  aiProvider:"Proveedor", apiKey:"Clave API", model:"Modelo", refreshModels:"Actualizar", testConn:"Probar conexión",
+  backup:"Copia y restauración", exportBtn:"Exportar (JSON)", importBtn:"Importar", showGuide:"Ver guía",
+  about:"Acerca de", resetAll:"Borrar todos los datos", version:"Versión", developer:"Desarrollador", storage:"Almacenamiento",
+  onDevice:"Solo en el dispositivo", license:"Licencia", shareApp:"Compartir la app", feedback:"Enviar comentarios",
+  store:"Tienda AppNest", privacy:"🔒 Privacidad", disclaimer:"Aviso legal",
+  disclaimerText:"Es solo información educativa general y no sustituye la orientación profesional ni la atención médica. En una emergencia llama a los servicios. Las actividades al aire libre, con fuego y primeros auxilios son bajo tu responsabilidad y con supervisión de un adulto.",
+  askGuide:"Pregunta al guía", gearTitle:"Lista de equipo", gearSub:"Marca lo que empacaste antes de salir", skip:"Saltar",
+  search:"Buscar...", steps:"Pasos", tips:"Consejos avanzados", safetyTitle:"Seguridad", readAloud:"Leer en voz alta",
+  adultsLock:"Solo adultos", easy:"Fácil", noResults:"Sin resultados", emergency:"Emergencia",
+  emergencyDesc:"Números de emergencia y acciones", earned:"¡Logrado!", gearReset:"Reiniciar" },
+
+ar:{ back:"رجوع", settings:"الإعدادات", ageMode:"وضع العمر", ageHint:"يغيّر اللغة وحجم النص ومستوى التفصيل",
+  ageKids:"أطفال", ageYouth:"شباب", ageAdults:"بالغون", language:"اللغة", theme:"نمط الألوان", darkMode:"الوضع الليلي",
+  profile:"الملف الشخصي", username:"اسم المستخدم", aiTitle:"اسأل المرشد (ذكاء اصطناعي)",
+  aiHint:"التطبيق يعمل بشكل ممتاز بدون ذكاء اصطناعي. تريد إجابات أذكى؟ أضف مفتاح API الخاص بك — يُحفظ على جهازك فقط.",
+  aiProvider:"المزوّد", apiKey:"مفتاح API", model:"النموذج", refreshModels:"تحديث", testConn:"اختبار الاتصال",
+  backup:"نسخ واسترجاع", exportBtn:"تصدير (JSON)", importBtn:"استيراد", showGuide:"عرض الدليل",
+  about:"حول", resetAll:"حذف كل البيانات", version:"الإصدار", developer:"المطوّر", storage:"التخزين",
+  onDevice:"على الجهاز فقط", license:"الرخصة", shareApp:"شارك التطبيق", feedback:"إرسال ملاحظات",
+  store:"متجر AppNest", privacy:"🔒 سياسة الخصوصية", disclaimer:"إخلاء مسؤولية",
+  disclaimerText:"هذا محتوى تعليمي عام فقط ولا يغني عن الإرشاد المهني أو الرعاية الطبية. في الطوارئ اتصل بخدمات الطوارئ. الأنشطة في الطبيعة والنار والإسعافات الأولية على مسؤولية المستخدم وبإشراف شخص بالغ.",
+  askGuide:"اسأل المرشد", gearTitle:"قائمة المعدات", gearSub:"حدّد ما جهّزته قبل الخروج", skip:"تخطٍّ",
+  search:"بحث...", steps:"الخطوات", tips:"نصائح متقدمة", safetyTitle:"السلامة", readAloud:"قراءة صوتية",
+  adultsLock:"للبالغين فقط", easy:"سهل", noResults:"لا نتائج", emergency:"طوارئ",
+  emergencyDesc:"أرقام الطوارئ وإجراءات سريعة", earned:"تم!", gearReset:"إعادة تعيين" }
+};
+function T(k){ return (LANG[S.lang]&&LANG[S.lang][k]) || LANG.en[k] || k; }
+</script>
+
+<script>
+/* ============================================================
+   CONTENT (HE + EN; other langs fall back to EN, then HE)
+   Each item: id, icon(svg), title{}, lead{}, difficulty, kidsLock,
+   safety{}[], steps[{text{}, svg}], tips{}[]
+   ============================================================ */
+
+/* --- small reusable SVG helpers for diagrams --- */
+const ropeStyle='fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round"';
+const ropeStyle2='fill="none" stroke="var(--muted)" stroke-width="6" stroke-linecap="round"';
+
+const CONTENT={
+knots:{
+  icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M8 14c6-6 18-6 24 0M8 26c6 6 18 6 24 0"/><circle cx="20" cy="20" r="6"/></svg>',
+  title:{he:"קשרים",en:"Knots",ru:"Узлы",es:"Nudos",ar:"العقد"},
+  sub:{he:"קשרים חיוניים שלב-אחר-שלב",en:"Essential knots, step by step",ru:"Основные узлы пошагово",es:"Nudos esenciales paso a paso",ar:"العقد الأساسية خطوة بخطوة"},
+  items:[
+    {
+      id:"reef", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M6 20c8-8 14 8 22 0"/><path d="M12 20c8 8 14-8 22 0" stroke="var(--muted)"/></svg>',
+      title:{he:"קשר שטח (ריף)",en:"Reef (square) knot"},
+      lead:{he:"קשר בסיסי לחיבור שני קצוות של אותו חבל — לחבישות ולחבילות.",en:"A basic knot to join two ends of the same rope — for bandages and bundles."},
+      safety:[{he:"לא לטיפוס או להרמת משקל — הוא עלול להשתחרר בעומס.",en:"Not for climbing or lifting loads — it can slip under strain."}],
+      steps:[
+        {text:{he:"הנח את שני הקצוות זה על זה: קצה ימין מעל קצה שמאל.",en:"Lay the two ends across each other: right end over left."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M20 60 L150 60" '+ropeStyle+'/><path d="M280 60 L150 60" '+ropeStyle2+'/></svg>'},
+        {text:{he:"העבר את הקצה הימני מתחת לשמאלי ומשוך — נוצר סיבוב ראשון.",en:"Pass the right end under the left and pull — first twist made."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M40 40 C120 40 120 90 180 90" '+ropeStyle+'/><path d="M260 40 C180 40 180 90 120 90" '+ropeStyle2+'/></svg>'},
+        {text:{he:"עכשיו הפוך: קצה שמאל מעל ימין, העבר מתחת ומשוך.",en:"Now reverse: left over right, pass under and pull."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M40 80 C120 80 120 30 180 30" '+ropeStyle2+'/><path d="M260 80 C180 80 180 30 120 30" '+ropeStyle+'/></svg>'},
+        {text:{he:"משוך את שני הקצוות בחוזקה. הקשר נראה כשתי לולאות שלובות.",en:"Pull both ends tight. The knot looks like two interlocked loops."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M20 60 C90 60 110 30 150 30 C110 30 90 90 20 90" '+ropeStyle+'/><path d="M280 60 C210 60 190 90 150 90 C190 90 210 30 280 30" '+ropeStyle2+'/></svg>'}
+      ],
+      tips:[{he:'זכור את החוק: "ימין על שמאל, ואז שמאל על ימין". אם תעשה אותו כיוון פעמיים תקבל קשר סבתא חלש.',en:'Remember: "right over left, then left over right." Same direction twice gives a weak granny knot.'}]
+    },
+    {
+      id:"bowline", difficulty:"med",
+      icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><circle cx="16" cy="16" r="8"/><path d="M16 24 L30 34"/></svg>',
+      title:{he:"קשר בית (דרגון)",en:"Bowline"},
+      lead:{he:"יוצר לולאה קבועה שלא נסגרת — לחילוץ, לקשירה לעץ, ולבטיחות.",en:"Makes a fixed loop that won't tighten — for rescue, tying to a tree, and safety."},
+      safety:[{he:"בדוק תמיד שהקשר הדוק לפני שסומכים עליו למשקל אדם.",en:"Always check the knot is snug before trusting it with a person's weight."}],
+      steps:[
+        {text:{he:'צור לולאה קטנה ("בריכה") לאורך החבל, כשהקצה החופשי מעל.',en:'Make a small loop ("the pond") along the rope, free end on top.'},
+         svg:'<svg viewBox="0 0 300 140"><path d="M40 120 L40 70 C40 40 90 40 90 70 C90 90 60 90 60 70" '+ropeStyle+'/></svg>'},
+        {text:{he:'העבר את הקצה החופשי מלמטה למעלה דרך הלולאה ("הדג יוצא מהבריכה").',en:'Bring the free end up through the loop ("the fish comes out of the pond").'},
+         svg:'<svg viewBox="0 0 300 140"><path d="M40 120 L40 70 C40 40 90 40 90 70 C90 90 60 90 60 70 L60 40" '+ropeStyle+'/></svg>'},
+        {text:{he:'סובב את הקצה מאחורי החבל הראשי ("סביב העץ").',en:'Wrap the end behind the standing rope ("around the tree").'},
+         svg:'<svg viewBox="0 0 300 140"><path d="M40 120 L40 70 C40 40 90 40 90 70 C90 90 60 90 60 70 L60 30 C60 15 30 15 30 40" '+ropeStyle+'/></svg>'},
+        {text:{he:'החזר את הקצה למטה דרך הלולאה ("חזרה לבריכה") ומשוך חזק.',en:'Bring the end back down through the loop ("back into the pond") and pull tight.'},
+         svg:'<svg viewBox="0 0 300 140"><ellipse cx="90" cy="90" rx="55" ry="40" '+ropeStyle+'/><path d="M60 55 C60 25 120 25 120 55" '+ropeStyle+'/></svg>'}
+      ],
+      tips:[{he:'סיפור הזיכרון: הארנב יוצא מהמאורה, מקיף את העץ, וחוזר למאורה.',en:'Memory story: the rabbit comes out of the hole, around the tree, and back down the hole.'},
+            {he:"זהו קשר החירום מספר 1 — כדאי לתרגל אותו עד שאפשר לעשות בעיניים עצומות.",en:"This is emergency knot #1 — practice it until you can tie it with eyes closed."}]
+    },
+    {
+      id:"halfhitch", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M20 6 L20 34"/><path d="M14 16 a8 8 0 1 0 12 0"/></svg>',
+      title:{he:"שני חצאי מלה",en:"Two half hitches"},
+      lead:{he:"קושר חבל לעמוד, ענף או טבעת — מהיר ואמין.",en:"Ties a rope to a post, branch or ring — fast and reliable."},
+      safety:[],
+      steps:[
+        {text:{he:"העבר את החבל סביב העמוד.",en:"Pass the rope around the post."},
+         svg:'<svg viewBox="0 0 300 140"><rect x="140" y="10" width="16" height="120" fill="var(--muted)"/><path d="M40 60 C90 60 120 40 156 40" '+ropeStyle+'/></svg>'},
+        {text:{he:"כרוך את הקצה סביב החבל הראשי ודרך הלולאה — חצי מלה ראשון.",en:"Loop the end around the standing rope and through — first half hitch."},
+         svg:'<svg viewBox="0 0 300 140"><rect x="140" y="10" width="16" height="120" fill="var(--muted)"/><path d="M40 60 L120 60" '+ropeStyle+'/><path d="M90 60 a16 16 0 1 0 0 1" '+ropeStyle+'/></svg>'},
+        {text:{he:"חזור על אותה פעולה עוד פעם — חצי מלה שני. משוך חזק.",en:"Repeat the same move once more — second half hitch. Pull tight."},
+         svg:'<svg viewBox="0 0 300 140"><rect x="140" y="10" width="16" height="120" fill="var(--muted)"/><path d="M40 60 L110 60" '+ropeStyle+'/><path d="M85 60 a16 16 0 1 0 0 1" '+ropeStyle+'/><path d="M115 60 a16 16 0 1 0 0 1" '+ropeStyle+'/></svg>'}
+      ],
+      tips:[{he:"שני חצאי המלה חייבים להיות באותו כיוון סיבוב — אחרת הקשר לא ננעל.",en:"Both half hitches must turn the same way — otherwise the knot won't lock."}]
+    },
+    {
+      id:"fig8", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M20 6 C6 12 6 22 20 22 C34 22 34 32 20 34"/></svg>',
+      title:{he:"קשר שמיני",en:"Figure-eight"},
+      lead:{he:'קשר "עצירה" בקצה חבל, שמונע ממנו להישמט דרך טבעת או גלגלת.',en:"A stopper knot at a rope end that keeps it from slipping through a ring or pulley."},
+      safety:[],
+      steps:[
+        {text:{he:"צור לולאה בקצה החבל.",en:"Make a loop near the end of the rope."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M40 60 L120 60 C160 60 160 30 130 30 C110 30 110 60 150 60" '+ropeStyle+'/></svg>'},
+        {text:{he:"העבר את הקצה מתחת לחבל הראשי ואז מעליו — נוצרת דמות 8.",en:"Pass the end under the standing part then over it — forming a figure 8."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M40 60 L110 60 C150 60 150 25 120 25 C100 25 100 70 150 70 L200 70" '+ropeStyle+'/></svg>'},
+        {text:{he:"הכנס את הקצה לתוך הלולאה הראשונה ומשוך — נוצר קשר שמונה.",en:"Tuck the end into the first loop and pull — the eight-knot forms."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M60 60 C60 30 110 30 110 60 C110 90 160 90 160 60 C160 40 130 40 130 60" '+ropeStyle+'/></svg>'}
+      ],
+      tips:[{he:"בטיפוס משתמשים בגרסה כפולה (figure-8 follow-through) לחיבור לרתמה — זה כבר נושא למדריך מוסמך.",en:"Climbers use the doubled version (figure-8 follow-through) to tie into a harness — that's a topic for a certified instructor."}]
+    }
+  ]
+},
+
+firstaid:{
+  icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><path d="M20 8v24M8 20h24"/><rect x="6" y="6" width="28" height="28" rx="6" stroke="var(--danger)"/></svg>',
+  title:{he:"עזרה ראשונה",en:"First aid",ru:"Первая помощь",es:"Primeros auxilios",ar:"الإسعافات الأولية"},
+  sub:{he:"מה עושים עד שמגיעה עזרה",en:"What to do until help arrives",ru:"Что делать до прибытия помощи",es:"Qué hacer hasta que llegue ayuda",ar:"ماذا تفعل حتى وصول المساعدة"},
+  items:[
+    {
+      id:"bleeding", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3"><path d="M20 6 C12 18 10 26 20 32 C30 26 28 18 20 6z" fill="var(--danger-bg)"/></svg>',
+      title:{he:"חתך ודימום",en:"Cut & bleeding"},
+      lead:{he:"עצירת דימום היא הדבר הראשון והחשוב ביותר בחתך.",en:"Stopping the bleeding is the first and most important thing with a cut."},
+      safety:[{he:"דימום שלא נעצר, דם שופע (עורקי), או חתך עמוק — התקשרו 101 מיד.",en:"If bleeding won't stop, spurts (arterial), or the cut is deep — call emergency services now."},
+              {he:"אם יש חפץ תקוע בפצע — אל תוציאו אותו! ייצבו סביבו.",en:"If an object is stuck in the wound — do not pull it out! Stabilize around it."}],
+      steps:[
+        {text:{he:"הרגיעו את הפצוע והושיבו אותו. שטפו ידיים או חבשו כפפות אם יש.",en:"Calm and seat the injured person. Wash hands or wear gloves if available."}, svg:''},
+        {text:{he:"לחצו ישירות על הפצע עם בד נקי או תחבושת, בחוזקה, ברציפות.",en:"Press directly on the wound with a clean cloth or dressing, firmly and continuously."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M60 90 q40-70 90 0" fill="none" stroke="var(--muted)" stroke-width="8"/><rect x="95" y="30" width="40" height="26" rx="6" fill="var(--danger-bg)" stroke="var(--danger)" stroke-width="3"/><path d="M115 20 l0 -12M105 24 l-8-8M125 24 l8-8" stroke="var(--accent)" stroke-width="3"/></svg>'},
+        {text:{he:"הרימו את האיבר הפצוע מעל גובה הלב אם אפשר.",en:"Raise the injured limb above heart level if possible."}, svg:''},
+        {text:{he:"כשהדימום נעצר — חבשו את הפצע בתחבושת נקייה, לא הדוקה מדי.",en:"Once bleeding stops — bandage with a clean dressing, not too tight."}, svg:''}
+      ],
+      tips:[{he:"אם הבד נספג בדם — אל תסירו אותו, הוסיפו בד נוסף מעליו. הסרה פותחת מחדש את הקריש.",en:"If the cloth soaks through — don't remove it, add another on top. Removing reopens the clot."}]
+    },
+    {
+      id:"burn", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><path d="M20 6 C14 16 26 18 20 28 C14 22 12 30 16 34M24 30 c4-4 2-10-2-12"/></svg>',
+      title:{he:"כווייה",en:"Burn"},
+      lead:{he:"קירור מהיר במים הוא ההבדל בין כווייה קלה לחמורה.",en:"Fast cooling with water is the difference between a mild and a serious burn."},
+      safety:[{he:"כווייה גדולה מכף יד, בפנים/מפרקים, או כווייה כימית/חשמלית — 101 מיד.",en:"A burn larger than a palm, on face/joints, or chemical/electrical — call emergency now."},
+              {he:"לעולם לא למרוח משחה, חמאה, קרח או משחת שיניים על כווייה.",en:"Never apply ointment, butter, ice or toothpaste to a burn."}],
+      steps:[
+        {text:{he:"הרחיקו מיד ממקור החום/האש.",en:"Move away from the heat/fire source immediately."}, svg:''},
+        {text:{he:"קררו את האזור במים זורמים פושרים 10–20 דקות.",en:"Cool the area under cool running water for 10–20 minutes."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M120 10 C150 40 165 55 165 75 a20 20 0 1 1 -40 0 C125 55 140 40 145 10z" fill="none" stroke="var(--ocean,#4db8d4)" stroke-width="4"/><path d="M60 95 q45-50 120 0" fill="none" stroke="var(--muted)" stroke-width="8"/></svg>'},
+        {text:{he:"הסירו תכשיטים/שעון מהאזור לפני שהוא מתנפח.",en:"Remove jewelry/watch from the area before it swells."}, svg:''},
+        {text:{he:"כסו בתחבושת נקייה לא דביקה, ורפויה.",en:"Cover with a clean, non-stick, loose dressing."}, svg:''}
+      ],
+      tips:[{he:"אל תפוצצו שלפוחיות — הן שכבת הגנה טבעית מפני זיהום.",en:"Don't pop blisters — they're a natural protective layer against infection."}]
+    },
+    {
+      id:"sprain", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><path d="M12 10 l6 14 l-4 6 M22 8 l4 16"/><path d="M8 34 h24"/></svg>',
+      title:{he:"נקע / פריקה",en:"Sprain / strain"},
+      lead:{he:'שיטת R.I.C.E — מנוחה, קרח, לחץ, הגבהה.',en:"The R.I.C.E method — Rest, Ice, Compression, Elevation."},
+      safety:[{he:"אם האיבר מעוות, לא ניתן להזיז אותו, או יש חשד לשבר — קבעו ביקור רופא/מיון.",en:"If the limb is deformed, can't be moved, or a fracture is suspected — see a doctor/ER."}],
+      steps:[
+        {text:{he:"R — מנוחה: הפסיקו להשתמש באיבר ותנו לו לנוח.",en:"R — Rest: stop using the limb and let it rest."}, svg:''},
+        {text:{he:"I — קרח: קרח עטוף בבד, 15–20 דקות כל שעה-שעתיים.",en:"I — Ice: ice wrapped in cloth, 15–20 min every 1–2 hours."},
+         svg:'<svg viewBox="0 0 300 120"><rect x="120" y="40" width="60" height="45" rx="8" fill="var(--ocean,#4db8d4)" opacity=".3" stroke="var(--ocean,#4db8d4)" stroke-width="3"/><path d="M60 95 q90-30 180 0" fill="none" stroke="var(--muted)" stroke-width="8"/></svg>'},
+        {text:{he:"C — לחץ: חבישה אלסטית תומכת (לא חזקה מדי שחוסמת דם).",en:"C — Compression: a supportive elastic wrap (not so tight it blocks blood)."}, svg:''},
+        {text:{he:"E — הגבהה: הרימו את האיבר מעל גובה הלב להפחתת נפיחות.",en:"E — Elevation: raise the limb above heart level to reduce swelling."}, svg:''}
+      ],
+      tips:[{he:"בקרח: בדקו את העור כל כמה דקות. אל תניחו קרח ישירות על העור.",en:"With ice: check the skin every few minutes. Never place ice directly on skin."}]
+    },
+    {
+      id:"heat", difficulty:"med",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><circle cx="20" cy="20" r="7"/><path d="M20 4v4M20 32v4M4 20h4M32 20h4M8 8l3 3M29 29l3 3M32 8l-3 3M11 29l-3 3"/></svg>',
+      title:{he:"מכת חום",en:"Heat stroke"},
+      lead:{he:"מסוכן במיוחד בקיץ הישראלי. זיהוי מהיר מציל חיים.",en:"Especially dangerous in hot climates. Fast recognition saves lives."},
+      safety:[{he:"בלבול, חוסר הכרה, הפסקת הזעה או חום גוף גבוה מאוד — 101 מיד! זו סכנת חיים.",en:"Confusion, unconsciousness, no sweating or very high body temp — call emergency NOW. Life-threatening."}],
+      steps:[
+        {text:{he:"סימנים: כאב ראש, סחרחורת, עור אדום וחם, בחילה, בלבול.",en:"Signs: headache, dizziness, red hot skin, nausea, confusion."}, svg:''},
+        {text:{he:"העבירו מיד לצל או למקום ממוזג.",en:"Move immediately to shade or a cool place."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M40 90 h100 M90 90 v-25 M60 65 q30-35 60 0z" fill="var(--ok)" opacity=".3" stroke="var(--ok)" stroke-width="3"/><circle cx="230" cy="40" r="16" fill="none" stroke="var(--accent)" stroke-width="3"/></svg>'},
+        {text:{he:"קררו את הגוף: מים על העור, מניפה, קרח בבתי השחי ובמפשעה.",en:"Cool the body: water on skin, fanning, ice at armpits and groin."}, svg:''},
+        {text:{he:"אם בהכרה — תנו לגימות מים קרים. אם לא בהכרה — אל תשקו!",en:"If conscious — give sips of cool water. If unconscious — do NOT give fluids!"}, svg:''}
+      ],
+      tips:[{he:"מניעה: כובע, מים כל 15–20 דקות, מנוחה בצל בשעות החמות (11:00–16:00).",en:"Prevention: hat, water every 15–20 min, rest in shade during peak heat (11:00–16:00)."}]
+    },
+    {
+      id:"sting", difficulty:"med", kidsLock:true,
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><path d="M14 8 c8 4 8 16 0 20 M14 28 l-4 6 M14 28 l4 6"/><path d="M22 14 l10-4M24 20 l10 0M22 26 l10 4"/></svg>',
+      title:{he:"עקיצת עקרב / נחש",en:"Scorpion / snake bite"},
+      lead:{he:"בישראל יש עקרבים ונחשים ארסיים. הכלל: הישאר רגוע, הזעק עזרה מהר.",en:"Venomous scorpions and snakes exist in many regions. Rule: stay calm, get help fast."},
+      safety:[{he:"כל עקיצת נחש או עקרב שחור/צהוב — 101 מיד. ציינו את שעת העקיצה.",en:"Any snake bite or black/yellow scorpion sting — call emergency now. Note the time of the bite."},
+              {he:"אל תחתכו, אל תמצצו את הארס, ואל תשימו חוסם עורקים — זה מזיק.",en:"Do not cut, do not suck the venom, do not apply a tourniquet — these cause harm."}],
+      steps:[
+        {text:{he:"הרחיקו מהמקור והרגיעו את הנפגע — פחד מאיץ את הדופק ואת התפשטות הארס.",en:"Move away from the source and calm the person — fear speeds the pulse and venom spread."}, svg:''},
+        {text:{he:"השכיבו את הנפגע והשאירו את האיבר הנעקץ נמוך ושקט, מתחת לגובה הלב.",en:"Lay the person down; keep the bitten limb still and low, below heart level."}, svg:''},
+        {text:{he:"הסירו טבעות/שעון/בגד לוחץ ליד העקיצה לפני נפיחות.",en:"Remove rings/watch/tight clothing near the bite before swelling."}, svg:''},
+        {text:{he:"אם אפשר — צלמו את בעל החיים מרחוק לזיהוי. אל תנסו לתפוס אותו.",en:"If possible — photograph the animal from a distance for ID. Do not try to catch it."}, svg:''}
+      ],
+      tips:[{he:"תיעוד השעה חשוב מאוד לצוות הרפואי כדי לתזמן נוגדן.",en:"Recording the time is very important for medics to time the antivenom."}]
+    }
+  ]
+},
+
+fire:{
+  icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M20 6 C14 16 26 18 20 28 C14 22 10 30 16 36 h8 c8 0 12-6 12-12 C36 20 30 22 30 16 C30 10 24 10 20 6z"/></svg>',
+  title:{he:"הבערת אש",en:"Fire making",ru:"Разведение огня",es:"Hacer fuego",ar:"إشعال النار"},
+  sub:{he:"מדורה בטוחה — משלב הבחירה ועד הכיבוי",en:"A safe campfire — from choosing a spot to putting it out",ru:"Безопасный костёр — от места до тушения",es:"Fogata segura — desde elegir el sitio hasta apagarla",ar:"نار آمنة — من اختيار المكان حتى الإطفاء"},
+  items:[
+    {
+      id:"spot", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3"><circle cx="20" cy="24" r="10"/><path d="M20 4v6M4 24h6M30 24h6"/></svg>',
+      title:{he:"בחירת מקום בטוח",en:"Choosing a safe spot"},
+      lead:{he:"רוב שריפות היער מתחילות ממדורה. מקום נכון מונע אסון.",en:"Most wildfires start from a campfire. The right spot prevents disaster."},
+      safety:[{he:"בישראל אסור להבעיר אש ביערות ובשמורות מחוץ למקומות מסומנים, ובימי שרב/חום קיצוני. בדקו את התקנון של המקום.",en:"In many areas open fires are banned outside marked spots and on extreme-heat days. Check local rules."},
+              {he:"אש תמיד בליווי מבוגר אחראי, עם מים או חול זמינים לכיבוי.",en:"Fire always with a responsible adult, with water or sand ready to extinguish."}],
+      steps:[
+        {text:{he:"בחרו שטח פתוח, הרחק מעצים, שיחים יבשים, אוהלים וענפים תלויים מעל.",en:"Pick open ground, away from trees, dry brush, tents and overhanging branches."},
+         svg:'<svg viewBox="0 0 300 130"><path d="M20 110 h260" stroke="var(--muted)" stroke-width="3"/><circle cx="150" cy="95" r="16" fill="none" stroke="var(--accent)" stroke-width="3"/><path d="M60 110 v-25 M60 85 l-10 10 M60 85 l10 10" stroke="var(--muted)" stroke-width="3"/><path d="M240 110 v-25 M240 85 l-10 10 M240 85 l10 10" stroke="var(--muted)" stroke-width="3"/></svg>'},
+        {text:{he:"נקו מעגל של כמטר וחצי מכל דבר דליק — עד לאדמה החשופה.",en:"Clear a circle about 1.5 m of anything flammable — down to bare soil."}, svg:''},
+        {text:{he:"הקיפו את מקום המדורה באבנים כדי לתחום את האש.",en:"Ring the fire spot with stones to contain the fire."},
+         svg:'<svg viewBox="0 0 300 130"><ellipse cx="150" cy="90" rx="70" ry="28" fill="none" stroke="var(--muted)" stroke-width="3"/><circle cx="90" cy="80" r="8" fill="var(--muted)"/><circle cx="150" cy="66" r="8" fill="var(--muted)"/><circle cx="210" cy="80" r="8" fill="var(--muted)"/><circle cx="150" cy="114" r="8" fill="var(--muted)"/><circle cx="95" cy="105" r="8" fill="var(--muted)"/><circle cx="205" cy="105" r="8" fill="var(--muted)"/></svg>'}
+      ],
+      tips:[{he:"שימו לב לכיוון הרוח — ניצוצות עפים עם הרוח. אל תבנו מדורה ברוח חזקה.",en:"Mind the wind direction — sparks fly downwind. Don't build a fire in strong wind."}]
+    },
+    {
+      id:"materials", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M8 32 L26 10M14 32 L32 12M20 32 L34 18"/></svg>',
+      title:{he:"שלושת חומרי האש",en:"The three fire materials"},
+      lead:{he:"אש טובה נבנית משלוש שכבות: הצתה, קטנים, ואז גדולים.",en:"A good fire is built in three layers: tinder, kindling, then fuel."},
+      safety:[],
+      steps:[
+        {text:{he:'הצתה (Tinder): חומר דק ויבש שנדלק מיד — עשב יבש, קליפות, נייר, צמר גפן.',en:"Tinder: thin dry material that lights instantly — dry grass, bark, paper, cotton."},
+         svg:'<svg viewBox="0 0 300 110"><path d="M110 80 q10-40 20 0 q10-40 20 0 q10-40 20 0" fill="none" stroke="var(--accent)" stroke-width="2"/></svg>'},
+        {text:{he:"קטנים (Kindling): זרדים דקים בעובי עיפרון עד אצבע.",en:"Kindling: thin twigs, from pencil to finger thickness."},
+         svg:'<svg viewBox="0 0 300 110"><path d="M110 90 L150 30M150 90 L150 25M190 90 L150 30" stroke="var(--muted)" stroke-width="3"/></svg>'},
+        {text:{he:"גדולים (Fuel): ענפים וגזעים עבים שנוספים רק אחרי שהאש יציבה.",en:"Fuel: thick branches and logs, added only after the fire is steady."},
+         svg:'<svg viewBox="0 0 300 110"><rect x="110" y="70" width="80" height="14" rx="6" fill="var(--muted)"/><rect x="120" y="52" width="80" height="14" rx="6" fill="var(--muted)"/></svg>'},
+        {text:{he:"אספו הכל מראש ומיינו לפי גודל — לא רוצים לחפש עצים כשהאש דועכת.",en:"Gather everything first and sort by size — you don't want to search while the fire dies."}, svg:''}
+      ],
+      tips:[{he:"בדקו שהעצים יבשים: ענף יבש נשבר בפצפוץ, ענף לח מתכופף. עץ לח מעשן ולא בוער.",en:"Test for dryness: a dry twig snaps with a crack, a wet one bends. Wet wood smokes and won't burn."}]
+    },
+    {
+      id:"build", difficulty:"med", kidsLock:true,
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M20 6 L8 34M20 6 L32 34M12 22 L28 22"/></svg>',
+      title:{he:"מבנה מדורה והצתה",en:"Fire structure & lighting"},
+      lead:{he:"מבנה הטיפי (אוהל) הוא הקל ביותר להדלקה למתחילים.",en:"The teepee structure is the easiest to light for beginners."},
+      safety:[{he:"הדלקה תמיד עם מבוגר. אל תשתמשו בבנזין/דלק להצתה — סכנת התלקחות.",en:"Lighting always with an adult. Never use gasoline/fuel to start — flash-fire danger."}],
+      steps:[
+        {text:{he:"הניחו את ההצתה במרכז מעגל האבנים.",en:"Place the tinder in the center of the stone ring."}, svg:''},
+        {text:{he:'בנו סביבה "אוהל" (טיפי) מהזרדים הקטנים, בהטיה פנימה, עם פתח קטן לרוח.',en:'Build a "teepee" of small kindling leaning inward, with a small gap for air.'},
+         svg:'<svg viewBox="0 0 300 130"><path d="M150 20 L110 110M150 20 L190 110M150 20 L130 110M150 20 L170 110" stroke="var(--muted)" stroke-width="3"/><path d="M145 95 q5-20 10 0" stroke="var(--accent)" stroke-width="2" fill="none"/></svg>'},
+        {text:{he:"הדליקו את ההצתה מלמטה, בכיוון שהרוח דוחפת את הלהבה פנימה.",en:"Light the tinder from below, so the wind pushes the flame inward."},
+         svg:'<svg viewBox="0 0 300 130"><path d="M150 30 L110 110M150 30 L190 110M150 30 L170 110M150 30 L130 110" stroke="var(--muted)" stroke-width="3"/><path d="M140 100 C136 88 150 86 145 76 C158 82 160 96 152 104z" fill="var(--accent)"/></svg>'},
+        {text:{he:"כשהקטנים בוערים — הוסיפו בהדרגה ענפים עבים יותר. אל תחנקו את האש.",en:"When the kindling burns — gradually add thicker branches. Don't smother the fire."}, svg:''}
+      ],
+      tips:[{he:"מבנה חלופי: 'בקתת בול עץ' (log cabin) — יציב יותר ובוער ארוך, טוב לבישול.",en:"Alternative: the 'log cabin' — more stable and burns longer, good for cooking."}]
+    },
+    {
+      id:"extinguish", difficulty:"easy",
+      icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--ocean,#4db8d4)" stroke-width="3" stroke-linecap="round"><path d="M20 6 C14 18 26 20 20 30M8 34 q4-6 8 0 q4 6 8 0 q4-6 8 0"/></svg>',
+      title:{he:"כיבוי נכון",en:"Putting it out safely"},
+      lead:{he:'הכלל הזהב: אף פעם לא עוזבים מדורה. "אם חם מדי לגעת — חם מדי לעזוב".',en:'Golden rule: never leave a fire. "If it\'s too hot to touch — it\'s too hot to leave."'},
+      safety:[{he:"גחלים נשארות חמות ומסוכנות שעות. שריפות מתחדשות מגחלת אחת.",en:"Embers stay hot and dangerous for hours. Fires reignite from a single ember."}],
+      steps:[
+        {text:{he:"התחילו לכבות מוקדם — הפסיקו להוסיף עצים ותנו לאש לדעוך.",en:"Start early — stop adding wood and let the fire die down."}, svg:''},
+        {text:{he:"שפכו מים לאט על כל הגחלים, לא רק על הלהבות.",en:"Pour water slowly over all the embers, not just the flames."},
+         svg:'<svg viewBox="0 0 300 120"><path d="M60 20 q20 20 0 40 a12 12 0 1 0 -1 0" fill="none" stroke="var(--ocean,#4db8d4)" stroke-width="4"/><path d="M120 90 q30-20 60 0" stroke="var(--muted)" stroke-width="6" fill="none"/><path d="M100 60 l3 12M130 55 l3 12M160 55 l3 12M190 60 l3 12" stroke="var(--ocean,#4db8d4)" stroke-width="3"/></svg>'},
+        {text:{he:"ערבבו את האפר עם מקל תוך המשך שפיכת מים, עד שאין יותר קיטור או קול לחישה.",en:"Stir the ash with a stick while adding water, until no steam or hiss remains."}, svg:''},
+        {text:{he:"געו בזהירות באחורי היד מעל האזור — אם עדיין חם, המשיכו במים.",en:"Carefully hover the back of your hand over the area — if still warm, add more water."}, svg:''}
+      ],
+      tips:[{he:"אין מים? השתמשו בחול/אדמה בשכבה עבה, אבל מים עדיפים תמיד. פזרו את הגחלים הקרות לפני עזיבה.",en:"No water? Use a thick layer of sand/soil, but water is always better. Scatter cold embers before leaving."}]
+    }
+  ]
+}
+};
+
+/* Emergency numbers (region-flavored, Israel defaults) */
+const EMERGENCY=[
+  {n:"101", he:"מד\"א (רפואה)", en:"Ambulance"},
+  {n:"102", he:"כבאות והצלה", en:"Fire & rescue"},
+  {n:"100", he:"משטרה", en:"Police"},
+  {n:"104", he:"פיקוד העורף", en:"Home front"}
+];
+
+/* Gear checklist items */
+const GEAR=[
+  {id:"water", he:"מים (2–3 ליטר)", en:"Water (2–3 L)"},
+  {id:"hat", he:"כובע והגנה מהשמש", en:"Hat & sun protection"},
+  {id:"firstaid", he:"ערכת עזרה ראשונה", en:"First-aid kit"},
+  {id:"knife", he:"אולר / סכין", en:"Knife / multitool"},
+  {id:"rope", he:"חבל", en:"Rope / cord"},
+  {id:"light", he:"פנס + סוללות", en:"Flashlight + batteries"},
+  {id:"phone", he:"טלפון טעון + סוללה ניידת", en:"Charged phone + power bank"},
+  {id:"map", he:"מפה ומצפן", en:"Map & compass"},
+  {id:"food", he:"אוכל ואנרגיה", en:"Food & snacks"},
+  {id:"jacket", he:"בגד חם / מעיל", en:"Warm layer / jacket"},
+  {id:"matches", he:"גפרורים/מצית עמידים למים", en:"Waterproof matches/lighter"},
+  {id:"whistle", he:"משרוקית", en:"Whistle"}
+];
+
+/* ============================================================
+   ROUND 2 — extra knots & fire, new categories, quizzes
+   ============================================================ */
+const line1='fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round"';
+const lineM='fill="none" stroke="var(--muted)" stroke-width="4" stroke-linecap="round"';
+
+/* ---- more KNOTS ---- */
+CONTENT.knots.items.push(
+  {
+    id:"fisherman", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M6 16 h28"/><path d="M6 24 h28" stroke="var(--muted)"/><circle cx="16" cy="20" r="4"/><circle cx="24" cy="20" r="4" stroke="var(--muted)"/></svg>',
+    title:{he:"קשר דייגים",en:"Fisherman's knot"},
+    lead:{he:"מחבר שני חבלים או חוטים דקים בחוזקה — מצוין לחוט דיג.",en:"Joins two ropes or thin lines firmly — great for fishing line."},
+    safety:[{he:"לטיפוס משתמשים בגרסה כפולה — נושא למדריך מוסמך בלבד.",en:"Climbing uses the doubled version — a topic for a certified instructor only."}],
+    steps:[
+      {text:{he:"הניחו את שני החבלים זה לצד זה, הקצוות בכיוונים מנוגדים.",en:"Lay the two ropes side by side, ends pointing opposite ways."},
+       svg:'<svg viewBox="0 0 300 90"><path d="M20 40 H280" '+line1+'/><path d="M20 55 H280" '+lineM+'/></svg>'},
+      {text:{he:"בקצה הראשון קשרו קשר פשוט (לולאה) סביב החבל השני.",en:"With the first end, tie a simple overhand knot around the second rope."},
+       svg:'<svg viewBox="0 0 300 90"><path d="M20 55 H280" '+lineM+'/><path d="M60 55 a14 14 0 1 0 1 0" '+line1+'/></svg>'},
+      {text:{he:"בקצה השני קשרו קשר פשוט זהה סביב החבל הראשון.",en:"With the second end, tie an identical overhand around the first rope."},
+       svg:'<svg viewBox="0 0 300 90"><path d="M20 45 H280" '+line1+'/><path d="M60 45 a14 14 0 1 0 1 0" '+line1+'/><path d="M200 45 a14 14 0 1 0 1 0" '+lineM+'/></svg>'},
+      {text:{he:"משכו את שני החבלים הראשיים — שני הקשרים יחליקו ויינעלו זה בזה.",en:"Pull both main ropes — the two knots slide and lock together."},
+       svg:'<svg viewBox="0 0 300 90"><path d="M20 50 H130" '+line1+'/><path d="M170 50 H280" '+lineM+'/><circle cx="140" cy="50" r="12" '+line1+'/><circle cx="160" cy="50" r="12" '+lineM+'/></svg>'}
+    ],
+    tips:[{he:"עובד הכי טוב כששני החבלים באותו עובי.",en:"Works best when both ropes are the same thickness."}]
+  },
+  {
+    id:"butterfly", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M6 20 H34"/><ellipse cx="20" cy="20" rx="7" ry="10"/></svg>',
+    title:{he:"קשר פרפר",en:"Alpine butterfly loop"},
+    lead:{he:"יוצר לולאה קבועה באמצע החבל — בלי להגיע לקצוות.",en:"Makes a fixed loop in the middle of a rope — without using the ends."},
+    safety:[],
+    steps:[
+      {text:{he:"כרכו את החבל פעמיים סביב כף היד — שתי לולאות.",en:"Wrap the rope twice around your hand — two loops."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M40 55 H260" '+lineM+'/><ellipse cx="120" cy="55" rx="26" ry="34" '+line1+'/><ellipse cx="180" cy="55" rx="26" ry="34" '+line1+'/></svg>'},
+      {text:{he:"העבירו את הלולאה הקדמית מעל השנייה ומאחוריהן.",en:"Pass the front loop over the other and behind both."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M40 55 H260" '+lineM+'/><ellipse cx="150" cy="55" rx="30" ry="36" '+line1+'/></svg>'},
+      {text:{he:"משכו את הלולאה האמצעית מלמטה כלפי מעלה, מתחת לשני החבלים.",en:"Pull the middle loop up from below, under both strands."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M40 60 H260" '+lineM+'/><path d="M150 60 C150 20 120 20 150 15" '+line1+'/><ellipse cx="150" cy="60" rx="28" ry="30" '+line1+'/></svg>'},
+      {text:{he:"משכו את הלולאה ואת שני קצוות החבל — נוצרת לולאה חזקה באמצע.",en:"Pull the loop and both rope ends — a strong mid-line loop forms."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M20 60 H90" '+lineM+'/><path d="M210 60 H280" '+lineM+'/><ellipse cx="150" cy="45" rx="22" ry="30" '+line1+'/><path d="M120 65 q30 20 60 0" '+line1+'/></svg>'}
+    ],
+    tips:[{he:"אפשר להעמיס עליו משלושה כיוונים והוא לא נתקע — לכן אהוב על מטפסים.",en:"It can be loaded from three directions and won't jam — a climbers' favorite."}]
+  },
+  {
+    id:"sheepshank", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" '+ropeStyle+'><path d="M6 20 H34"/><path d="M12 20 l8 -8 M12 20 l8 8 M28 20 l-8 -8 M28 20 l-8 8"/></svg>',
+    title:{he:"קשר קיצור",en:"Shortening knot (sheepshank)"},
+    lead:{he:"מקצר חבל ארוך מדי בלי לחתוך אותו.",en:"Shortens a too-long rope without cutting it."},
+    safety:[{he:"זמני בלבד! הוא משתחרר כשאין מתח — אל תסמכו עליו למשקל אדם.",en:"Temporary only! It releases when tension is lost — never trust it with a person's weight."}],
+    steps:[
+      {text:{he:"קפלו את החבל לצורת S/Z, כך שהאורך העודף נאסף לשתי לולאות.",en:"Fold the rope into an S/Z shape, gathering the extra length into two bights."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M20 55 H80 q40 0 40 -25 q0 25 40 25 q40 0 40 25 q0 -25 40 -25 H280" '+line1+'/></svg>'},
+      {text:{he:"בכל צד עשו חצי מלה: כרכו את החבל הראשי סביב הלולאה הקרובה.",en:"On each side make a half hitch: wrap the standing rope around the near bight."},
+       svg:'<svg viewBox="0 0 300 110"><path d="M20 60 H90" '+line1+'/><path d="M210 60 H280" '+line1+'/><ellipse cx="120" cy="45" rx="18" ry="26" '+lineM+'/><ellipse cx="180" cy="45" rx="18" ry="26" '+lineM+'/><path d="M90 60 a12 12 0 1 0 1 0" '+line1+'/><path d="M210 60 a12 12 0 1 0 -1 0" '+line1+'/></svg>'},
+      {text:{he:"מתחו את שני קצוות החבל — חצאי המלה תופסים את הלולאות והחבל מתקצר.",en:"Tension both ends — the hitches grip the bights and the rope is shortened."}, svg:''}
+    ],
+    tips:[{he:"אפשר גם לעקוף קטע פגום בחבל — הלולאה מוציאה אותו מהעומס.",en:"It can also bypass a damaged section — the bight takes it out of the load."}]
+  }
+);
+
+/* ---- more FIRE ---- */
+CONTENT.fire.items.push(
+  {
+    id:"logcabin", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" '+lineM+'><rect x="6" y="12" width="28" height="5"/><rect x="6" y="23" width="28" height="5"/><rect x="10" y="8" width="5" height="24"/><rect x="25" y="8" width="5" height="24"/></svg>',
+    title:{he:"בקתת בול עץ",en:"Log cabin fire"},
+    lead:{he:"מבנה יציב שבוער זמן רב ומייצר גחלים מעולות — הכי טוב לבישול.",en:"A stable structure that burns long and makes great coals — best for cooking."},
+    safety:[{he:"תמיד בליווי מבוגר, במעגל אבנים, עם מים מוכנים לכיבוי.",en:"Always with an adult, inside a stone ring, with water ready."}],
+    steps:[
+      {text:{he:"בנו במרכז 'טיפי' קטן של הצתה וזרדים — זה הלב שיודלק.",en:"Build a small tinder+kindling teepee in the center — the core you'll light."}, svg:''},
+      {text:{he:"הניחו שני בולים עבים במקביל, משני צידי המרכז.",en:"Lay two thick logs parallel, on opposite sides of the core."},
+       svg:'<svg viewBox="0 0 300 110"><rect x="90" y="40" width="120" height="14" rx="6" fill="var(--muted)"/><rect x="90" y="66" width="120" height="14" rx="6" fill="var(--muted)"/></svg>'},
+      {text:{he:"הניחו שני בולים נוספים בניצב מעליהם — כמו בניית בקתה.",en:"Lay two more logs across them at 90° — like building a cabin."},
+       svg:'<svg viewBox="0 0 300 120"><rect x="95" y="36" width="12" height="80" fill="var(--muted)"/><rect x="193" y="36" width="12" height="80" fill="var(--muted)"/><rect x="80" y="50" width="140" height="12" fill="var(--muted)" opacity=".6"/><rect x="80" y="90" width="140" height="12" fill="var(--muted)" opacity=".6"/></svg>'},
+      {text:{he:"המשיכו 2–3 שכבות שהולכות ומצטמצמות, ואז הדליקו את המרכז.",en:"Continue 2–3 layers narrowing upward, then light the core."},
+       svg:'<svg viewBox="0 0 300 120"><rect x="70" y="90" width="160" height="12" fill="var(--muted)"/><rect x="85" y="72" width="130" height="12" fill="var(--muted)"/><rect x="100" y="54" width="100" height="12" fill="var(--muted)"/><path d="M145 100 C140 84 158 82 150 68 C165 76 168 94 156 104z" fill="var(--accent)"/></svg>'}
+    ],
+    tips:[{he:"כשהוא מתמוטט פנימה נוצר בסיס גחלים אחיד — מושלם לסיר או ליבנייה.",en:"As it collapses inward it makes an even coal bed — perfect for a pot or baking."}]
+  },
+  {
+    id:"nomatches", difficulty:"hard", kidsLock:true,
+    icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 30 l6 -6 M14 24 l4 -8 l6 4"/><path d="M24 10 l4 4 M30 8 l3 3"/></svg>',
+    title:{he:"אש בלי גפרורים",en:"Fire without matches"},
+    lead:{he:"מספר שיטות. כולן דורשות תרגול מראש והצתה יבשה ומוכנה.",en:"Several methods. All need practice beforehand and dry, ready tinder."},
+    safety:[{he:"מבוגר בלבד! אל תשתמשו בבנזין/דלק. הכינו מים לכיבוי לפני שמתחילים.",en:"Adults only! Never use gasoline/fuel. Have water ready before you begin."}],
+    steps:[
+      {text:{he:"מוט הצתה (פרו-רוד) / צור ופלדה — גרדו ניצוצות אל תוך קן הצתה דק. השיטה האמינה ביותר.",en:"Ferro rod / flint & steel — scrape sparks into a fine tinder nest. The most reliable method."},
+       svg:'<svg viewBox="0 0 300 100"><path d="M60 30 L120 60" '+lineM+'/><path d="M130 60 l14 -6 M132 68 l16 0 M130 76 l14 6" '+line1+'/><path d="M150 55 q30 15 60 0" '+lineM+'/></svg>'},
+      {text:{he:"עדשה מגדלת — מקדו את אור השמש לנקודה קטנה על ההצתה (דורש שמש חזקה).",en:"Magnifying lens — focus sunlight to a tiny point on the tinder (needs strong sun)."},
+       svg:'<svg viewBox="0 0 300 100"><circle cx="90" cy="40" r="22" '+line1+'/><path d="M112 40 L170 62" '+line1+'/><circle cx="175" cy="64" r="4" fill="var(--accent)"/></svg>'},
+      {text:{he:"סוללה + צמר פלדה — הצמידו סוללת 9V לצמר פלדה דק והוא ילהט. לעולם לא ליד דלק.",en:"Battery + steel wool — touch a 9V battery to fine steel wool and it glows. Never near fuel."}, svg:''},
+      {text:{he:"חיכוך (קשת ומקדח) — שיטה מתקדמת שדורשת הרבה תרגול, כמוצא אחרון.",en:"Friction (bow drill) — an advanced method needing lots of practice, as a last resort."}, svg:''}
+    ],
+    tips:[{he:"ניצוץ חסר ערך בלי קן הצתה יבש ודק. הכינו אותו קודם — עשב יבש, קליפות, מוך.",en:"A spark is useless without a dry, fine tinder nest. Prepare it first — dry grass, bark, lint."}]
+  }
+);
+
+/* ---- SHELTER ---- */
+CONTENT.shelter={
+  icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M20 8 L6 34 H34 Z"/><path d="M20 8 L20 34"/></svg>',
+  title:{he:"מחסה ואוהלים",en:"Shelter & tents",ru:"Укрытие и палатки",es:"Refugio y tiendas",ar:"المأوى والخيام"},
+  sub:{he:"קורת גג בשטח — מאוהל ועד מחסה מאולתר",en:"A roof outdoors — from a tent to an improvised shelter"},
+  items:[
+    {id:"campsite", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M6 30 H34 M20 30 V16 M12 22 q8 -12 16 0z"/></svg>',
+     title:{he:"בחירת שטח לינה",en:"Choosing a campsite"},
+     lead:{he:"מקום נכון = לילה בטוח. הבחירה חשובה יותר מהציוד.",en:"The right spot = a safe night. The choice matters more than the gear."},
+     safety:[{he:'בישראל — לעולם לא לישון בערוץ נחל (ואדי)! שיטפון פתאומי מגיע גם כשלא יורד גשם מעליכם. סכנת חיים.',en:"Never sleep in a dry riverbed (wadi)! A flash flood can arrive even with no rain above you. Life-threatening."}],
+     steps:[
+       {text:{he:"בחרו קרקע שטוחה ומעט מוגבהת — לא בתחתית ערוץ או בגומה שמים מתנקזים אליה.",en:"Pick flat, slightly raised ground — not a gully bottom or a hollow where water collects."}, svg:''},
+       {text:{he:"התרחקו ממקורות מים (כ-60 מ') — יתושים, בעלי חיים וסכנת הצפה.",en:"Keep ~60 m from water sources — bugs, animals and flooding risk."}, svg:''},
+       {text:{he:"בדקו שאין מעליכם עצים מתים או ענפים/סלעים רופפים שעלולים ליפול.",en:"Check there are no dead trees or loose branches/rocks above that could fall."}, svg:''},
+       {text:{he:"שימו לב לכיוון הרוח ולזריחה — כניסת האוהל הרחק מהרוח.",en:"Note wind direction and sunrise — face the tent door away from the wind."}, svg:''}
+     ],
+     tips:[{he:"פנו אבנים וזרדים מתחת לאזור השינה לפני שמקימים — שינה טובה מתחילה בקרקע נקייה.",en:"Clear stones and twigs from the sleeping area first — good sleep starts with clean ground."}]
+    },
+    {id:"pitchtent", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M6 32 L20 8 L34 32 Z M14 32 L20 20 L26 32"/></svg>',
+     title:{he:"הקמת אוהל",en:"Pitching a tent"},
+     lead:{he:"אוהל מוקם נכון עומד בכל רוח ומגן מגשם וטל.",en:"A well-pitched tent stands in any wind and keeps out rain and dew."},
+     safety:[],
+     steps:[
+       {text:{he:"נקו את השטח והניחו את רצפת האוהל, הכניסה הרחק מהרוח.",en:"Clear the ground and lay the tent floor, door away from the wind."}, svg:''},
+       {text:{he:"חברו והרכיבו את המוטות, והשחילו אותם דרך התעלות/הקליפסים.",en:"Assemble the poles and thread them through the sleeves/clips."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M40 90 Q150 10 260 90" '+line1+'/><path d="M60 90 Q150 25 240 90" '+lineM+'/></svg>'},
+       {text:{he:"הרימו את גוף האוהל ויתדו את הפינות כשהן מתוחות.",en:"Raise the tent body and stake the corners taut."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M50 90 L150 25 L250 90 Z" '+line1+'/><path d="M50 90 l-10 8 M250 90 l10 8" '+lineM+'/></svg>'},
+       {text:{he:"פרסו את יריעת הגשם מעל, ומתחו את מיתרי העגינה.",en:"Spread the rainfly over the top and tension the guy lines."}, svg:''}
+     ],
+     tips:[{he:"אל תיגעו בבד האוהל מבפנים כשיורד גשם — במגע הוא עלול להתחיל לטפטף.",en:"Don't touch the inner tent wall in the rain — contact can make it start dripping."}]
+    },
+    {id:"leanto", difficulty:"med", kidsLock:true,
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M6 32 L34 12 M6 32 L18 32 M10 30 L30 16 M16 27 L32 15"/></svg>',
+     title:{he:"מחסה מאולתר (לין-טו)",en:"Improvised shelter (lean-to)"},
+     lead:{he:"מחסה חירום מענפים ועלים כשאין אוהל.",en:"An emergency shelter from branches and leaves when there's no tent."},
+     safety:[{he:"בדקו שהמוט הראשי יציב ולא ייפול. הימנעו מעצים מתים מעל.",en:"Make sure the ridgepole is stable and won't fall. Avoid dead trees overhead."}],
+     steps:[
+       {text:{he:"מצאו מוט ראשי ארוך והניחו קצה אחד על מזלג של עץ או סלע.",en:"Find a long ridgepole and rest one end on a tree fork or a rock."}, svg:''},
+       {text:{he:"הישענו ענפים קצרים לאורך צד אחד בזווית, צפופים.",en:"Lean shorter branches along one side at an angle, close together."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M30 95 L250 30" '+line1+'/><path d="M70 95 L150 55 M110 95 L180 48 M150 95 L210 42 M190 95 L235 38" '+lineM+'/></svg>'},
+       {text:{he:"כסו בשכבה עבה של עלים, מחטים וזרדים — לבידוד מקור וגשם.",en:"Cover with a thick layer of leaves, needles and twigs — for insulation from cold and rain."}, svg:''},
+       {text:{he:"בודדו גם את הקרקע שעליה תשכבו — הקור מגיע מלמטה!",en:"Insulate the ground you'll lie on too — cold comes from below!"}, svg:''}
+     ],
+     tips:[{he:"פתח המחסה — לכיוון ההפוך מהרוח, ואם אפשר לכיוון מדורה (במרחק בטוח).",en:"Face the opening away from the wind, and if possible toward a fire (at a safe distance)."}]
+    }
+  ]
+};
+
+/* ---- NAVIGATION ---- */
+CONTENT.navigation={
+  icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="20" r="14"/><path d="M25 15 l-7 10 l-3 -3z" fill="var(--accent)" stroke="none"/></svg>',
+  title:{he:"ניווט ואוריינטציה",en:"Navigation",ru:"Навигация",es:"Navegación",ar:"الملاحة"},
+  sub:{he:"למצוא את הדרך — עם מכשירים ובלעדיהם",en:"Finding your way — with tools and without"},
+  items:[
+    {id:"compass", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="20" r="14"/><path d="M20 8 L23 20 L20 18 L17 20z" fill="var(--accent)" stroke="none"/></svg>',
+     title:{he:"שימוש במצפן",en:"Using a compass"},
+     lead:{he:"המחט האדומה תמיד מצביעה צפונה — משם מוצאים כל כיוון.",en:"The red needle always points north — from there you find every direction."},
+     safety:[],
+     steps:[
+       {text:{he:"החזיקו את המצפן שטוח בכף היד, הרחק ממתכת, סכין וטלפון.",en:"Hold the compass flat in your palm, away from metal, knives and phones."}, svg:''},
+       {text:{he:"תנו למחט להתייצב — הקצה האדום מצביע לצפון המגנטי.",en:"Let the needle settle — the red end points to magnetic north."},
+        svg:'<svg viewBox="0 0 300 120"><circle cx="150" cy="60" r="40" '+line1+'/><path d="M150 24 L156 60 L150 52 L144 60z" fill="var(--accent)" stroke="none"/><path d="M150 96 L144 60 L150 68 L156 60z" fill="var(--muted)" stroke="none"/><text x="150" y="18" fill="var(--text)" font-size="11" text-anchor="middle">N</text></svg>'},
+       {text:{he:"סובבו את גופכם עד ש-N בטבעת מיושר עם המחט — עכשיו אתם פונים צפונה.",en:"Turn your body until the ring's N aligns with the needle — now you face north."}, svg:''},
+       {text:{he:"למעקב אחר כיוון (מעלה): כוונו את החץ 'כיוון ההליכה' ליעד, וסובבו את הטבעת עד שהמחט 'בבית'.",en:"To follow a bearing: point the 'direction of travel' arrow at your goal and turn the ring until the needle sits 'in the shed'."}, svg:''}
+     ],
+     tips:[{he:"טלפון וסכין מטים את המחט. הרחיקו אותם כשמנווטים.",en:"Phones and knives deflect the needle. Keep them away when navigating."}]
+    },
+    {id:"map", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 10 L16 8 L24 12 L32 10 V30 L24 32 L16 28 L8 30 Z M16 8 V28 M24 12 V32"/></svg>',
+     title:{he:"קריאת מפה",en:"Reading a map"},
+     lead:{he:"מפה מספרת סיפור על השטח — צריך רק לדעת לקרוא אותה.",en:"A map tells the story of the terrain — you just need to read it."},
+     safety:[],
+     steps:[
+       {text:{he:"'יישרו' את המפה: סובבו אותה כך שהצפון שלה מיושר עם צפון המצפן.",en:"Orient the map: turn it so its north matches compass north."}, svg:''},
+       {text:{he:"קראו את המקרא (הלגנדה) — כל סמל מייצג משהו בשטח.",en:"Read the legend — each symbol represents something on the ground."}, svg:''},
+       {text:{he:"קווי גובה מראים תלילות: קרובים = מדרון תלול, רחוקים = שיפוע מתון.",en:"Contour lines show steepness: close = steep, far apart = gentle."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M40 90 q110 -20 220 0" '+lineM+'/><path d="M60 72 q90 -18 180 0" '+lineM+'/><path d="M80 56 q70 -16 140 0" '+line1+'/><path d="M100 42 q50 -12 100 0" '+line1+'/></svg>'},
+       {text:{he:"השתמשו בסרגל קנה המידה כדי להעריך מרחקים.",en:"Use the scale bar to estimate distances."}, svg:''}
+     ],
+     tips:[{he:"סמנו בעיפרון את המסלול והנקודות החשובות לפני היציאה.",en:"Mark your route and key points in pencil before you set out."}]
+    },
+    {id:"suncompass", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="14" r="6"/><path d="M20 20 L20 34 M20 34 L30 34"/></svg>',
+     title:{he:"מציאת צפון בעזרת השמש",en:"Finding north by the sun"},
+     lead:{he:"מקל ושמש נותנים כיוון מזרח-מערב בכמה דקות.",en:"A stick and the sun give you an east–west line in minutes."},
+     safety:[],
+     steps:[
+       {text:{he:"נעצו מקל ישר בקרקע פתוחה וסמנו באבן את קצה הצל.",en:"Push a straight stick into open ground and mark the shadow tip with a stone."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M150 90 L150 40" '+line1+'/><path d="M150 90 L210 90" '+lineM+'/><circle cx="210" cy="90" r="5" fill="var(--accent)"/><circle cx="60" cy="30" r="12" '+lineM+'/></svg>'},
+       {text:{he:"המתינו כ-15 דקות וסמנו שוב את קצה הצל החדש.",en:"Wait ~15 minutes and mark the new shadow tip."},
+        svg:'<svg viewBox="0 0 300 110"><path d="M150 90 L150 40" '+line1+'/><path d="M150 90 L210 90 M150 90 L120 85" '+lineM+'/><circle cx="210" cy="90" r="5" fill="var(--muted)"/><circle cx="120" cy="85" r="5" fill="var(--accent)"/></svg>'},
+       {text:{he:"הקו מהסימן הראשון לשני מצביע בקירוב מזרחה. הניצב אליו — צפון-דרום.",en:"The line from the first mark to the second points roughly east. Perpendicular = north–south."}, svg:''}
+     ],
+     tips:[{he:"השמש זורחת במזרח ושוקעת במערב. בצהריים (חצי הכדור הצפוני) היא בדרום.",en:"The sun rises in the east and sets in the west. At midday (northern hemisphere) it's due south."}]
+    },
+    {id:"stars", difficulty:"med",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M20 6 l2 5 l5 0 l-4 4 l2 6 l-5 -4 l-5 4 l2 -6 l-4 -4 l5 0z" fill="var(--accent)" stroke="none"/></svg>',
+     title:{he:"מציאת צפון בכוכבים",en:"Finding north by the stars"},
+     lead:{he:"כוכב הצפון עומד כמעט בדיוק מעל הצפון — בחצי הכדור הצפוני.",en:"The North Star sits almost exactly over north — in the northern hemisphere."},
+     safety:[],
+     steps:[
+       {text:{he:"אתרו את קבוצת 'הדובה הגדולה' (מזחלת/מחבת עם ידית).",en:"Find the Big Dipper (a saucepan shape with a handle)."}, svg:''},
+       {text:{he:"שני הכוכבים בקצה ה'מחבת' הם 'כוכבי המצביע'.",en:"The two stars at the end of the 'pan' are the 'pointer stars'."},
+        svg:'<svg viewBox="0 0 300 130"><g fill="var(--muted)"><circle cx="60" cy="90" r="3"/><circle cx="90" cy="95" r="3"/><circle cx="120" cy="92" r="3"/><circle cx="140" cy="78" r="3"/><circle cx="110" cy="70" r="3"/><circle cx="80" cy="72" r="3"/></g><circle cx="60" cy="90" r="4" fill="var(--accent)"/><circle cx="80" cy="72" r="4" fill="var(--accent)"/><line x1="80" y1="72" x2="230" y2="36" '+lineM+' stroke-dasharray="4 4"/><circle cx="235" cy="34" r="5" fill="var(--accent)"/></svg>'},
+       {text:{he:"המשיכו קו מהם פי 5 בערך — תגיעו לכוכב הצפון (פולאריס).",en:"Extend a line from them about 5× the gap — you reach Polaris, the North Star."}, svg:''},
+       {text:{he:"כוכב הצפון מסמן צפון אמיתי. פנו אליו — וצפון לפניכם.",en:"Polaris marks true north. Face it — and north is ahead."}, svg:''}
+     ],
+     tips:[{he:"כוכב הצפון אינו הכוכב הבהיר ביותר בשמיים — מוצאים אותו לפי המצביעים, לא לפי הבהירות.",en:"Polaris is not the brightest star — you find it by the pointers, not by brightness."}]
+    }
+  ]
+};
+
+/* ---- SIGNALS ---- */
+CONTENT.signals={
+  icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M12 20 h16 M28 12 l6 8 l-6 8 M12 12 v16"/></svg>',
+  title:{he:"אותות ותקשורת",en:"Signals & communication",ru:"Сигналы и связь",es:"Señales y comunicación",ar:"الإشارات والتواصل"},
+  sub:{he:"איך קוראים לעזרה ומדברים ממרחק",en:"How to call for help and talk from afar"},
+  items:[
+    {id:"whistle-sig", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 18 h14 a6 6 0 1 1 0 8 H8 z M22 14 v-4"/></svg>',
+     title:{he:"אותות משרוקית",en:"Whistle signals"},
+     lead:{he:"משרוקית נשמעת הרבה יותר רחוק מצעקה — וחוסכת כוח.",en:"A whistle is heard far farther than a shout — and saves your energy."},
+     safety:[],
+     steps:[
+       {text:{he:"3 צפירות = מצוקה / 'אני צריך עזרה!' (אות בינלאומי).",en:"3 blasts = distress / 'I need help!' (the universal signal)."}, svg:''},
+       {text:{he:"צפירה 1 = 'איפה אתה?'. 2 צפירות = 'בוא אליי'.",en:"1 blast = 'where are you?'. 2 blasts = 'come to me'."}, svg:''},
+       {text:{he:"צפרו בסדרות של 3, המתינו דקה, וחזרו — עד שעונים.",en:"Blow in sets of 3, wait a minute, repeat — until answered."}, svg:''}
+     ],
+     tips:[{he:"משרוקית היא הפריט הקטן שהכי כדאי לתלות על התרמיל.",en:"A whistle is the tiny item most worth clipping to your pack."}]
+    },
+    {id:"morse", difficulty:"med",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="10" cy="20" r="2.5" fill="var(--accent)"/><path d="M18 20 h6" stroke-width="5"/><circle cx="32" cy="20" r="2.5" fill="var(--accent)"/></svg>',
+     title:{he:"מורס בסיסי (SOS)",en:"Basic Morse (SOS)"},
+     lead:{he:"אות מצוקה שאפשר לשדר באור, בקול או בנקישות.",en:"A distress code you can send by light, sound or tapping."},
+     safety:[],
+     steps:[
+       {text:{he:"SOS = שלוש קצרות, שלוש ארוכות, שלוש קצרות: · · · — — — · · ·",en:"SOS = three short, three long, three short: · · · — — — · · ·"},
+        svg:'<svg viewBox="0 0 300 70"><g fill="var(--accent)"><circle cx="30" cy="35" r="6"/><circle cx="55" cy="35" r="6"/><circle cx="80" cy="35" r="6"/></g><g fill="var(--accent)"><rect x="110" y="29" width="26" height="12" rx="6"/><rect x="146" y="29" width="26" height="12" rx="6"/><rect x="182" y="29" width="26" height="12" rx="6"/></g><g fill="var(--accent)"><circle cx="230" cy="35" r="6"/><circle cx="255" cy="35" r="6"/><circle cx="280" cy="35" r="6"/></g></svg>'},
+       {text:{he:"'קצרה' = הבזק/נקישה מהירה. 'ארוכה' = פי 3 ארוכה יותר.",en:"'Short' = a quick flash/tap. 'Long' = about 3× longer."}, svg:''},
+       {text:{he:"שדרו עם פנס בלילה, מראה ביום, או נקישות על צינור/סלע.",en:"Send it with a flashlight at night, a mirror by day, or taps on a pipe/rock."}, svg:''}
+     ],
+     tips:[{he:"אין צורך לזכור את כל האלפבית — SOS לבדו יכול להציל.",en:"You don't need the whole alphabet — SOS alone can save a life."}]
+    },
+    {id:"ground", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 32 L20 8 L32 32"/></svg>',
+     title:{he:"סימני קרקע-לאוויר",en:"Ground-to-air signals"},
+     lead:{he:"סימנים גדולים על הקרקע שמטוס או מסוק יכולים לראות.",en:"Large ground signals a plane or helicopter can see."},
+     safety:[],
+     steps:[
+       {text:{he:"עשו את הסימנים ענקיים (3 מ' ויותר) בחומר מנוגד בצבע — סלעים, בגדים, ענפים.",en:"Make signals huge (3 m+) in contrasting material — rocks, clothes, branches."}, svg:''},
+       {text:{he:"V = 'נדרשת עזרה'. X = 'נדרש סיוע רפואי'. חץ = 'הלכתי לכיוון הזה'.",en:"V = 'assistance needed'. X = 'medical help needed'. Arrow = 'went this way'."},
+        svg:'<svg viewBox="0 0 300 90"><path d="M30 20 L45 65 L60 20" '+line1+'/><path d="M120 20 L160 65 M160 20 L120 65" '+line1+'/><path d="M220 42 h50 M258 30 l12 12 l-12 12" '+line1+'/></svg>'},
+       {text:{he:"הניחו אותם בשטח פתוח שנראה מלמעלה.",en:"Place them in open ground visible from above."}, svg:''}
+     ],
+     tips:[{he:"מראה או משטח מבריק שמכוון לשמש נראה קילומטרים — 'הבזק' לכיוון מטוס.",en:"A mirror or shiny surface aimed at the sun is seen for kilometers — flash it toward a plane."}]
+    },
+    {id:"semaphore", difficulty:"med",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="10" r="4"/><path d="M20 14 v12 M20 16 l-10 -6 M20 20 l12 8 M20 26 l-8 8 M20 26 l8 8"/></svg>',
+     title:{he:"סמפור (דגלים)",en:"Semaphore (flags)"},
+     lead:{he:"שיטה ותיקה שבה מיקום שני דגלים מייצג אות — לקשר בקו ראייה.",en:"An old system where two flag positions represent a letter — for line-of-sight signaling."},
+     safety:[],
+     steps:[
+       {text:{he:"אוחזים שני דגלים ומזיזים אותם למיקומים כמו מחוגי שעון — כל צירוף = אות.",en:"You hold two flags and move them to clock-like positions — each combination = a letter."},
+        svg:'<svg viewBox="0 0 300 120"><circle cx="150" cy="24" r="8" '+line1+'/><path d="M150 32 V78" '+line1+'/><path d="M150 45 L100 20" '+lineM+'/><path d="M150 55 L205 90" '+lineM+'/><rect x="88" y="10" width="16" height="16" fill="var(--accent)"/><rect x="200" y="82" width="16" height="16" fill="var(--accent)"/></svg>'},
+       {text:{he:"זו הייתה שיטת קשר בין ספינות לפני הרדיו.",en:"It was a ship-to-ship system before radios."}, svg:''},
+       {text:{he:"בצופים זו בעיקר מיומנות מהנה — לומדים כמה אותיות בכל פעם.",en:"For scouts it's mostly a fun skill — learn a few letters at a time."}, svg:''}
+     ],
+     tips:[{he:"התחילו מ-A עד G — הם יוצרים חצי מעגל פשוט לזכירה.",en:"Start with A to G — they form a simple half-circle that's easy to remember."}]
+    }
+  ]
+};
+
+/* ---- GEAR (content, separate from checklist) ---- */
+CONTENT.gear={
+  icon:'<svg viewBox="0 0 40 40" '+line1+'><rect x="10" y="12" width="20" height="24" rx="4"/><path d="M15 12 v-3 a5 5 0 0 1 10 0 v3 M10 22 h20"/></svg>',
+  title:{he:"ציוד ותרמיל",en:"Gear & backpack",ru:"Снаряжение и рюкзак",es:"Equipo y mochila",ar:"المعدات وحقيبة الظهر"},
+  sub:{he:"מה לוקחים ואיך אורזים נכון",en:"What to take and how to pack it right"},
+  items:[
+    {id:"essentials", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 12 h24 M8 20 h24 M8 28 h16"/></svg>',
+     title:{he:"ערכת החובה",en:"The essentials"},
+     lead:{he:"עשר הקבוצות שכדאי שיהיו בכל יציאה — גם ליום קצר.",en:"The ten groups worth having on every outing — even a short day trip."},
+     safety:[],
+     steps:[
+       {text:{he:"מים ואוכל — מספיק, ועוד קצת. ניווט — מפה ומצפן.",en:"Water and food — enough, plus a little extra. Navigation — map and compass."}, svg:''},
+       {text:{he:"הגנה מהשמש (כובע, קרם) ובגד חם נוסף לשכבות.",en:"Sun protection (hat, sunscreen) and an extra warm layer."}, svg:''},
+       {text:{he:"תאורה (פנס + סוללות), עזרה ראשונה, ואמצעי הצתה.",en:"Light (flashlight + batteries), first aid, and a fire starter."}, svg:''},
+       {text:{he:"סכין/אולר, אמצעי מחסה (יריעה/שמיכת חירום), ומשרוקית לאיתות.",en:"A knife/multitool, shelter (tarp/emergency blanket), and a whistle for signaling."}, svg:''}
+     ],
+     tips:[{he:"רשימת הסימון באפליקציה (🎒) עוזרת לוודא שלא שכחתם כלום.",en:"The app's checklist (🎒) helps make sure you forgot nothing."}]
+    },
+    {id:"packing", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><rect x="12" y="10" width="16" height="24" rx="3"/><path d="M16 26 h8 M14 18 h12"/></svg>',
+     title:{he:"איך אורזים תרמיל",en:"How to pack a backpack"},
+     lead:{he:"אריזה נכונה = משקל שמרגיש קל יותר וגב שלא כואב.",en:"Right packing = weight that feels lighter and a back that doesn't ache."},
+     safety:[],
+     steps:[
+       {text:{he:"כבד קרוב לגב ובמרכז (בגובה השכמות) — שם המשקל הכי יציב.",en:"Heavy items close to your back and centered (shoulder-blade height) — most stable there."},
+        svg:'<svg viewBox="0 0 300 130"><rect x="110" y="20" width="80" height="100" rx="10" '+line1+'/><rect x="122" y="45" width="56" height="34" rx="4" fill="var(--accent)" opacity=".5"/><text x="150" y="68" fill="var(--text)" font-size="12" text-anchor="middle">כבד</text></svg>'},
+       {text:{he:"קל ונפחי (שק שינה) — בתחתית התרמיל.",en:"Light and bulky (sleeping bag) — at the bottom."}, svg:''},
+       {text:{he:"בינוני — מסביב לגרעין הכבד.",en:"Medium items — around the heavy core."}, svg:''},
+       {text:{he:"פריטים לשימוש תכוף (חטיף, מפה, מעיל גשם) — בכיסים ובחלק העליון.",en:"Frequently used items (snack, map, rain jacket) — in the lid and side pockets."}, svg:''}
+     ],
+     tips:[{he:"אזנו שמאל-ימין, והדקו את רצועות הכיווץ כדי ששום דבר לא יזוז בהליכה.",en:"Balance left–right, and tighten compression straps so nothing shifts while walking."}]
+    },
+    {id:"fit", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="10" r="4"/><path d="M20 14 v14 M12 20 h16 M14 34 h12"/></svg>',
+     title:{he:"התאמת התרמיל לגוף",en:"Fitting the pack to your body"},
+     lead:{he:"רוב המשקל צריך לשבת על האגן, לא על הכתפיים.",en:"Most of the weight should sit on your hips, not your shoulders."},
+     safety:[],
+     steps:[
+       {text:{he:"שחררו את כל הרצועות והרכיבו את התרמיל.",en:"Loosen all straps and put the pack on."}, svg:''},
+       {text:{he:"הדקו את חגורת המותן כך שתשב על עצמות האגן — היא נושאת כ-80% מהמשקל.",en:"Tighten the hip belt so it sits on the hip bones — it carries ~80% of the weight."}, svg:''},
+       {text:{he:"הדקו כתפיים, אחר כך את רצועות ההרמה העליונות, ואז את רצועת החזה.",en:"Tighten shoulder straps, then the load-lifters, then the sternum strap."}, svg:''},
+       {text:{he:"בדקו שאתם נושמים וזזים בחופשיות — לא חנוק, לא צונח.",en:"Check that you can breathe and move freely — not choked, not sagging."}, svg:''}
+     ],
+     tips:[{he:"תרמיל טוב 'נעלם' על הגב. אם כואב אחרי 10 דקות — כוונו מחדש.",en:"A good pack 'disappears' on your back. If it hurts after 10 minutes — readjust."}]
+    }
+  ]
+};
+
+/* ---- NATURE & SAFETY ---- */
+CONTENT.nature={
+  icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M20 34 V16 M20 22 C14 18 10 22 8 16 C16 14 18 18 20 22 M20 20 C26 16 30 20 32 14 C24 12 22 16 20 20"/></svg>',
+  title:{he:"טבע ובטיחות",en:"Nature & safety",ru:"Природа и безопасность",es:"Naturaleza y seguridad",ar:"الطبيعة والسلامة"},
+  sub:{he:"לכבד את הטבע — ולחזור הביתה בשלום",en:"Respect nature — and get home safe"},
+  items:[
+    {id:"animals", difficulty:"med",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M8 14 c10 -6 20 6 26 2 M8 22 q8 6 14 0 M28 12 l4 -3"/></svg>',
+     title:{he:"בעלי חיים מסוכנים בישראל",en:"Dangerous animals (Israel)"},
+     lead:{he:"רובם יברחו מכם. רוב העקיצות קורות כשמנסים לגעת או לתפוס.",en:"Most will flee from you. Most bites happen when people try to touch or catch them."},
+     safety:[{he:"לעולם אל תכניסו יד או רגל למקום שאינכם רואים. בלילה — עם תאורה. עקיצה/הכשה → עזרה ראשונה 'עקיצה' + 101.",en:"Never put a hand or foot where you can't see. At night — with a light. Bite/sting → First Aid 'sting' + call 101."}],
+     steps:[
+       {text:{he:"צפע ארץ-ישראלי — הנחש הארסי הנפוץ. ראש משולש. אל תתקרבו, סוגו לאט אחורה.",en:"Palestine viper — the common venomous snake. Triangular head. Don't approach; back away slowly."}, svg:''},
+       {text:{he:"עקרב צהוב — נערו נעליים, בגדים ושק שינה לפני שימוש.",en:"Yellow (deathstalker) scorpion — shake out shoes, clothes and sleeping bag before use."}, svg:''},
+       {text:{he:"אלמנה שחורה — מסתתרת מתחת לאבנים וערמות עצים. הרימו אותן בזהירות/בכפפות.",en:"Black widow — hides under rocks and woodpiles. Move them carefully / with gloves."}, svg:''},
+       {text:{he:"הכלל: מרחק וכבוד. לא מאכילים, לא נוגעים, לא מקניטים.",en:"The rule: distance and respect. Don't feed, don't touch, don't provoke."}, svg:''}
+     ],
+     tips:[{he:"אם ראיתם נחש — עצרו, אתרו אותו במבט, וסוגו אחורה. רוב ההכשות ביד/כף רגל.",en:"If you see a snake — stop, keep it in sight, and back away. Most bites are to a hand/foot."}]
+    },
+    {id:"plants", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><path d="M20 34 V18 M20 24 C12 22 10 14 12 10 C18 12 20 16 20 22 M20 20 C28 18 30 12 28 8 C22 10 20 14 20 20"/></svg>',
+     title:{he:"צמחים מסוכנים",en:"Dangerous plants"},
+     lead:{he:"כלל הזהב של הטבע — ואולי החשוב ביותר באפליקציה כולה.",en:"Nature's golden rule — maybe the most important one in the whole app."},
+     safety:[{he:"לעולם אל תאכלו צמח בר, פרי יער או פטרייה על סמך אפליקציה או ניחוש. הרבה נראים אכילים והם קטלניים.",en:"Never eat a wild plant, forest berry or mushroom based on an app or a guess. Many look edible and are deadly."}],
+     steps:[
+       {text:{he:"אל תאכלו צמחים, פירות או פטריות שאינכם מכירים בוודאות — לעולם.",en:"Never eat plants, fruit or mushrooms you don't know for certain — ever."}, svg:''},
+       {text:{he:"הרדוף — נפוץ מאוד ורעיל מאוד. אל תשתמשו בענפיו לשיפודים או לבישול על אש!",en:"Oleander — very common and very toxic. Never use its branches for skewers or fire-cooking!"}, svg:''},
+       {text:{he:"הימנעו מלגעת בצמחים לא מוכרים — חלקם מגרים את העור.",en:"Avoid touching unknown plants — some irritate the skin."}, svg:''},
+       {text:{he:"שטפו ידיים לפני אוכל, במיוחד אחרי מגע עם צמחייה.",en:"Wash hands before eating, especially after touching vegetation."}, svg:''}
+     ],
+     tips:[{he:"רוצים ללמוד צמחי מאכל? רק עם מדריך מנוסה בשטח, פנים אל פנים — לא ממסך.",en:"Want to learn edible plants? Only with an experienced guide in person — never from a screen."}]
+    },
+    {id:"leavenotrace", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="20" cy="20" r="14"/><path d="M14 20 l4 4 l8 -8"/></svg>',
+     title:{he:"אתיקת שטח — השאר נקי",en:"Leave no trace"},
+     lead:{he:"השאירו את השטח נקי יותר ממה שמצאתם.",en:"Leave the place cleaner than you found it."},
+     safety:[],
+     steps:[
+       {text:{he:"קחו איתכם את כל האשפה — כולל שאריות אוכל וקליפות.",en:"Take all your trash out — including food scraps and peels."}, svg:''},
+       {text:{he:"הישארו בשבילים מסומנים; אל תרמסו צמחייה.",en:"Stay on marked trails; don't trample vegetation."}, svg:''},
+       {text:{he:"שמרו מרחק מבעלי חיים; לעולם אל תאכילו אותם.",en:"Keep distance from wildlife; never feed them."}, svg:''},
+       {text:{he:"כבדו את חוקי האש במקום, וכבו כל מדורה לגמרי לפני עזיבה.",en:"Respect local fire rules, and fully extinguish any fire before leaving."}, svg:''}
+     ],
+     tips:[{he:"קחו שקית אשפה קטנה ריקה בכל יציאה — קלה, ומשנה הכול.",en:"Bring a small empty trash bag on every trip — light, and it changes everything."}]
+    },
+    {id:"buddy", difficulty:"easy",
+     icon:'<svg viewBox="0 0 40 40" '+line1+'><circle cx="14" cy="14" r="5"/><circle cx="26" cy="14" r="5"/><path d="M6 32 c0 -8 16 -8 16 0 M18 32 c0 -8 16 -8 16 0"/></svg>',
+     title:{he:"שיטת החבר",en:"The buddy system"},
+     lead:{he:"בטבע לא הולכים לבד — לעולם.",en:"In nature you never go alone — ever."},
+     safety:[],
+     steps:[
+       {text:{he:"תמיד יוצאים עם בן זוג או קבוצה, אף פעם לא לבד.",en:"Always go with a partner or a group, never alone."}, svg:''},
+       {text:{he:"ספרו למבוגר אחראי מה המסלול ומתי אתם חוזרים.",en:"Tell a responsible adult your route and when you'll be back."}, svg:''},
+       {text:{he:"שמרו על החבר בקו הראייה, ובדקו זה את זה מדי פעם.",en:"Keep your buddy in sight, and check on each other now and then."}, svg:''},
+       {text:{he:"אם מישהו נפגע — אחד נשאר איתו, אחד הולך להזעיק עזרה (או מתקשרים 101).",en:"If someone's hurt — one stays, one goes for help (or call 101)."}, svg:''}
+     ],
+     tips:[{he:"קבעו מראש נקודת מפגש, למקרה שנפרדתם.",en:"Agree on a meeting point in advance, in case you get separated."}]
+    }
+  ]
+};
+
+/* ============================================================
+   QUIZZES — pass to earn a category badge
+   ============================================================ */
+const QUIZ={
+knots:[
+  {q:{he:"לאיזו מטרה קשר הבית (דרגון) מתאים במיוחד?",en:"What is the bowline especially good for?"},
+   opts:[{he:"לולאה קבועה שלא נסגרת",en:"A fixed loop that won't tighten"},{he:"לקצר חבל",en:"Shortening a rope"},{he:"לחבר שני חבלים",en:"Joining two ropes"},{he:"לקשירת נעליים",en:"Tying shoes"}], correct:0},
+  {q:{he:"מה החוק לקשירת קשר שטח (ריף)?",en:"What's the rule for tying a reef knot?"},
+   opts:[{he:"ימין על שמאל, ואז שמאל על ימין",en:"Right over left, then left over right"},{he:"אותו כיוון פעמיים",en:"Same direction twice"},{he:"תמיד שמאל בלבד",en:"Always left only"},{he:"אין חוק",en:"There's no rule"}], correct:0},
+  {q:{he:"איזה קשר מחבר הכי טוב שני חוטי דיג דקים?",en:"Which knot best joins two thin fishing lines?"},
+   opts:[{he:"קשר דייגים",en:"Fisherman's knot"},{he:"קשר שמיני",en:"Figure-eight"},{he:"שני חצאי מלה",en:"Two half hitches"},{he:"קשר פרפר",en:"Butterfly loop"}], correct:0}
+],
+firstaid:[
+  {q:{he:"מה הדבר הראשון לעשות בחתך עם דימום?",en:"First thing to do for a bleeding cut?"},
+   opts:[{he:"לחץ ישיר על הפצע",en:"Direct pressure on the wound"},{he:"למרוח משחה",en:"Apply ointment"},{he:"להוציא כל חפץ תקוע",en:"Pull out any stuck object"},{he:"לחכות שיפסיק לבד",en:"Wait for it to stop on its own"}], correct:0},
+  {q:{he:"מה עושים בכווייה?",en:"What do you do for a burn?"},
+   opts:[{he:"מקררים במים זורמים 10–20 דק'",en:"Cool under running water 10–20 min"},{he:"מורחים חמאה",en:"Apply butter"},{he:"מניחים קרח ישיר",en:"Put ice directly on it"},{he:"מפוצצים שלפוחיות",en:"Pop the blisters"}], correct:0},
+  {q:{he:"מה אסור לעשות בהכשת נחש?",en:"What must you NOT do for a snake bite?"},
+   opts:[{he:"לחתוך ולמצוץ את הארס",en:"Cut and suck the venom"},{he:"להרגיע את הנפגע",en:"Calm the person"},{he:"להתקשר 101",en:"Call emergency"},{he:"לרשום את שעת ההכשה",en:"Note the time of the bite"}], correct:0}
+],
+fire:[
+  {q:{he:"מהו כלל הזהב של כיבוי מדורה?",en:"What's the golden rule of putting out a fire?"},
+   opts:[{he:"אף פעם לא עוזבים מדורה בוערת",en:"Never leave a burning fire"},{he:"מספיק לכסות בעפר",en:"Just cover it with dirt"},{he:"אפשר לעזוב אם אין להבות",en:"You can leave if there are no flames"},{he:"מכבים רק בבוקר",en:"Only put it out in the morning"}], correct:0},
+  {q:{he:"מה הסדר הנכון של חומרי האש?",en:"What's the correct order of fire materials?"},
+   opts:[{he:"הצתה → קטנים → גדולים",en:"Tinder → kindling → fuel"},{he:"גדולים → קטנים → הצתה",en:"Fuel → kindling → tinder"},{he:"הכול יחד",en:"All at once"},{he:"רק ענפים גדולים",en:"Only big branches"}], correct:0},
+  {q:{he:"מה נכון לגבי הבערה במקום מסוכן?",en:"What's true about where to build a fire?"},
+   opts:[{he:"רחוק מעצים ושיחים יבשים, במעגל אבנים",en:"Away from trees and dry brush, in a stone ring"},{he:"קרוב לאוהל כדי להתחמם",en:"Close to the tent for warmth"},{he:"מתחת לענפים לצל",en:"Under branches for shade"},{he:"ברוח חזקה זה בסדר",en:"Strong wind is fine"}], correct:0}
+],
+shelter:[
+  {q:{he:"היכן אסור לישון בישראל?",en:"Where must you never sleep in the wild?"},
+   opts:[{he:"בערוץ נחל (ואדי)",en:"In a dry riverbed (wadi)"},{he:"על קרקע שטוחה מוגבהת",en:"On flat raised ground"},{he:"הרחק ממים",en:"Away from water"},{he:"במקום מוצל",en:"In a shaded spot"}], correct:0},
+  {q:{he:"במחסה מאולתר — מה חובה לבודד?",en:"In an improvised shelter — what must you insulate?"},
+   opts:[{he:"את הקרקע שעליה שוכבים",en:"The ground you lie on"},{he:"רק את הגג",en:"Only the roof"},{he:"שום דבר",en:"Nothing"},{he:"רק את הכניסה",en:"Only the entrance"}], correct:0},
+  {q:{he:"לאן כדאי שכניסת האוהל תפנה?",en:"Which way should the tent door face?"},
+   opts:[{he:"הרחק מהרוח",en:"Away from the wind"},{he:"ישר לרוח",en:"Straight into the wind"},{he:"למטה במדרון",en:"Downhill"},{he:"לא משנה",en:"Doesn't matter"}], correct:0}
+],
+navigation:[
+  {q:{he:"לאן מצביע הקצה האדום של מחט המצפן?",en:"Where does the red compass needle point?"},
+   opts:[{he:"צפון",en:"North"},{he:"דרום",en:"South"},{he:"לשמש",en:"To the sun"},{he:"למזרח",en:"East"}], correct:0},
+  {q:{he:"מה מראים קווי גובה קרובים זה לזה?",en:"What do closely-spaced contour lines show?"},
+   opts:[{he:"מדרון תלול",en:"A steep slope"},{he:"שטח מישורי",en:"Flat ground"},{he:"נהר",en:"A river"},{he:"דרך",en:"A road"}], correct:0},
+  {q:{he:"איך מוצאים את כוכב הצפון?",en:"How do you find the North Star?"},
+   opts:[{he:"לפי כוכבי המצביע של הדובה הגדולה",en:"By the Big Dipper's pointer stars"},{he:"הוא הבהיר ביותר",en:"It's the brightest star"},{he:"תמיד במרכז השמיים",en:"Always at the center of the sky"},{he:"ליד הירח",en:"Next to the moon"}], correct:0}
+],
+signals:[
+  {q:{he:"כמה צפירות משרוקית = מצוקה?",en:"How many whistle blasts = distress?"},
+   opts:[{he:"3",en:"3"},{he:"1",en:"1"},{he:"2",en:"2"},{he:"5",en:"5"}], correct:0},
+  {q:{he:"איך נשמע SOS במורס?",en:"What does SOS sound like in Morse?"},
+   opts:[{he:"3 קצרות, 3 ארוכות, 3 קצרות",en:"3 short, 3 long, 3 short"},{he:"ארוכה אחת",en:"One long"},{he:"3 ארוכות בלבד",en:"3 long only"},{he:"קצרה-ארוכה-קצרה",en:"short-long-short"}], correct:0},
+  {q:{he:"מה מסמן האות X על הקרקע?",en:"What does a ground 'X' signal mean?"},
+   opts:[{he:"נדרש סיוע רפואי",en:"Medical help needed"},{he:"הכול בסדר",en:"All is well"},{he:"הלכנו לכאן",en:"We went this way"},{he:"מים כאן",en:"Water here"}], correct:0}
+],
+gear:[
+  {q:{he:"היכן שמים את הפריטים הכבדים בתרמיל?",en:"Where do the heavy items go in a pack?"},
+   opts:[{he:"קרוב לגב ובמרכז",en:"Close to the back and centered"},{he:"בתחתית",en:"At the very bottom"},{he:"בכיסים החיצוניים",en:"In the outer pockets"},{he:"למעלה",en:"At the very top"}], correct:0},
+  {q:{he:"על מה צריך לשבת רוב משקל התרמיל?",en:"Where should most of the pack weight sit?"},
+   opts:[{he:"על האגן (חגורת מותן)",en:"On the hips (hip belt)"},{he:"על הכתפיים",en:"On the shoulders"},{he:"על הצוואר",en:"On the neck"},{he:"על הגב התחתון בלבד",en:"On the lower back only"}], correct:0},
+  {q:{he:"מהו פריט קטן וחיוני לאיתות?",en:"What small essential item is for signaling?"},
+   opts:[{he:"משרוקית",en:"A whistle"},{he:"מסרק",en:"A comb"},{he:"בקבוק ריק",en:"An empty bottle"},{he:"עיתון",en:"A newspaper"}], correct:0}
+],
+nature:[
+  {q:{he:"מותר לאכול צמח בר לפי זיהוי מאפליקציה?",en:"May you eat a wild plant identified by an app?"},
+   opts:[{he:"לא, לעולם לא",en:"No, never"},{he:"כן, אם נראה טעים",en:"Yes, if it looks tasty"},{he:"רק פטריות",en:"Only mushrooms"},{he:"רק פירות אדומים",en:"Only red berries"}], correct:0},
+  {q:{he:"מה עושים לפני שנועלים נעליים במחנה?",en:"What do you do before putting on shoes at camp?"},
+   opts:[{he:"נערים אותן (עקרבים)",en:"Shake them out (scorpions)"},{he:"ממלאים במים",en:"Fill them with water"},{he:"שמים בשמש",en:"Put them in the sun"},{he:"כלום",en:"Nothing"}], correct:0},
+  {q:{he:"מהו הכלל של 'השאר נקי'?",en:"What is the 'leave no trace' rule?"},
+   opts:[{he:"לקחת את כל האשפה החוצה",en:"Take all trash out with you"},{he:"לקבור את האשפה",en:"Bury the trash"},{he:"לשרוף הכול",en:"Burn everything"},{he:"להשאיר לאחרים",en:"Leave it for others"}], correct:0}
+]
+};
+
+/* ============================================================
+   EXTRA UI STRINGS (merged into LANG for all 5 languages)
+   ============================================================ */
+const EXTRA={
+he:{quizStart:"🎯 התחל חידון",quizRetake:"🔁 חזור על החידון",badgeGot:"🏅 תג הקטגוריה הושג!",qLabel:"שאלה",
+  qCorrect:"נכון! 🎉",qWrong:"לא מדויק",qNext:"הבא",qFinish:"סיום",qScore:"הציון שלך",
+  qPass:"כל הכבוד! פתחת תג! 🏅",qFail:"כמעט! נסה שוב לפתוח את התג.",
+  timer:"⏱️ טיימר",timers:"טיימרים",customMin:"דקות (מותאם)",tStart:"התחל",tStop:"עצור",tReset:"אפס",timeUp:"⏰ הזמן נגמר!",
+  pIce:"קרח 20 ד'",pPress:"לחץ על פצע 10 ד'",pCook:"בישול 15 ד'",pBoil:"הרתחה 5 ד'",
+  replay:"▶︎ הצג תנועה שוב",tapReplay:"הקש על תרשים כדי לראות תנועה שוב"},
+en:{quizStart:"🎯 Start quiz",quizRetake:"🔁 Retake quiz",badgeGot:"🏅 Category badge earned!",qLabel:"Question",
+  qCorrect:"Correct! 🎉",qWrong:"Not quite",qNext:"Next",qFinish:"Finish",qScore:"Your score",
+  qPass:"Well done! Badge unlocked! 🏅",qFail:"Almost! Try again to unlock the badge.",
+  timer:"⏱️ Timer",timers:"Timers",customMin:"Minutes (custom)",tStart:"Start",tStop:"Stop",tReset:"Reset",timeUp:"⏰ Time's up!",
+  pIce:"Ice 20 min",pPress:"Wound pressure 10 min",pCook:"Cooking 15 min",pBoil:"Boil 5 min",
+  replay:"▶︎ Replay motion",tapReplay:"Tap a diagram to replay its motion"},
+ru:{quizStart:"🎯 Начать викторину",quizRetake:"🔁 Пройти снова",badgeGot:"🏅 Значок категории получен!",qLabel:"Вопрос",
+  qCorrect:"Верно! 🎉",qWrong:"Не совсем",qNext:"Далее",qFinish:"Завершить",qScore:"Ваш результат",
+  qPass:"Отлично! Значок открыт! 🏅",qFail:"Почти! Попробуйте снова для значка.",
+  timer:"⏱️ Таймер",timers:"Таймеры",customMin:"Минуты (свои)",tStart:"Старт",tStop:"Стоп",tReset:"Сброс",timeUp:"⏰ Время вышло!",
+  pIce:"Лёд 20 мин",pPress:"Давление 10 мин",pCook:"Готовка 15 мин",pBoil:"Кипячение 5 мин",
+  replay:"▶︎ Повтор движения",tapReplay:"Нажмите на схему для повтора"},
+es:{quizStart:"🎯 Empezar test",quizRetake:"🔁 Repetir test",badgeGot:"🏅 ¡Insignia obtenida!",qLabel:"Pregunta",
+  qCorrect:"¡Correcto! 🎉",qWrong:"No exactamente",qNext:"Siguiente",qFinish:"Terminar",qScore:"Tu puntuación",
+  qPass:"¡Bien hecho! ¡Insignia desbloqueada! 🏅",qFail:"¡Casi! Inténtalo otra vez para la insignia.",
+  timer:"⏱️ Temporizador",timers:"Temporizadores",customMin:"Minutos (personal)",tStart:"Iniciar",tStop:"Parar",tReset:"Reiniciar",timeUp:"⏰ ¡Se acabó el tiempo!",
+  pIce:"Hielo 20 min",pPress:"Presión 10 min",pCook:"Cocinar 15 min",pBoil:"Hervir 5 min",
+  replay:"▶︎ Repetir movimiento",tapReplay:"Toca un diagrama para repetir"},
+ar:{quizStart:"🎯 ابدأ الاختبار",quizRetake:"🔁 أعد الاختبار",badgeGot:"🏅 تم الحصول على الشارة!",qLabel:"سؤال",
+  qCorrect:"صحيح! 🎉",qWrong:"ليس تماماً",qNext:"التالي",qFinish:"إنهاء",qScore:"نتيجتك",
+  qPass:"أحسنت! تم فتح الشارة! 🏅",qFail:"اقتربت! حاول مرة أخرى للحصول على الشارة.",
+  timer:"⏱️ مؤقّت",timers:"المؤقّتات",customMin:"دقائق (مخصص)",tStart:"ابدأ",tStop:"إيقاف",tReset:"تصفير",timeUp:"⏰ انتهى الوقت!",
+  pIce:"ثلج 20 د",pPress:"ضغط 10 د",pCook:"طبخ 15 د",pBoil:"غليان 5 د",
+  replay:"▶︎ إعادة الحركة",tapReplay:"انقر على رسم لإعادة الحركة"}
+};
+Object.keys(EXTRA).forEach(lg=>{ LANG[lg]=Object.assign(LANG[lg]||{},EXTRA[lg]); });
+</script>
+
+<script>
+/* ============================================================
+   HELPERS
+   ============================================================ */
+function L(obj){ if(!obj) return ''; return obj[S.lang] || obj.en || obj.he || ''; }
+function $(id){return document.getElementById(id);}
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2200); }
+
+const THEMES=['gold','forest','desert','ocean','crimson'];
+const THEME_COLORS={gold:'#d4af37',forest:'#6fbf73',desert:'#e0a458',ocean:'#4db8d4',crimson:'#d4746b'};
+const FONT_SCALE={kids:1.18, youth:1.0, adults:0.94};
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+let currentCat=null, currentItem=null, lastList=null;
+function go(screen){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(screen).classList.add('active');
+  window.scrollTo(0,0);
+  if(screen==='settings') renderSettings();
+  if(screen==='checklist') renderChecklist();
+}
+
+/* ============================================================
+   RENDER: HOME
+   ============================================================ */
+function renderHome(){
+  $('heroTitle').textContent = S.username ? L({he:"שלום, "+S.username,en:"Hi, "+S.username}) : T2('heroTitle');
+  const grid=$('catGrid');
+  let html='';
+  // emergency card first
+  html+=`<button class="cat emergency" onclick="openEmergency()">
+    <span class="bar"></span><span class="emoji">🚨</span>
+    <h3>${T('emergency')}</h3><small>${T('emergencyDesc')}</small></button>`;
+  for(const key of Object.keys(CONTENT)){
+    const c=CONTENT[key];
+    const earned=S.quizBadges.includes(key);
+    html+=`<button class="cat" onclick="openCat('${key}')">
+      <span class="bar"></span><span class="emoji">${catEmoji(key)}</span>
+      ${earned?'<span class="catbadge">🏅</span>':''}
+      <h3>${L(c.title)}</h3><small>${c.items.length} ${T('steps')==='Steps'?'topics':'נושאים'}</small></button>`;
+  }
+  // gear
+  html+=`<button class="cat" onclick="go('checklist')">
+    <span class="bar"></span><span class="emoji">🎒</span>
+    <h3>${T('gearTitle')}</h3><small>${GEAR.length} ${T('steps')==='Steps'?'items':'פריטים'}</small></button>`;
+  grid.innerHTML=html;
+}
+function catEmoji(k){ return {knots:'🪢',firstaid:'⛑️',fire:'🔥',shelter:'⛺',navigation:'🧭',signals:'📣',gear:'🧳',nature:'🌿'}[k]||'📘'; }
+function T2(k){ const map={heroTitle:{he:"המדריך לצופה",en:"Scout's Guide",ru:"Гид скаута",es:"Guía del explorador",ar:"دليل الكشافة"}}; return L(map[k]); }
+
+/* ============================================================
+   RENDER: CATEGORY LIST
+   ============================================================ */
+function openCat(key){
+  currentCat=key; lastList=key;
+  const c=CONTENT[key];
+  $('listTitle').textContent=L(c.title);
+  $('listSub').textContent=L(c.sub);
+  renderBadges(key);
+  const box=$('listItems'); let html='';
+  html+=quizCTA(key);
+  c.items.forEach(it=>{
+    const locked = it.kidsLock && S.age==='kids';
+    const fav = S.favorites.includes(it.id);
+    html+=`<div class="item" onclick="${locked?'':`openItem('${key}','${it.id}')`}" style="${locked?'opacity:.6':''}">
+      <div class="ic">${it.icon}</div>
+      <div class="meta"><h3>${L(it.title)}
+        ${it.difficulty==='easy'?`<span class="tag easy">${T('easy')}</span>`:''}
+        ${locked?`<span class="tag lock">🔒 ${T('adultsLock')}</span>`:''}
+      </h3><p>${L(it.lead)}</p></div>
+      <button class="star ${fav?'on':''}" onclick="event.stopPropagation();toggleFav('${it.id}')">${fav?'★':'☆'}</button>
+    </div>`;
+  });
+  box.innerHTML=html;
+  go('list');
+}
+
+/* ============================================================
+   RENDER: ITEM DETAIL
+   ============================================================ */
+function openItem(key,id){
+  currentCat=key; currentItem=id;
+  const it=CONTENT[key].items.find(x=>x.id===id);
+  let html=`<h1>${L(it.title)}</h1><p class="lead">${L(it.lead)}</p>`;
+  html+=`<button class="readbtn" onclick="readAloud('${key}','${id}')">🔊 ${T('readAloud')}</button>`;
+  if(it.safety && it.safety.length){
+    html+=`<div class="safety"><h4>⚠️ ${T('safetyTitle')}</h4><ul>`;
+    it.safety.forEach(s=>html+=`<li>${L(s)}</li>`);
+    html+=`</ul></div>`;
+  }
+  it.steps.forEach((st,i)=>{
+    html+=`<div class="step"><span class="num">${i+1}</span>`;
+    if(st.svg) html+=`<div class="diagram">${st.svg}</div>`;
+    html+=`<p>${L(st.text)}</p></div>`;
+  });
+  if(it.tips && it.tips.length){
+    html+=`<details class="tips adults-only" ${S.age==='adults'?'open':''}><summary>💡 ${T('tips')}</summary><div class="body"><ul>`;
+    it.tips.forEach(t=>html+=`<li>${L(t)}</li>`);
+    html+=`</ul></div></details>`;
+  }
+  // mark badge as learned
+  if(!S.badges.includes(id)){ S.badges.push(id); saveJSON('sg_badges',S.badges); }
+  $('detailBody').innerHTML=html;
+  go('detail');
+  animateDiagrams();
+}
+function goBackList(){ if(lastList) openCat(lastList); else go('home'); }
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+function renderBadges(key){
+  const c=CONTENT[key]; const bar=$('badgeBar'); let html='';
+  c.items.forEach(it=>{
+    const earned=S.badges.includes(it.id);
+    html+=`<div class="badge ${earned?'earned':''}"><div class="b-ic">${earned?'🏅':'⚪'}</div><small>${L(it.title)}</small></div>`;
+  });
+  bar.innerHTML = (S.age==='kids') ? html : ''; // badges shown in kids mode
+}
+
+/* ============================================================
+   FAVORITES
+   ============================================================ */
+function toggleFav(id){
+  const i=S.favorites.indexOf(id);
+  if(i>=0) S.favorites.splice(i,1); else S.favorites.push(id);
+  saveJSON('sg_fav',S.favorites);
+  if(currentCat) openCat(currentCat);
+}
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
+function doSearch(q){
+  const box=$('searchResults'); const grid=$('catGrid');
+  q=q.trim().toLowerCase();
+  if(!q){ box.innerHTML=''; grid.style.display='grid'; return; }
+  grid.style.display='none';
+  let results=[];
+  for(const key of Object.keys(CONTENT)){
+    CONTENT[key].items.forEach(it=>{
+      const hay=(L(it.title)+' '+L(it.lead)).toLowerCase();
+      if(hay.includes(q)) results.push({key,it});
+    });
+  }
+  if(!results.length){ box.innerHTML=`<p class="hint" style="text-align:center">${T('noResults')}</p>`; return; }
+  let html='';
+  results.forEach(r=>{
+    const locked=r.it.kidsLock&&S.age==='kids';
+    html+=`<div class="item" onclick="${locked?'':`openItem('${r.key}','${r.it.id}')`}" style="${locked?'opacity:.6':''}">
+      <div class="ic">${r.it.icon}</div>
+      <div class="meta"><h3>${L(r.it.title)} ${locked?`<span class="tag lock">🔒</span>`:''}</h3><p>${L(r.it.lead)}</p></div></div>`;
+  });
+  box.innerHTML=html;
+}
+
+/* ============================================================
+   EMERGENCY
+   ============================================================ */
+function openEmergency(){
+  let html=`<h1>🚨 ${T('emergency')}</h1><p class="lead">${T('emergencyDesc')}</p>`;
+  html+=`<div class="safety"><h4>${T('safetyTitle')}</h4><ul>`;
+  EMERGENCY.forEach(e=>html+=`<li><a href="tel:${e.n}" style="font-weight:800; font-size:1.15em">${e.n}</a> — ${L(e)}</li>`);
+  html+=`</ul></div>`;
+  html+=`<div class="step"><p><b>${L({he:"עד שמגיעה עזרה:",en:"Until help arrives:"})}</b><br>
+    ${L({he:"1. שמרו על קור רוח ורחקו מהסכנה.\\n2. אם הנפגע לא מגיב — בדקו נשימה.\\n3. תארו למוקד: מיקום מדויק, מה קרה, כמה נפגעים.\\n4. אל תנתקו עד שהמוקדן אומר.",en:"1. Stay calm and move away from danger.\\n2. If unresponsive — check breathing.\\n3. Tell dispatch: exact location, what happened, how many injured.\\n4. Don't hang up until told to."})}</p></div>`;
+  $('detailBody').innerHTML=html;
+  lastList=null;
+  go('detail');
+}
+
+/* ============================================================
+   READ ALOUD (TTS)
+   ============================================================ */
+function readAloud(key,id){
+  if(!('speechSynthesis' in window)){ toast('TTS not supported'); return; }
+  speechSynthesis.cancel();
+  const it=CONTENT[key].items.find(x=>x.id===id);
+  let text=L(it.title)+'. '+L(it.lead)+'. ';
+  it.steps.forEach((st,i)=>text+=(i+1)+'. '+L(st.text)+'. ');
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang={he:'he-IL',en:'en-US',ru:'ru-RU',es:'es-ES',ar:'ar-SA'}[S.lang]||'en-US';
+  u.rate=0.95;
+  speechSynthesis.speak(u);
+}
+
+/* ============================================================
+   CHECKLIST
+   ============================================================ */
+function renderChecklist(){
+  const box=$('checkItems'); let html='';
+  GEAR.forEach(g=>{
+    const on=S.checklist[g.id];
+    html+=`<button class="item" onclick="toggleGear('${g.id}')" style="${on?'border-color:var(--ok)':''}">
+      <div class="ic" style="${on?'background:var(--ok);color:#000':''}">${on?'✓':'○'}</div>
+      <div class="meta"><h3 style="${on?'text-decoration:line-through;opacity:.6':''}">${L(g)}</h3></div></button>`;
+  });
+  html+=`<button class="btn ghost" onclick="resetGear()" style="margin-top:8px">${T('gearReset')}</button>`;
+  box.innerHTML=html;
+}
+function toggleGear(id){ S.checklist[id]=!S.checklist[id]; saveJSON('sg_check',S.checklist); renderChecklist(); }
+function resetGear(){ S.checklist={}; saveJSON('sg_check',S.checklist); renderChecklist(); }
+
+/* ============================================================
+   SETTINGS
+   ============================================================ */
+const LANGS=[['he','עברית'],['en','English'],['ru','Русский'],['es','Español'],['ar','العربية']];
+function renderSettings(){
+  // age
+  document.querySelectorAll('[data-age-opt]').forEach(b=>b.classList.toggle('on',b.dataset.ageOpt===S.age));
+  // lang
+  $('langPills').innerHTML=LANGS.map(([code,name])=>
+    `<button class="pill ${S.lang===code?'on':''}" onclick="setLang('${code}')">${name}</button>`).join('');
+  // theme swatches
+  $('themeSwatches').innerHTML=THEMES.map(t=>
+    `<button class="swatch ${S.theme===t?'on':''}" style="background:${THEME_COLORS[t]}" onclick="setTheme('${t}')"></button>`).join('');
+  $('darkToggle').textContent = S.mode==='dark'?'🌙':'☀️';
+  $('usernameInput').value=S.username;
+  // ai
+  $('aiProvider').value=S.ai.provider;
+  $('aiKey').value=S.ai.key;
+  onProviderChange(true);
+}
+function setAge(a){ S.age=a; store.set('sg_age',a); document.body.setAttribute('data-age',a);
+  document.documentElement.style.setProperty('--font-scale',FONT_SCALE[a]); renderSettings(); }
+function setLang(code){ S.lang=code; store.set('sg_lang',code); applyLang(); renderSettings(); }
+function setTheme(t){ S.theme=t; store.set('sg_theme',t); document.body.setAttribute('data-theme',t); renderSettings();
+  document.querySelector('meta[name=theme-color]').content = S.mode==='dark'?'#0d0d0d':'#f4efe4'; }
+function toggleMode(){ S.mode = S.mode==='dark'?'light':'dark'; store.set('sg_mode',S.mode);
+  document.body.setAttribute('data-mode',S.mode); $('modeBtn').textContent=S.mode==='dark'?'🌙':'☀️';
+  if($('darkToggle')) $('darkToggle').textContent=S.mode==='dark'?'🌙':'☀️';
+  document.querySelector('meta[name=theme-color]').content=S.mode==='dark'?'#0d0d0d':'#f4efe4'; }
+function setUsername(v){ S.username=v; store.set('sg_user',v); }
+
+function applyLang(){
+  document.documentElement.lang=S.lang;
+  document.documentElement.dir=(S.lang==='he'||S.lang==='ar')?'rtl':'ltr';
+  document.querySelectorAll('[data-t]').forEach(el=>{ el.textContent=T(el.dataset.t); });
+  $('searchInput').placeholder=T('search');
+  $('brandName').textContent=T2('heroTitle');
+  $('heroSub').textContent=L({he:"מדריך הישרדות בשטח — לכל גיל, גם בלי אינטרנט",en:"Field survival guide — for all ages, even offline",ru:"Полевой гид выживания — для всех возрастов, даже офлайн",es:"Guía de supervivencia — para todas las edades, incluso sin internet",ar:"دليل البقاء في الطبيعة — لكل الأعمار، حتى دون إنترنت"});
+  renderHome();
+}
+
+/* ============================================================
+   BACKUP / RESTORE / SHARE / RESET
+   ============================================================ */
+function exportBackup(){
+  const data={app:"scout-guide",version:"1.0",user:S.username,date:new Date().toISOString(),
+    lang:S.lang,theme:S.theme,mode:S.mode,age:S.age,favorites:S.favorites,checklist:S.checklist,badges:S.badges};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`scout-backup-${S.username||'user'}-${new Date().toISOString().slice(0,10)}.json`; a.click();
+  toast(L({he:"הגיבוי יוצא",en:"Backup exported"}));
+}
+function importBackup(input){
+  const f=input.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{ const d=JSON.parse(r.result);
+    if(d.favorites) {S.favorites=d.favorites; saveJSON('sg_fav',S.favorites);}
+    if(d.checklist) {S.checklist=d.checklist; saveJSON('sg_check',S.checklist);}
+    if(d.badges) {S.badges=d.badges; saveJSON('sg_badges',S.badges);}
+    if(d.username!==undefined){S.username=d.username; store.set('sg_user',S.username);}
+    if(d.lang){setLang(d.lang);} if(d.theme){setTheme(d.theme);} if(d.age){setAge(d.age);}
+    toast(L({he:"הגיבוי שוחזר",en:"Backup restored"}));
+  }catch(e){ toast(L({he:"קובץ לא תקין",en:"Invalid file"})); } };
+  r.readAsText(f); input.value='';
+}
+function shareApp(){
+  if(navigator.share) navigator.share({title:"המדריך לצופה",text:L({he:"מדריך הישרדות בשטח לכל גיל",en:"Field survival guide for all ages"}),url:location.href});
+  else { navigator.clipboard.writeText(location.href); toast(L({he:"הקישור הועתק",en:"Link copied"})); }
+}
+function resetAll(){
+  if(!confirm(L({he:"למחוק את כל הנתונים? פעולה בלתי הפיכה.",en:"Delete all data? This cannot be undone."}))) return;
+  if(!confirm(L({he:"בטוח? אישור אחרון.",en:"Are you sure? Final confirmation."}))) return;
+  ['sg_fav','sg_check','sg_badges','sg_user','sg_ai'].forEach(k=>store.del(k));
+  S.favorites=[];S.checklist={};S.badges=[];S.username='';S.ai={provider:'gemini',key:'',model:''};
+  saveJSON('sg_ai',S.ai);
+  toast(L({he:"הנתונים נמחקו",en:"Data deleted"})); renderSettings(); renderHome();
+}
+
+/* ============================================================
+   ONBOARDING
+   ============================================================ */
+const OB=[
+  {emoji:'🧭', t:{he:"ברוכים הבאים למדריך לצופה!",en:"Welcome to the Scout's Guide!"}, d:{he:"כל מה שצריך לדעת בשטח — קשרים, עזרה ראשונה, אש ועוד. עובד גם בלי אינטרנט.",en:"Everything you need outdoors — knots, first aid, fire and more. Works offline too."}},
+  {emoji:'👶', t:{he:"בחרו גיל",en:"Choose your age"}, d:{he:"ילדים, נוער או בוגרים — האפליקציה מתאימה את הטקסט, הגודל ורמת הפירוט אליכם.",en:"Kids, youth or adults — the app adapts the text, size and detail level for you."}},
+  {emoji:'🌍', t:{he:"5 שפות, 5 ערכות צבע",en:"5 languages, 5 themes"}, d:{he:"החליפו שפה ועיצוב בכל רגע דרך ההגדרות.",en:"Switch language and design anytime in Settings."}},
+  {emoji:'🚨', t:{he:"מצב חירום תמיד זמין",en:"Emergency always ready"}, d:{he:"כפתור החירום בדף הבית נותן מספרי חירום ופעולות מיידיות.",en:"The emergency button on the home page gives numbers and quick actions."}},
+  {emoji:'🧭', t:{he:"שאל את המדריך",en:"Ask the Guide"}, d:{he:"יש שאלה? לחצו על הכפתור הצף. אפשר גם לחבר בינה חכמה משלכם בהגדרות.",en:"Got a question? Tap the floating button. You can also connect your own AI in Settings."}}
+];
+let obIdx=0;
+function showOnboarding(){ obIdx=0; renderOb(); $('obOverlay').classList.add('show'); }
+function renderOb(){
+  const o=OB[obIdx];
+  $('obEmoji').textContent=o.emoji; $('obTitle').textContent=L(o.t); $('obText').textContent=L(o.d);
+  $('obDots').innerHTML=OB.map((_,i)=>`<i class="${i===obIdx?'on':''}"></i>`).join('');
+  $('obBtn').textContent = obIdx===OB.length-1 ? L({he:"בואו נתחיל!",en:"Let's start!"}) : L({he:"הבא",en:"Next"});
+}
+function obNext(){ if(obIdx<OB.length-1){obIdx++; renderOb();} else closeOnboarding(); }
+function closeOnboarding(){ $('obOverlay').classList.remove('show'); store.set('sg_onboarded','1'); }
+
+/* ============================================================
+   AI ASSISTANT (BYOK, golden-rule model fallback)
+   ============================================================ */
+const AI_PROVIDERS={
+  gemini:{ help:{he:"שכבה חינמית ללא כרטיס אשראי. קבלו מפתח ב-aistudio.google.com/app/apikey",en:"Free tier, no credit card. Get a key at aistudio.google.com/app/apikey"},
+    default:'gemini-flash-latest', fallback:['gemini-flash-latest','gemini-2.5-flash','gemini-2.0-flash','gemini-1.5-flash'] },
+  claude:{ help:{he:"הכי מדויק. מפתח ב-console.anthropic.com",en:"Most accurate. Key at console.anthropic.com"},
+    default:'claude-3-5-haiku-latest', fallback:['claude-3-5-haiku-latest','claude-3-5-sonnet-latest','claude-3-haiku-20240307'] },
+  openai:{ help:{he:"מפתח ב-platform.openai.com",en:"Key at platform.openai.com"},
+    default:'gpt-4o-mini', fallback:['gpt-4o-mini','gpt-4o'] },
+  local:{ help:{he:"Ollama/LM Studio מקומי. כתובת ברירת מחדל: http://localhost:11434",en:"Local Ollama/LM Studio. Default: http://localhost:11434"},
+    default:'llama3.1', fallback:['llama3.1','llama3','mistral'] },
+  custom:{ help:{he:"כל endpoint תואם-OpenAI. הזינו URL בשדה המפתח בפורמט URL|KEY",en:"Any OpenAI-compatible endpoint. Enter URL in key field as URL|KEY"},
+    default:'', fallback:[] }
+};
+function onProviderChange(silent){
+  const p=$('aiProvider').value; S.ai.provider=p;
+  $('providerHelp').textContent=L(AI_PROVIDERS[p].help);
+  const sel=$('aiModel'); sel.innerHTML=AI_PROVIDERS[p].fallback.map(m=>`<option ${S.ai.model===m?'selected':''}>${m}</option>`).join('')||'<option>—</option>';
+  if(!silent) saveAiConfig();
+  updateAiDot();
+}
+function saveAiConfig(){
+  S.ai.provider=$('aiProvider').value; S.ai.key=$('aiKey').value.trim(); S.ai.model=$('aiModel').value;
+  saveJSON('sg_ai',S.ai); updateAiDot();
+}
+function updateAiDot(){ /* status handled per-call */ }
+async function refreshModels(){
+  const p=$('aiProvider').value; const key=$('aiKey').value.trim();
+  if(!key && (p==='gemini'||p==='openai'||p==='claude')){ toast(L({he:"הזינו מפתח קודם",en:"Enter a key first"})); return; }
+  $('aiStatus').textContent=L({he:"טוען מודלים...",en:"Loading models..."});
+  try{
+    let models=[];
+    if(p==='gemini'){
+      const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?key='+key);
+      const d=await r.json();
+      models=(d.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')).map(m=>m.name.replace('models/',''));
+    } else if(p==='openai'){
+      const r=await fetch('https://api.openai.com/v1/models',{headers:{Authorization:'Bearer '+key}});
+      const d=await r.json(); models=(d.data||[]).map(m=>m.id).filter(id=>id.includes('gpt'));
+    } else { models=AI_PROVIDERS[p].fallback; }
+    if(models.length){ $('aiModel').innerHTML=models.map(m=>`<option ${S.ai.model===m?'selected':''}>${m}</option>`).join('');
+      $('aiStatus').textContent=L({he:models.length+" מודלים נטענו ✓",en:models.length+" models loaded ✓"}); saveAiConfig(); }
+    else $('aiStatus').textContent=L({he:"לא נמצאו מודלים",en:"No models found"});
+  }catch(e){ $('aiStatus').textContent=L({he:"שגיאה: "+e.message,en:"Error: "+e.message}); }
+}
+async function testAi(){
+  $('aiStatus').textContent=L({he:"בודק...",en:"Testing..."});
+  try{ const ans=await callAI("Reply with the single word: OK"); 
+    $('aiStatus').textContent = ans ? '🟢 '+L({he:"חיבור תקין",en:"Connection OK"}) : '🔴 '+L({he:"אין תשובה",en:"No response"});
+  }catch(e){ $('aiStatus').textContent='🔴 '+e.message; }
+}
+async function callAI(prompt){
+  const p=S.ai.provider, key=(S.ai.key||'').split(/[,\n]/)[0].trim(), model=S.ai.model||AI_PROVIDERS[p].default;
+  const sys=L({he:"אתה מדריך צופים מנוסה ובטיחותי. ענה קצר, מעשי ובשפה של המשתמש. תמיד הדגש בטיחות; במקרה חירום הפנה למספרי חירום ולמבוגר אחראי. אינך מחליף ייעוץ רפואי מקצועי.",en:"You are an experienced, safety-first scouting guide. Answer briefly and practically in the user's language. Always emphasize safety; in emergencies refer to emergency numbers and a responsible adult. You do not replace professional medical advice."});
+  if(p==='gemini'){
+    const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:[{parts:[{text:prompt}]}]})});
+    const d=await r.json(); if(d.error) throw new Error(d.error.message);
+    return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+  }
+  if(p==='claude'){
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model,max_tokens:800,system:sys,messages:[{role:'user',content:prompt}]})});
+    const d=await r.json(); if(d.error) throw new Error(d.error.message);
+    return d.content?.[0]?.text||'';
+  }
+  // openai / local / custom (OpenAI-compatible)
+  let url='https://api.openai.com/v1/chat/completions', hdr={'Content-Type':'application/json'};
+  if(p==='openai') hdr.Authorization='Bearer '+key;
+  if(p==='local') url='http://localhost:11434/v1/chat/completions';
+  if(p==='custom'){ const parts=(S.ai.key||'').split('|'); url=parts[0]; if(parts[1]) hdr.Authorization='Bearer '+parts[1].trim(); }
+  const r=await fetch(url,{method:'POST',headers:hdr,body:JSON.stringify({model,messages:[{role:'system',content:sys},{role:'user',content:prompt}]})});
+  const d=await r.json(); if(d.error) throw new Error(d.error.message||'API error');
+  return d.choices?.[0]?.message?.content||'';
+}
+
+/* ---- Chat UI ---- */
+let chatHistory=loadJSON('sg_chat',[]);
+function openChat(){ $('chatPanel').classList.add('show'); renderChat(); }
+function closeChat(){ $('chatPanel').classList.remove('show'); }
+function clearChat(){ chatHistory=[]; saveJSON('sg_chat',chatHistory); renderChat(); }
+function renderChat(){
+  const body=$('chatBody');
+  if(!chatHistory.length){
+    body.innerHTML=`<div class="msg bot">${L({he:"שלום! אני המדריך שלך 🧭 שאל אותי כל שאלה על הישרדות, קשרים, עזרה ראשונה או אש.",en:"Hi! I'm your guide 🧭 Ask me anything about survival, knots, first aid or fire."})}</div>`;
+  } else {
+    body.innerHTML=chatHistory.map(m=>`<div class="msg ${m.role}">${m.text}</div>`).join('');
+  }
+  // suggestions
+  $('chatSug').innerHTML = chatHistory.length?'' : ['knotSug','fireSug','aidSug'].map(k=>{
+    const s={knotSug:{he:"איך קושרים קשר בית?",en:"How to tie a bowline?"},fireSug:{he:"איך מדליקים מדורה?",en:"How to light a fire?"},aidSug:{he:"מה עושים בכווייה?",en:"What to do for a burn?"}}[k];
+    return `<button onclick="askSug('${L(s).replace(/'/g,"")}')">${L(s)}</button>`;
+  }).join('');
+  body.scrollTop=body.scrollHeight;
+}
+function askSug(q){ $('chatText').value=q; sendChat(); }
+async function sendChat(){
+  const inp=$('chatText'); const q=inp.value.trim(); if(!q) return;
+  inp.value=''; chatHistory.push({role:'user',text:q});
+  // local content answer (Free mode)
+  const local=localAnswer(q);
+  if(!S.ai.key && S.ai.provider!=='local'){
+    chatHistory.push({role:'bot',text: local || L({he:"במצב חינם אני עונה מתוך תוכן המדריך. לתשובות חכמות יותר חברו מפתח בינה בהגדרות ⚙️",en:"In free mode I answer from the guide's content. For smarter answers, connect an AI key in Settings ⚙️"})});
+    saveJSON('sg_chat',chatHistory); renderChat(); return;
+  }
+  chatHistory.push({role:'bot',text:'…'}); renderChat();
+  try{
+    const ans=await callAI(q);
+    chatHistory[chatHistory.length-1]={role:'bot',text:ans||local||L({he:"לא הצלחתי לענות. נסה שוב.",en:"Couldn't answer. Try again."})};
+  }catch(e){
+    chatHistory[chatHistory.length-1]={role:'bot',text:(local?local+'\n\n':'')+'⚠️ '+e.message};
+  }
+  saveJSON('sg_chat',chatHistory); renderChat();
+}
+function localAnswer(q){
+  q=q.toLowerCase(); let best=null;
+  for(const key of Object.keys(CONTENT)){
+    for(const it of CONTENT[key].items){
+      const hay=(L(it.title)+' '+L(it.lead)).toLowerCase();
+      const words=q.split(/\s+/).filter(w=>w.length>2);
+      if(words.some(w=>hay.includes(w))){ best={key,it}; break; }
+    }
+    if(best) break;
+  }
+  if(!best) return null;
+  let t=`**${L(best.it.title)}**\n${L(best.it.lead)}\n\n`;
+  best.it.steps.forEach((st,i)=>t+=`${i+1}. ${L(st.text)}\n`);
+  return t;
+}
+function micInput(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ toast(L({he:"מיקרופון לא נתמך בדפדפן זה",en:"Mic not supported here"})); return; }
+  const rec=new SR(); rec.lang={he:'he-IL',en:'en-US',ru:'ru-RU',es:'es-ES',ar:'ar-SA'}[S.lang]||'en-US';
+  rec.onresult=e=>{ $('chatText').value=e.results[0][0].transcript; };
+  rec.start();
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+function init(){
+  document.body.setAttribute('data-theme',S.theme);
+  document.body.setAttribute('data-mode',S.mode);
+  document.body.setAttribute('data-age',S.age);
+  document.documentElement.style.setProperty('--font-scale',FONT_SCALE[S.age]);
+  $('modeBtn').textContent=S.mode==='dark'?'🌙':'☀️';
+  document.querySelector('meta[name=theme-color]').content=S.mode==='dark'?'#0d0d0d':'#f4efe4';
+  applyLang();
+  if(!store.get('sg_onboarded')) showOnboarding();
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+}
+init();
+</script>
+
+<script>
+/* ============================================================
+   QUIZZES
+   ============================================================ */
+function quizCTA(key){
+  if(!QUIZ[key]) return '';
+  const earned=S.quizBadges.includes(key);
+  return `<div class="quizcta">
+    <span style="font-size:1.8em">${earned?'🏅':'🎯'}</span>
+    <div class="qtxt"><b>${earned?T('badgeGot'):L({he:"בדוק את עצמך",en:"Test yourself"})}</b>
+      <small>${QUIZ[key].length} ${L({he:"שאלות",en:"questions"})}</small></div>
+    <button onclick="startQuiz('${key}')">${earned?T('quizRetake'):T('quizStart')}</button>
+  </div>`;
+}
+let qState=null;
+function startQuiz(key){ qState={key,i:0,score:0,answered:false}; renderQuiz(); $('quizOverlay').classList.add('show'); }
+function closeQuiz(){ $('quizOverlay').classList.remove('show'); if(currentCat===qState?.key) openCat(qState.key); qState=null; }
+function renderQuiz(){
+  const q=QUIZ[qState.key][qState.i];
+  let html=`<div class="qprog">${T('qLabel')} ${qState.i+1} / ${QUIZ[qState.key].length}</div>
+    <h2 style="text-align:start">${L(q.q)}</h2><div id="qopts">`;
+  q.opts.forEach((o,idx)=>{ html+=`<button class="qopt" data-idx="${idx}" onclick="answerQuiz(${idx})">${L(o)}</button>`; });
+  html+=`</div><div class="qfeedback" id="qfeedback"></div>
+    <button class="btn" id="qnext" style="display:none" onclick="nextQuiz()">${qState.i===QUIZ[qState.key].length-1?T('qFinish'):T('qNext')}</button>
+    <button class="btn ghost" style="margin-top:8px" onclick="closeQuiz()">✕</button>`;
+  $('quizModal').innerHTML=html;
+}
+function answerQuiz(idx){
+  if(qState.answered) return; qState.answered=true;
+  const q=QUIZ[qState.key][qState.i];
+  document.querySelectorAll('#qopts .qopt').forEach(b=>{
+    const i=+b.dataset.idx; b.onclick=null;
+    if(i===q.correct) b.classList.add('correct');
+    else if(i===idx) b.classList.add('wrong');
+  });
+  const ok=idx===q.correct; if(ok) qState.score++;
+  const fb=$('qfeedback'); fb.textContent=ok?T('qCorrect'):T('qWrong'); fb.style.color=ok?'var(--ok)':'var(--danger)';
+  $('qnext').style.display='block';
+}
+function nextQuiz(){
+  qState.answered=false;
+  if(qState.i<QUIZ[qState.key].length-1){ qState.i++; renderQuiz(); }
+  else finishQuiz();
+}
+function finishQuiz(){
+  const total=QUIZ[qState.key].length, pass=Math.ceil(total*0.7), passed=qState.score>=pass;
+  if(passed && !S.quizBadges.includes(qState.key)){ S.quizBadges.push(qState.key); saveJSON('sg_qbadges',S.quizBadges); }
+  $('quizModal').innerHTML=`<div class="ob-emoji">${passed?'🏅':'💪'}</div>
+    <div class="qscore">${qState.score} / ${total}</div>
+    <h2>${passed?T('qPass'):T('qFail')}</h2>
+    <button class="btn" style="margin-top:12px" onclick="startQuiz('${qState.key}')">${T('quizRetake')}</button>
+    <button class="btn ghost" style="margin-top:8px" onclick="closeQuiz()">✕</button>`;
+}
+
+/* ============================================================
+   TIMERS
+   ============================================================ */
+let tInt=null, tRemain=0;
+function openTimers(){ renderTimer(); $('timerOverlay').classList.add('show'); }
+function closeTimers(){ stopTimer(); $('timerOverlay').classList.remove('show'); }
+function renderTimer(){
+  $('timerModal').innerHTML=`<h2>${T('timers')}</h2>
+    <div class="tdisplay" id="tdisplay">${fmt(tRemain)}</div>
+    <div class="tpreset">
+      <button onclick="startTimer(20*60)">${T('pIce')}</button>
+      <button onclick="startTimer(10*60)">${T('pPress')}</button>
+      <button onclick="startTimer(15*60)">${T('pCook')}</button>
+      <button onclick="startTimer(5*60)">${T('pBoil')}</button>
+    </div>
+    <div class="trow"><input type="number" id="tcustom" min="1" max="180" placeholder="${T('customMin')}">
+      <button class="btn" style="width:auto" onclick="startCustom()">${T('tStart')}</button></div>
+    <div class="trow"><button class="btn ghost" onclick="stopTimer()">${T('tStop')}</button>
+      <button class="btn ghost" onclick="resetTimer()">${T('tReset')}</button></div>
+    <button class="btn ghost" style="margin-top:10px" onclick="closeTimers()">✕</button>`;
+}
+function fmt(s){ const m=Math.floor(s/60), ss=s%60; return `${m}:${ss<10?'0':''}${ss}`; }
+function startTimer(sec){ stopTimer(); tRemain=sec; updateT();
+  tInt=setInterval(()=>{ tRemain--; updateT(); if(tRemain<=0){ stopTimer(); timerDone(); } },1000); }
+function startCustom(){ const v=parseInt($('tcustom').value); if(v>0) startTimer(v*60); }
+function updateT(){ const d=$('tdisplay'); if(d) d.textContent=fmt(Math.max(0,tRemain)); }
+function stopTimer(){ if(tInt){ clearInterval(tInt); tInt=null; } }
+function resetTimer(){ stopTimer(); tRemain=0; updateT(); }
+function timerDone(){
+  toast(T('timeUp'));
+  try{ if(navigator.vibrate) navigator.vibrate([300,150,300,150,300]); }catch(e){}
+  try{ const ac=new(window.AudioContext||window.webkitAudioContext)();
+    for(let i=0;i<3;i++){ const o=ac.createOscillator(),g=ac.createGain();
+      o.connect(g); g.connect(ac.destination); o.frequency.value=880; o.type='sine';
+      const t=ac.currentTime+i*0.5; g.gain.setValueAtTime(0.001,t); g.gain.exponentialRampToValueAtTime(0.3,t+0.05);
+      g.gain.exponentialRampToValueAtTime(0.001,t+0.4); o.start(t); o.stop(t+0.42); }
+  }catch(e){}
+}
+
+/* ============================================================
+   DIAGRAM ANIMATION (rope "draws itself")
+   ============================================================ */
+function animateDiagrams(){
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  document.querySelectorAll('#detailBody .diagram').forEach(dg=>{
+    const svg=dg.querySelector('svg'); if(!svg) return;
+    const els=svg.querySelectorAll('path,polyline,line,polygon,ellipse,circle');
+    els.forEach((el,i)=>{
+      try{ const len=el.getTotalLength(); if(!len||len>4000) return;
+        el.setAttribute('data-draw',''); el.style.setProperty('--len',len);
+        el.style.animationDelay=(i*0.12)+'s';
+      }catch(e){}
+    });
+    dg.classList.remove('anim'); void dg.offsetWidth; dg.classList.add('anim');
+    dg.onclick=()=>{ dg.classList.remove('anim'); void dg.offsetWidth; dg.classList.add('anim'); };
+  });
+}
+
+/* close overlays on backdrop tap */
+['quizOverlay','timerOverlay','obOverlay'].forEach(id=>{
+  const el=$(id); if(el) el.addEventListener('click',e=>{ if(e.target===el){ if(id==='timerOverlay')closeTimers(); else if(id==='quizOverlay')closeQuiz(); else closeOnboarding(); }});
+});
+</script>
+</body>
+</html>
