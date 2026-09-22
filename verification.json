@@ -1,0 +1,125 @@
+{
+  "edition": 4,
+  "release": "4.0.0-7305c24898d7",
+  "date": "2026-09-21T15:07:37.662Z",
+  "topics": 140,
+  "illustratedTopics": 140,
+  "missingIllustrations": 0,
+  "illustrationViews": 241,
+  "newlyIllustratedTopics": 85,
+  "newViews": 109,
+  "generatedPlates": 84,
+  "comparisonTopics": 1,
+  "steps": 507,
+  "basicStepImagesPreserved": 68,
+  "unit": {
+    "date": "2026-09-21T14:49:16.313Z",
+    "scriptCount": 18,
+    "topics": 140,
+    "steps": 507,
+    "expandedNotes": 140,
+    "illustratedGuides": 20,
+    "tests": [
+      {
+        "name": "140 stable topics and expanded notes",
+        "status": "passed"
+      },
+      {
+        "name": "All 140 details and every step render without errors",
+        "status": "passed"
+      },
+      {
+        "name": "All 8 category lists render; favourites and basics render",
+        "status": "passed"
+      },
+      {
+        "name": "Every medical guide has paired HE/EN steps and source references",
+        "status": "passed"
+      },
+      {
+        "name": "Favourite stays on guide; practice is separate from reading",
+        "status": "passed"
+      },
+      {
+        "name": "Backup round trip preserves all preferences and excludes credentials",
+        "status": "passed"
+      },
+      {
+        "name": "Malformed backup rejected before any mutation",
+        "status": "passed"
+      },
+      {
+        "name": "Chat treats content as text and prevents HTML injection",
+        "status": "passed"
+      },
+      {
+        "name": "Local answers include medical warning and respect age restrictions",
+        "status": "passed"
+      },
+      {
+        "name": "Read aloud includes warnings and expanded guide content",
+        "status": "passed"
+      },
+      {
+        "name": "Timer uses a deadline and keeps running when its panel closes",
+        "status": "passed"
+      },
+      {
+        "name": "Local storage fallback returns latest session value",
+        "status": "passed"
+      },
+      {
+        "name": "No relative orientation shown as north",
+        "status": "passed"
+      },
+      {
+        "name": "Every basic illustration exists",
+        "status": "passed"
+      },
+      {
+        "name": "All 140 application topics have complete local artwork",
+        "status": "passed"
+      },
+      {
+        "name": "All 68 basic step images use the new artwork in both languages",
+        "status": "passed"
+      },
+      {
+        "name": "All topic screens and steps avoid retired instructional artwork",
+        "status": "passed"
+      },
+      {
+        "name": "Illustration search, category filter and zoom use the selected image",
+        "status": "passed"
+      },
+      {
+        "name": "Concurrent send prevented; stale response after clear ignored",
+        "status": "passed"
+      }
+    ],
+    "limits": [
+      "DOM unit harness; browser visual and interaction results recorded separately.",
+      "No live API credentials, physical compass, real emergency call or clinical certification tested."
+    ]
+  },
+  "assets": {
+    "rasterImagesDecoded": 240,
+    "vectorIllustrations": 1,
+    "allImagesInOfflineCache": true,
+    "precacheFiles": 340
+  },
+  "browser": {
+    "desktop": "Default viewport approximately 1265 by 712: gallery and new topic detail reviewed.",
+    "mobile": "390 by 844 viewport: Hebrew topic detail and image inspected; document scroll width equals client width (375 px, scrollbar excluded).",
+    "search": "Hebrew caption and title search passed; medical filter returns 26 illustrated topics; complete library shows 140.",
+    "zoom": "New eye illustration opened in dialog and enlarged to 200%.",
+    "offline": "Local HTTP server stopped; page reloaded successfully; newly illustrated Buntline guide and its 1536 px image loaded from browser cache.",
+    "update": "New release notification and reload action passed; edition 4 footer visible."
+  },
+  "visualReview": "All 85 added topic covers reviewed in contact sheets; generated panels inspected during generation; complex knot images revised against credited reference photographs or diagrams.",
+  "limits": [
+    "Illustrations are learning aids, not certified tying diagrams or clinical validation.",
+    "Professional review of technical rope skills and medical content remains necessary before educational deployment.",
+    "No physical rescue, emergency calls, device compass or paid AI API calls were tested."
+  ]
+}

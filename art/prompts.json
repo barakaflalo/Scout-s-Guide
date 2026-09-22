@@ -1,0 +1,56 @@
+[
+  {
+    "id": "hero",
+    "prompt": "Use case: photorealistic-natural. Create a premium editorial outdoor photograph for the Hebrew Scout's Guide educational app. Wide landscape 3:2 composition, professional adventure magazine quality, naturally textured photographic detail. A beautiful olive-green trekking backpack, neatly coiled ochre rope, folded cream topographic map and a simple unbranded baseplate compass arranged on a warm limestone rock at a Mediterranean pine-forest campsite. Background distant hazy limestone hills at soft golden morning light, muted forest greens, ochre accents, warm ivory, charcoal shadows. The kit is grouped on the LEFT half; right half is quiet softly shaded forest background that will take right-aligned Hebrew UI text. Authentic proportions, subtle cinematic depth, clean sophisticated composition, no people, no visible fire, no logos, no letters, no captions, no watermark, no interface. This is a cover photograph, not a technical instruction diagram.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "knots",
+    "prompt": "Create one premium photorealistic outdoor editorial image for an educational field-guide app, landscape 3:2. Real tactile detail, natural Mediterranean morning light, muted olive green, warm ivory, ochre and charcoal palette, sophisticated clean composition. No text, no brand logos, no watermark, no collage, no interface, no humans. Cover photograph only, not an instructional diagram. A carefully arranged coil of thick mustard-gold braided utility rope and a smaller teal cord coil on pale limestone with a small weathered wooden post. Close-up shows gorgeous rope fibre details; no complex knot or climbing equipment. Main objects centered and clearly visible.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "navigation",
+    "prompt": "Create one premium photorealistic outdoor editorial image for an educational field-guide app, landscape 3:2. Real tactile detail, natural Mediterranean morning light, muted olive green, warm ivory, ochre and charcoal palette, sophisticated clean composition. No text, no brand logos, no watermark, no collage, no interface, no humans. Cover photograph only, not an instructional diagram. A clear unbranded baseplate compass lying on a folded topographical map on a weathered wooden trail table. Background softly blurred rolling pine hills. Map has delicate contour lines but no readable labels. Beautiful precise-looking optical glass and warm paper detail. Main objects centered.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "shelter",
+    "prompt": "Create one premium photorealistic outdoor editorial image for an educational field-guide app, landscape 3:2. Real tactile detail, natural Mediterranean morning light, muted olive green, warm ivory, ochre and charcoal palette, sophisticated clean composition. No text, no brand logos, no watermark, no collage, no interface, no humans. Cover photograph only, not an instructional diagram. A professionally pitched muted olive and sand dome tent on a level designated camping pad in an open Mediterranean pine woodland, broad safe clearing, distant warm rocky hills, restrained ochre guy lines. No fire anywhere. Magazine-quality tactile fabric and dappled gentle morning light. Tent occupies center of frame.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "fire",
+    "prompt": "Create one premium photorealistic outdoor editorial image for an educational field-guide app, landscape 3:2. Real tactile detail, natural Mediterranean morning light, muted olive green, warm ivory, ochre and charcoal palette, sophisticated clean composition. No text, no brand logos, no watermark, no collage, no interface, no humans. Cover photograph only, not an instructional diagram. A very small controlled campfire with a few logs burning inside an established steel campground fire ring in a wide cleared gravel campground pad, a full metal water bucket prominently beside the ring. Surrounding ground is bare mineral gravel with no flammable brush nearby and no branches overhead. Warm twilight, shallow depth of field. Keep flames modest, composition centered and calmly educational.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "firstaid",
+    "prompt": "One premium photorealistic outdoor editorial photograph for an educational Scout's Guide app. Landscape 3:2, professional magazine quality, authentic tactile detail, restrained olive green and warm limestone palette with small ochre accents, gentle natural light, centered clean composition. No text or brand logos or watermark, no humans. Not a medical or navigation instruction diagram. An open rust-red hiking first-aid pouch on a light wooden campsite table, neatly organized unopened sterile white gauze packets with blank labels, a rolled bandage, blue nitrile gloves, blunt-tip small scissors and a silver emergency blanket. Soft woodland background, calm reassuring visual, no medicine pills, no injuries, no red-cross emblem.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "signals",
+    "prompt": "One premium photorealistic outdoor editorial photograph for an educational Scout's Guide app. Landscape 3:2, professional magazine quality, authentic tactile detail, restrained olive green and warm limestone palette with small ochre accents, gentle natural light, centered clean composition. No text or brand logos or watermark, no humans. Not a medical or navigation instruction diagram. A vivid ochre emergency whistle, a compact signal mirror and an unbranded dark olive headlamp arranged neatly on a sunlit limestone rock overlooking distant open hills. Gorgeous close macro texture, mirror angled toward the ground with no strong reflection, no distress situation, no signal aimed at aircraft.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "nature",
+    "prompt": "One premium photorealistic outdoor editorial photograph for an educational Scout's Guide app. Landscape 3:2, professional magazine quality, authentic tactile detail, restrained olive green and warm limestone palette with small ochre accents, gentle natural light, centered clean composition. No text or brand logos or watermark, no humans. Not a medical or navigation instruction diagram. A beautiful quiet Mediterranean woodland walking trail through limestone rocks, olive and pine trees, intricate foreground leaves, distant soft golden hills. A small unmarked wooden trail post, natural ecological atmosphere, high-end landscape photograph, no animals, no edible plant identification emphasis.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  },
+  {
+    "id": "packing",
+    "prompt": "One premium photorealistic outdoor editorial photograph for an educational Scout's Guide app. Landscape 3:2, professional magazine quality, authentic tactile detail, restrained olive green and warm limestone palette with small ochre accents, gentle natural light, centered clean composition. No text or brand logos or watermark, no humans. Not a medical or navigation instruction diagram. Use case scientific-educational illustration: create a sophisticated 3D cutaway of a REAL olive-green trekking backpack isolated on warm ivory studio background. Show the entire bag in a side three-quarter view with the shoulder straps and padded BACK PANEL clearly on RIGHT. Remove a section of outer front fabric to reveal organized contents: a soft ochre sleeping-bag roll at BOTTOM; a compact heavy cooking pot and food container in the MIDDLE immediately against the RIGHT back panel; lightweight folded clothing surrounding them; a rolled rain jacket and small red first-aid pouch at TOP for quick access; water bottle in side pocket. Very polished outdoor equipment editorial illustration with physically convincing nylon weave, zips, straps, soft studio shadows. No labels, letters, arrows or numbers. One bag only, not a collage. Clear spatial zones, no magical floating items. This is a general packing example, not a product claim.",
+    "tool": "built-in image_gen",
+    "date": "2026-09-21"
+  }
+]

@@ -1,17 +1,26 @@
 {
-  "name": "המדריך לצופה — Scout's Guide",
+  "name": "המדריך לצופה — מהדורת שטח",
   "short_name": "המדריך לצופה",
-  "description": "מדריך הישרדות בשטח לכל גיל — קשרים, עזרה ראשונה, אש ועוד. עובד גם בלי אינטרנט.",
+  "description": "140 מדריכים לשטח, איורים, ציוד ותרגול. תוכן אופליין לאחר הורדה מלאה.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0d0d0d",
-  "theme_color": "#0d0d0d",
+  "background_color": "#f6f3eb",
+  "theme_color": "#243b30",
   "lang": "he",
   "dir": "rtl",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
   ]
 }

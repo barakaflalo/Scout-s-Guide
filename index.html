@@ -200,7 +200,26 @@ a{color:var(--accent);}
 }
 @keyframes draw{to{stroke-dashoffset:0;}}
 .diagram{cursor:pointer;}
+/* red night-vision filter */
+#redFilter{position:fixed; inset:0; background:#ff0000; mix-blend-mode:multiply; opacity:0; pointer-events:none; z-index:200; transition:opacity .3s;}
+html.redmode{filter:brightness(.85) saturate(.5);}
+html.redmode #redFilter{opacity:.55;}
+/* SOS full-screen flasher */
+#sosScreen{position:fixed; inset:0; z-index:300; background:#000; display:none; flex-direction:column; align-items:center; justify-content:center; cursor:pointer;}
+#sosScreen.show{display:flex;}
+#sosScreen.flash{background:#fff;}
+#sosText{font-size:3em; font-weight:800; color:#e0524d; letter-spacing:.3em;}
+#sosScreen.flash #sosText{color:#000;}
+#sosHint{color:#888; margin-top:16px; font-size:.9em;}
+/* live compass */
+.compassRose{width:220px; height:220px; margin:10px auto; transition:transform .1s linear;}
+.compassHeading{font-size:2.2em; font-weight:800; color:var(--accent); font-variant-numeric:tabular-nums;}
+.compassCard{color:var(--muted); font-size:1.1em; margin-bottom:8px;}
 </style>
+<link rel="stylesheet" href="visual-upgrade.css">
+<link rel="stylesheet" href="basics.css">
+<link rel="stylesheet" href="pro.css">
+<link rel="stylesheet" href="illustrations.css">
 </head>
 <body data-theme="gold" data-mode="dark" data-age="youth">
 
@@ -238,7 +257,7 @@ a{color:var(--accent);}
     <input id="searchInput" oninput="doSearch(this.value)" placeholder="חיפוש...">
   </div>
 
-  <div id="searchResults"></div>
+  <div id="searchResults"></div><div id="visualFeatured"></div>
 
   <div class="grid" id="catGrid"></div>
 
@@ -256,7 +275,7 @@ a{color:var(--accent);}
 
 <!-- ============ DETAIL ============ -->
 <section id="detail" class="screen detail">
-  <button class="backbtn" onclick="go('list')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <button class="backbtn" onclick="goBackList()"><span>→</span> <span data-t="back">חזרה</span></button>
   <div id="detailBody"></div>
 </section>
 
@@ -266,6 +285,21 @@ a{color:var(--accent);}
   <h1 style="color:var(--accent)" data-t="gearTitle">רשימת ציוד</h1>
   <p class="hint" data-t="gearSub" style="margin-bottom:14px">סמן מה ארזת לפני היציאה</p>
   <div id="checkItems"></div>
+</section>
+
+<!-- ============ FAVORITES ============ -->
+<section id="favorites" class="screen">
+  <button class="backbtn" onclick="go('home')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <h1 style="color:var(--accent)" data-t="favTitle">⭐ מועדפים</h1>
+  <p class="hint" data-t="favSub" style="margin-bottom:14px">כל הנושאים שסימנת — במקום אחד</p>
+  <div id="favItems"></div>
+</section>
+
+<!-- ============ ACHIEVEMENTS ============ -->
+<section id="achievements" class="screen">
+  <button class="backbtn" onclick="go('home')"><span>→</span> <span data-t="back">חזרה</span></button>
+  <h1 style="color:var(--accent)" data-t="achTitle">🏅 הישגים</h1>
+  <div id="achBody"></div>
 </section>
 
 <!-- ============ SETTINGS ============ -->
@@ -294,6 +328,10 @@ a{color:var(--accent);}
     <div class="row" style="margin-top:6px">
       <label data-t="darkMode">מצב לילה</label>
       <button class="pill" id="darkToggle" onclick="toggleMode()">🌙</button>
+    </div>
+    <div class="row">
+      <label data-t="redMode">🔴 מצב ראיית לילה (אדום)</label>
+      <button class="pill" id="redToggle" onclick="toggleRed()">off</button>
     </div>
   </div>
 
@@ -349,10 +387,10 @@ a{color:var(--accent);}
   <div style="text-align:center; padding:20px 0">
     <div style="font-size:3em">🧭</div>
     <h1 style="color:var(--accent)">המדריך לצופה</h1>
-    <p class="hint" id="aboutVer">גרסה 1.1</p>
+    <p class="hint" id="aboutVer">מהדורת שטח 2.0</p>
   </div>
   <div class="card">
-    <div class="row"><label data-t="version">גרסה</label><b>1.1</b></div>
+    <div class="row"><label data-t="version">גרסה</label><b>2.0</b></div>
     <div class="row"><label data-t="developer">פותח</label><b>Barak Aflalo</b></div>
     <div class="row"><label>פלטפורמה</label><b>PWA · HTML5</b></div>
     <div class="row"><label data-t="storage">אחסון</label><b data-t="onDevice">על המכשיר בלבד</b></div>
@@ -404,6 +442,10 @@ a{color:var(--accent);}
 
 <div class="overlay" id="quizOverlay"><div class="modal" id="quizModal"></div></div>
 <div class="overlay" id="timerOverlay"><div class="modal" id="timerModal"></div></div>
+<div class="overlay" id="compassOverlay"><div class="modal" id="compassModal"></div></div>
+<div class="overlay" id="safetyOverlay"><div class="modal" id="safetyModal"></div></div>
+<div id="sosScreen" onclick="closeSOS()"><div id="sosText">SOS</div><div id="sosHint"></div></div>
+<div id="redFilter"></div>
 
 <div class="toast" id="toast"></div>
 
@@ -1279,6 +1321,896 @@ ar:{quizStart:"🎯 ابدأ الاختبار",quizRetake:"🔁 أعد الاخ�
   replay:"▶︎ إعادة الحركة",tapReplay:"انقر على رسم لإعادة الحركة"}
 };
 Object.keys(EXTRA).forEach(lg=>{ LANG[lg]=Object.assign(LANG[lg]||{},EXTRA[lg]); });
+
+const EXTRA2={
+he:{favTitle:"⭐ מועדפים",favSub:"כל הנושאים שסימנת — במקום אחד",favEmpty:"עדיין לא סימנת נושאים. הקש ☆ ליד נושא כדי לשמור אותו כאן.",
+  achTitle:"🏅 הישגים",achStreak:"ימים ברצף",achBadges:"תגים",achViewed:"נלמדו",achBadgeWall:"קיר התגים",
+  redMode:"🔴 מצב ראיית לילה (אדום)",sosBtn:"אות מצוקה SOS",liveCompass:"מצפן חי",close:"סגור",
+  safetyAckTitle:"רגע לפני שמתחילים",safetyAckText:"התוכן כאן הוא מידע חינוכי כללי בלבד, אינו מחליף טיפול רפואי, ומיועד לביצוע בליווי מבוגר אחראי. במצב חירום התקשרו 101.",safetyAckBtn:"הבנתי, אני ממשיך",
+  compassTitle:"מצפן חי",compassPermBtn:"הפעל מצפן",compassPermMsg:"הקש 'הפעל מצפן' כדי לאשר גישה לחיישן.",compassNo:"המצפן אינו נתמך במכשיר או בדפדפן הזה.",sosStop:"הקש בכל מקום כדי לעצור"},
+en:{favTitle:"⭐ Favorites",favSub:"Everything you starred — in one place",favEmpty:"You haven't starred anything yet. Tap ☆ next to a topic to save it here.",
+  achTitle:"🏅 Achievements",achStreak:"day streak",achBadges:"badges",achViewed:"learned",achBadgeWall:"Badge wall",
+  redMode:"🔴 Night-vision mode (red)",sosBtn:"SOS distress signal",liveCompass:"Live compass",close:"Close",
+  safetyAckTitle:"One moment before we start",safetyAckText:"This content is general educational information only, does not replace medical care, and is meant to be done with a responsible adult. In an emergency call your local services.",safetyAckBtn:"I understand, continue",
+  compassTitle:"Live compass",compassPermBtn:"Enable compass",compassPermMsg:"Tap 'Enable compass' to allow sensor access.",compassNo:"The compass isn't supported on this device or browser.",sosStop:"Tap anywhere to stop"},
+ru:{favTitle:"⭐ Избранное",favSub:"Всё, что вы отметили — в одном месте",favEmpty:"Вы пока ничего не отметили. Нажмите ☆ рядом с темой, чтобы сохранить её здесь.",
+  achTitle:"🏅 Достижения",achStreak:"дней подряд",achBadges:"значки",achViewed:"изучено",achBadgeWall:"Стена значков",
+  redMode:"🔴 Ночной режим (красный)",sosBtn:"Сигнал бедствия SOS",liveCompass:"Живой компас",close:"Закрыть",
+  safetyAckTitle:"Один момент перед началом",safetyAckText:"Это только общая образовательная информация, не заменяет медицинскую помощь и предназначена для выполнения со взрослым. В экстренной ситуации звоните в службы.",safetyAckBtn:"Понятно, продолжить",
+  compassTitle:"Живой компас",compassPermBtn:"Включить компас",compassPermMsg:"Нажмите 'Включить компас' для доступа к датчику.",compassNo:"Компас не поддерживается на этом устройстве.",sosStop:"Нажмите, чтобы остановить"},
+es:{favTitle:"⭐ Favoritos",favSub:"Todo lo que marcaste — en un lugar",favEmpty:"Aún no marcaste nada. Toca ☆ junto a un tema para guardarlo aquí.",
+  achTitle:"🏅 Logros",achStreak:"días seguidos",achBadges:"insignias",achViewed:"aprendidos",achBadgeWall:"Muro de insignias",
+  redMode:"🔴 Modo visión nocturna (rojo)",sosBtn:"Señal de socorro SOS",liveCompass:"Brújula en vivo",close:"Cerrar",
+  safetyAckTitle:"Un momento antes de empezar",safetyAckText:"Este contenido es solo información educativa general, no sustituye la atención médica y debe hacerse con un adulto responsable. En una emergencia llama a los servicios.",safetyAckBtn:"Entendido, continuar",
+  compassTitle:"Brújula en vivo",compassPermBtn:"Activar brújula",compassPermMsg:"Toca 'Activar brújula' para permitir el sensor.",compassNo:"La brújula no es compatible con este dispositivo.",sosStop:"Toca en cualquier lugar para parar"},
+ar:{favTitle:"⭐ المفضلة",favSub:"كل ما حددته — في مكان واحد",favEmpty:"لم تحدد شيئاً بعد. انقر ☆ بجانب موضوع لحفظه هنا.",
+  achTitle:"🏅 الإنجازات",achStreak:"أيام متتالية",achBadges:"شارات",achViewed:"تعلّمت",achBadgeWall:"جدار الشارات",
+  redMode:"🔴 وضع الرؤية الليلية (أحمر)",sosBtn:"إشارة استغاثة SOS",liveCompass:"بوصلة حية",close:"إغلاق",
+  safetyAckTitle:"لحظة قبل أن نبدأ",safetyAckText:"هذا المحتوى معلومات تعليمية عامة فقط، لا يغني عن الرعاية الطبية، ويجب تنفيذه بإشراف شخص بالغ. في الطوارئ اتصل بخدمات الطوارئ.",safetyAckBtn:"فهمت، متابعة",
+  compassTitle:"بوصلة حية",compassPermBtn:"تفعيل البوصلة",compassPermMsg:"انقر 'تفعيل البوصلة' للسماح بالوصول للمستشعر.",compassNo:"البوصلة غير مدعومة على هذا الجهاز.",sosStop:"انقر في أي مكان للإيقاف"}
+};
+Object.keys(EXTRA2).forEach(lg=>{ LANG[lg]=Object.assign(LANG[lg]||{},EXTRA2[lg]); });
+
+/* ============================================================
+   ROUND 4 — upgraded knot diagrams + deeper content
+   ============================================================ */
+/* two-strand rope diagram helpers (gap = show which strand is on top) */
+const _A='var(--accent)', _B='var(--muted)', _BG='var(--card2)';
+function sg(d,c,w){return `<path d="${d}" fill="none" stroke="${c||_A}" stroke-width="${w||9}" stroke-linecap="round"/>`;}
+function gp(d){return `<path d="${d}" fill="none" stroke="${_BG}" stroke-width="20" stroke-linecap="round"/>`;}
+function post(){return `<rect x="140" y="8" width="18" height="134" rx="4" fill="${_B}" opacity=".5"/>`;}
+function ropeCircle(cx,cy,r,c,w){return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${c||_A}" stroke-width="${w||9}"/>`;}
+function K(inner){return `<svg viewBox="0 0 300 150">${inner}</svg>`;}
+
+/* upgraded diagrams for existing knots, applied over the originals */
+const KDIAG={
+  reef:[
+    K(sg('M45 125 L255 35',_B)+gp('M170 62 L130 98')+sg('M45 35 L255 125',_A)),
+    K(sg('M40 120 C40 55 130 55 130 100',_A)+gp('M120 70 L140 70')+sg('M130 100 C130 55 220 55 260 120',_B)),
+    K(sg('M40 60 C110 60 110 110 150 110',_A)+gp('M150 92 L150 128')+sg('M150 110 C190 110 190 60 260 60',_B)),
+    K(sg('M25 75 C25 40 95 40 95 75 C95 110 155 110 155 75',_A)+gp('M150 60 L150 90')+sg('M275 75 C275 110 205 110 205 75 C205 40 145 40 145 75',_B))
+  ],
+  bowline:[
+    K(sg('M150 20 L150 135',_B)+sg('M150 95 C120 95 120 60 150 60 C175 60 175 95 150 95',_A)),
+    K(sg('M150 20 L150 135',_B)+sg('M150 95 C120 95 120 60 150 60 C175 60 175 95 150 95',_A)+gp('M150 78 L150 55')+sg('M150 78 L150 30',_A)),
+    K(sg('M150 20 L150 135',_B)+ropeCircle(150,88,26,_A)+gp('M150 55 L150 40')+sg('M150 62 C150 30 110 30 110 55',_A)),
+    K(ropeCircle(120,95,34,_A)+gp('M120 58 L150 58')+sg('M150 62 C150 30 118 30 118 60',_A)+sg('M120 130 L120 145',_B))
+  ],
+  halfhitch:[
+    K(post()+sg('M35 60 C90 60 120 45 158 45',_A)),
+    K(post()+sg('M35 62 L120 62',_A)+ropeCircle(96,62,20,_A)+gp('M96 42 L112 50')),
+    K(post()+sg('M35 62 L96 62',_A)+ropeCircle(82,62,18,_A)+ropeCircle(120,62,18,_A)+sg('M138 62 L150 55',_A))
+  ],
+  fig8:[
+    K(sg('M60 130 L120 130 C165 130 165 40 120 40 C95 40 95 95 150 95',_A)),
+    K(sg('M55 130 L110 130 C155 130 155 35 118 35 C95 35 95 100 165 100 L210 100',_A)+gp('M118 70 L145 70')),
+    K(sg('M70 110 C70 55 120 55 120 110 C120 140 175 140 175 90 C175 65 140 65 140 90',_A)+gp('M120 92 L120 122'))
+  ]
+};
+Object.keys(KDIAG).forEach(id=>{ const it=CONTENT.knots.items.find(x=>x.id===id);
+  if(it) it.steps.forEach((st,i)=>{ if(KDIAG[id][i]!==undefined) st.svg=KDIAG[id][i]; }); });
+
+/* ---- NEW KNOTS ---- */
+CONTENT.knots.items.push(
+  {
+    id:"clove", difficulty:"easy",
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><rect x="18" y="6" width="4" height="28" fill="var(--muted)" stroke="none"/><path d="M8 14 h24 M8 24 h24"/></svg>',
+    title:{he:"קשר מהוי (ראשי)",en:"Clove hitch"},
+    lead:{he:"קושר חבל לעמוד או ענף במהירות — בסיס לבניית מתקני שטח.",en:"Ties a rope to a post or branch quickly — the basis for pioneering."},
+    safety:[{he:"עלול להשתחרר אם העומס משתנה כיוון — לחיזוק, סיימו בחצי מלה.",en:"Can loosen if the load changes direction — finish with a half hitch to secure."}],
+    steps:[
+      {text:{he:"העבירו את החבל סביב העמוד פעם אחת, מלמעלה כלפי מטה.",en:"Pass the rope around the post once, top to bottom."},
+       svg:K(post()+sg('M35 55 C90 55 150 35 158 35',_A)+gp('M149 8 L149 52')+sg('M149 40 L149 100',_A))},
+      {text:{he:"הצליבו מעל החבל הראשי והקיפו שוב את העמוד.",en:"Cross over the standing part and go around the post again."},
+       svg:K(post()+sg('M35 60 L149 60',_A)+sg('M149 60 C120 90 175 95 158 60',_A)+gp('M149 40 L149 56')+sg('M149 48 L149 85',_A))},
+      {text:{he:"השחילו את הקצה מתחת ללולאה האחרונה ומשכו חזק.",en:"Tuck the end under the last wrap and pull tight."},
+       svg:K(post()+sg('M35 60 L149 60',_A)+ropeCircle(149,58,22,_A)+sg('M149 80 L200 95',_A)+gp('M149 40 L149 55'))}
+    ],
+    tips:[{he:"קל להתחיל אותו על קצה עמוד: עושים שתי לולאות זהות, מניחים אחת על השנייה, ומשחילים על העמוד.",en:"Easy over a post end: make two identical loops, stack one on the other, and drop them over the post."}]
+  },
+  {
+    id:"tautline", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M20 6 L20 34"/><path d="M14 14 a8 8 0 1 0 12 0 M14 22 a8 8 0 0 0 12 0"/></svg>',
+    title:{he:"קשר מתיחה (לאוהל)",en:"Taut-line hitch"},
+    lead:{he:"לולאה שאפשר להזיז לאורך החבל — מותחים ומרפים מיתרי אוהל בלי לפתוח.",en:"An adjustable loop you can slide along the rope — tighten or loosen tent guy lines without untying."},
+    safety:[],
+    steps:[
+      {text:{he:"העבירו את החבל סביב היתד וחזרה למעלה, ליד החבל הראשי.",en:"Pass the rope around the stake and back up, beside the standing part."},
+       svg:K(sg('M150 25 L150 140',_B)+sg('M90 140 L90 60 C90 45 150 45 150 60',_A)+sg('M90 140 L90 100',_A))},
+      {text:{he:"כרכו את הקצה פעמיים בתוך הלולאה (לכיוון היתד).",en:"Wrap the end twice inside the loop (toward the stake)."},
+       svg:K(sg('M150 25 L150 140',_B)+sg('M95 60 L95 130',_A)+ropeCircle(122,80,16,_A)+ropeCircle(122,105,16,_A))},
+      {text:{he:"עשו כריכה נוספת מחוץ ללולאה, מעל, והשחילו את הקצה.",en:"Make one more wrap outside the loop, above, and tuck the end."},
+       svg:K(sg('M150 25 L150 140',_B)+sg('M95 60 L95 130',_A)+ropeCircle(122,95,16,_A)+ropeCircle(122,60,18,_A)+sg('M138 55 L165 45',_A))},
+      {text:{he:"החליקו את הקשר לאורך החבל כדי לכוון את המתיחות.",en:"Slide the knot along the rope to adjust the tension."}, svg:''}
+    ],
+    tips:[{he:"זה הקשר שהופך כל אוהל למקצועי — מותחים בקלות אחרי שהטל הרפה את החבלים בלילה.",en:"This is the knot that makes any tent pro — easily re-tension after dew loosens the lines overnight."}]
+  },
+  {
+    id:"prusik", difficulty:"hard",
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M14 6 L14 34" stroke="var(--muted)"/><path d="M8 16 a10 8 0 1 0 20 0 a10 8 0 1 0 -20 0" transform="translate(4,4)"/></svg>',
+    title:{he:"קשר פרוסיק",en:"Prusik knot"},
+    lead:{he:"לולאת חבל דקה שתופסת חבל עבה — נעה כשמשוחררת, ננעלת בעומס.",en:"A thin cord loop that grips a thicker rope — slides when free, locks under load."},
+    safety:[{he:"טיפוס וחילוץ אמיתיים — רק בהדרכת גורם מוסמך ועם ציוד תקין. כאן להיכרות בלבד.",en:"Real climbing/rescue use — only with a certified instructor and proper gear. Here for familiarity only."}],
+    steps:[
+      {text:{he:"קחו לולאת חבל דקה סגורה (עם קשר דייגים כפול) והניחו אותה על החבל העבה.",en:"Take a closed loop of thin cord (joined with a double fisherman's) and lay it over the thick rope."},
+       svg:K(sg('M150 15 L150 140',_B)+ropeCircle(150,80,30,_A,7))},
+      {text:{he:"העבירו את הלולאה סביב החבל ודרך עצמה — 2 עד 3 פעמים.",en:"Pass the loop around the rope and through itself — 2 to 3 times."},
+       svg:K(sg('M150 15 L150 140',_B)+sg('M120 55 C120 40 180 40 180 55',_A,7)+sg('M115 75 C115 60 185 60 185 75',_A,7)+sg('M118 95 C118 80 182 80 182 95',_A,7)+sg('M150 100 L150 135',_A,7))},
+      {text:{he:"משכו את הלולאה כלפי מטה כדי להדק. בעומס — היא ננעלת ולא זזה.",en:"Pull the loop down to snug it. Under load — it locks and won't move."},
+       svg:K(sg('M150 15 L150 140',_B)+sg('M122 58 C122 44 178 44 178 58',_A,7)+sg('M118 74 C118 60 182 60 182 74',_A,7)+sg('M122 90 C122 76 178 76 178 90',_A,7)+ropeCircle(150,120,15,_A,7))}
+    ],
+    tips:[{he:"עובד רק כשהלולאה דקה יותר מהחבל שעליו היא נתפסת. שווה עומק — אבל תמיד עם מדריך.",en:"Works only when the loop is thinner than the rope it grips. Worth learning deeply — but always with a guide."}]
+  }
+);
+
+/* ---- NEW FIRST AID (advanced) ---- */
+CONTENT.firstaid.items.push(
+  {
+    id:"cpr", difficulty:"hard", kidsLock:true,
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><path d="M20 34 C8 24 6 14 14 10 C18 8 20 12 20 14 C20 12 22 8 26 10 C34 14 32 24 20 34z"/><path d="M12 20 h5 l2 -5 l3 9 l2 -4 h6" stroke="var(--accent)"/></svg>',
+    title:{he:"החייאה בסיסית (CPR)",en:"Basic CPR"},
+    lead:{he:"עיסויי חזה שומרים על זרימת דם למוח עד שמגיעה עזרה. הכי חשוב: להתחיל מהר.",en:"Chest compressions keep blood flowing to the brain until help arrives. Most important: start fast."},
+    safety:[{he:"רק אם הנפגע לא מגיב ולא נושם כרגיל. תמיד קודם התקשרו 101 (או שמישהו לידכם יתקשר) והפעילו רמקול. זהו מידע כללי — כדאי מאוד קורס עזרה ראשונה אמיתי.",en:"Only if the person is unresponsive and not breathing normally. Always call emergency first (or have someone call) and put it on speaker. This is general info — a real first-aid course is strongly recommended."}],
+    steps:[
+      {text:{he:"ודאו שהסביבה בטוחה. טלטלו בעדינות ושאלו בקול: 'אתה בסדר?' אם אין תגובה — הזעיקו 101 מיד.",en:"Make sure the scene is safe. Gently shake and shout: 'Are you OK?' No response — call emergency now."}, svg:''},
+      {text:{he:"הניחו את הנפגע על גב על משטח קשיח. חשפו את החזה.",en:"Lay the person on their back on a firm surface. Expose the chest."}, svg:''},
+      {text:{he:"הניחו עקב כף יד אחת במרכז החזה, יד שנייה מעליה, זרועות ישרות.",en:"Place the heel of one hand in the center of the chest, the other hand on top, arms straight."},
+       svg:'<svg viewBox="0 0 300 120"><ellipse cx="150" cy="80" rx="90" ry="26" fill="none" stroke="var(--muted)" stroke-width="4"/><circle cx="150" cy="70" r="14" fill="var(--danger-bg)" stroke="var(--danger)" stroke-width="3"/><path d="M150 30 L150 54 M138 42 L162 42" stroke="var(--accent)" stroke-width="4"/></svg>'},
+      {text:{he:"לחצו חזק ומהר: לעומק כ-5 ס\"מ, בקצב 100–120 לדקה. תנו לחזה לחזור בין לחיצות.",en:"Push hard and fast: about 5 cm deep, at 100–120 per minute. Let the chest rise fully between pushes."}, svg:''},
+      {text:{he:"אל תעצרו — המשיכו עד שמגיע צוות רפואי, מגיע דפיברילטור (AED), או הנפגע מתעורר.",en:"Don't stop — continue until medics arrive, an AED (defibrillator) arrives, or the person wakes."}, svg:''}
+    ],
+    tips:[{he:'קצב עזר: הלחיצות בקצב של השיר "Stayin\' Alive". יש AED (מכשיר החייאה) במקומות ציבוריים רבים — שלחו מישהו להביא.',en:'Rhythm tip: push to the beat of "Stayin\' Alive". Many public places have an AED — send someone to fetch it.'}]
+  },
+  {
+    id:"choking", difficulty:"med",
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--danger)" stroke-width="3" stroke-linecap="round"><circle cx="20" cy="12" r="6"/><path d="M20 18 L20 30 M14 24 h12"/><path d="M28 8 l4 -3 M30 12 l5 -1"/></svg>',
+    title:{he:"חנק (חסימת נשימה)",en:"Choking"},
+    lead:{he:"כשמשהו חוסם את דרכי הנשימה — פעולה מהירה יכולה להציל תוך שניות.",en:"When something blocks the airway — fast action can save a life in seconds."},
+    safety:[{he:"אם הנפגע משתעל בכוח — עודדו אותו להמשיך לשעול, אל תתערבו. אם אינו יכול לדבר/לשעול/לנשום — פעלו מיד והזעיקו 101. בתינוקות הטכניקה שונה — פנו לקורס.",en:"If they cough forcefully — encourage coughing, don't interfere. If they can't talk/cough/breathe — act now and call emergency. Infants need a different technique — take a course."}],
+    steps:[
+      {text:{he:"שאלו: 'אתה נחנק?' אם הוא לא יכול לדבר או לנשום — התחילו לפעול.",en:"Ask: 'Are you choking?' If they can't speak or breathe — begin."}, svg:''},
+      {text:{he:"5 חבטות בין השכמות: הטו אותו קדימה, וחבטו בעקב כף היד.",en:"5 back blows between the shoulder blades: lean them forward, strike with the heel of your hand."},
+       svg:'<svg viewBox="0 0 300 130"><circle cx="120" cy="35" r="14" fill="none" stroke="var(--muted)" stroke-width="4"/><path d="M120 49 C110 70 105 95 120 110 M120 60 L150 70" stroke="var(--muted)" stroke-width="4" fill="none"/><path d="M90 55 L108 62" stroke="var(--danger)" stroke-width="5"/><path d="M78 50 l8 4 M80 62 l9 2" stroke="var(--danger)" stroke-width="3"/></svg>'},
+      {text:{he:"אם לא עזר — 5 לחיצות בטן (היימליך): עמדו מאחור, אגרוף מעל הטבור, משכו פנימה ולמעלה.",en:"If that fails — 5 abdominal thrusts (Heimlich): stand behind, fist above the navel, pull in and up."},
+       svg:'<svg viewBox="0 0 300 130"><circle cx="150" cy="30" r="14" fill="none" stroke="var(--muted)" stroke-width="4"/><path d="M150 44 L150 100" stroke="var(--muted)" stroke-width="4"/><circle cx="150" cy="72" r="9" fill="var(--danger-bg)" stroke="var(--danger)" stroke-width="3"/><path d="M150 72 l0 -14 M143 64 l7 -6 l7 6" stroke="var(--accent)" stroke-width="3" fill="none"/></svg>'},
+      {text:{he:"המשיכו לסירוגין — 5 חבטות ו-5 לחיצות — עד שהחסימה משתחררת או שמגיעה עזרה.",en:"Alternate — 5 blows and 5 thrusts — until the object comes out or help arrives."}, svg:''}
+    ],
+    tips:[{he:"אם הנפגע מאבד הכרה — התחילו החייאה (CPR) והמשיכו לפי מוקד 101.",en:"If the person becomes unconscious — start CPR and follow the emergency dispatcher."}]
+  }
+);
+
+/* ---- NEW FIRE ---- */
+CONTENT.fire.items.push(
+  {
+    id:"cooking", difficulty:"med", kidsLock:true,
+    icon:'<svg viewBox="0 0 40 40" fill="none" stroke="var(--accent)" stroke-width="3" stroke-linecap="round"><path d="M10 22 h20 a10 10 0 0 1 -20 0z M14 14 c0 -3 2 -3 2 -6 M20 14 c0 -3 2 -3 2 -6 M26 14 c0 -3 2 -3 2 -6"/></svg>',
+    title:{he:"בישול על מדורה",en:"Cooking on a campfire"},
+    lead:{he:"מבשלים על גחלים, לא על להבות. סבלנות נותנת אוכל טוב ובטוח.",en:"Cook over coals, not flames. Patience gives good, safe food."},
+    safety:[{he:"תמיד בליווי מבוגר. ידיות וסירים לוהטים — השתמשו בכפפה/בד. אל תבשלו על ענפי צמחים רעילים (כמו הרדוף!).",en:"Always with an adult. Handles and pots get scorching — use a glove/cloth. Never cook on toxic plant branches (like oleander!)."}],
+    steps:[
+      {text:{he:"חכו שהאש תיהפך לגחלים לוהטות (אדומות-כתומות) — שם החום אחיד ומבשל טוב.",en:"Wait until the fire burns down to glowing coals (red-orange) — the heat is even and cooks well."},
+       svg:'<svg viewBox="0 0 300 110"><ellipse cx="150" cy="80" rx="80" ry="20" fill="none" stroke="var(--muted)" stroke-width="3"/><g fill="var(--accent)"><circle cx="120" cy="80" r="7"/><circle cx="150" cy="84" r="8"/><circle cx="180" cy="80" r="7"/><circle cx="135" cy="72" r="6"/><circle cx="165" cy="72" r="6"/></g></svg>'},
+      {text:{he:"ייצבו את הסיר: על אבנים שטוחות בצידי הגחלים, או תלוי על ענף/חצובה.",en:"Steady the pot: on flat stones at the edge of the coals, or hung from a branch/tripod."},
+       svg:'<svg viewBox="0 0 300 120"><path d="M110 40 L150 20 L190 40" stroke="var(--muted)" stroke-width="4" fill="none"/><path d="M150 20 L150 45" stroke="var(--muted)" stroke-width="4"/><rect x="125" y="45" width="50" height="30" rx="4" fill="none" stroke="var(--accent)" stroke-width="4"/><g fill="var(--accent)"><circle cx="140" cy="95" r="5"/><circle cx="160" cy="95" r="5"/></g></svg>'},
+      {text:{he:"בשלו לאט והפכו/ערבבו. בשר/עוף — עד שאין ורוד בפנים והמיץ צלול.",en:"Cook slowly and turn/stir. Meat/chicken — until no pink inside and juices run clear."}, svg:''},
+      {text:{he:"סיימתם? כבו את המדורה לגמרי לפי נושא 'כיבוי נכון'.",en:"Done? Fully extinguish the fire per the 'Putting it out' topic."}, svg:''}
+    ],
+    tips:[{he:"תפוח אדמה או בטטה בתוך נייר כסף, ישירות בגחלים — קלאסיקה של צופים.",en:"A potato or sweet potato in foil, right in the coals — a scouting classic."}]
+  }
+);
+
+/* ============================================================
+   ROUND 5 — big content expansion (diagrams added later)
+   ============================================================ */
+const _kIcon=CONTENT.knots.icon, _aIcon=CONTENT.firstaid.icon, _fIcon=CONTENT.fire.icon,
+      _nIcon=CONTENT.navigation.icon, _sIcon=CONTENT.signals.icon, _shIcon=CONTENT.shelter.icon,
+      _gIcon=CONTENT.gear.icon, _natIcon=CONTENT.nature.icon;
+const st=(he,en)=>({text:{he,en},svg:''});
+
+/* ---- 20 MORE KNOTS ---- */
+CONTENT.knots.items.push(
+  {id:"sheetbend",difficulty:"easy",icon:_kIcon,title:{he:"קשר חיבור (שיטבנד)",en:"Sheet bend"},
+   lead:{he:"מחבר שני חבלים — גם כשהם בעובי שונה. הבסיס לחיבור חבלים.",en:"Joins two ropes — even of different thickness. The basic rope-joining knot."},safety:[],
+   steps:[st("קפלו את החבל העבה ללולאה (בייט).","Fold the thicker rope into a bight (loop)."),
+     st("השחילו את קצה החבל הדק מלמטה דרך הלולאה.","Pass the thin rope's end up through the loop."),
+     st("הקיפו איתו את שני חלקי הלולאה מאחור.","Wrap it around behind both parts of the loop."),
+     st("השחילו אותו מתחת לעצמו (לא דרך הלולאה) ומשכו.","Tuck it under itself (not through the loop) and pull.")],
+   tips:[{he:"לחבלים חלקלקים או להחזקה טובה יותר — כרכו פעמיים (קשר חיבור כפול).",en:"For slippery ropes or a better hold — wrap twice (double sheet bend)."}]},
+  {id:"doublesheetbend",difficulty:"med",icon:_kIcon,title:{he:"קשר חיבור כפול",en:"Double sheet bend"},
+   lead:{he:"גרסה בטוחה יותר של קשר החיבור — לחבלים חלקים או בעומס.",en:"A more secure sheet bend — for slippery ropes or under load."},safety:[],
+   steps:[st("התחילו כמו קשר חיבור רגיל.","Start like a normal sheet bend."),
+     st("לפני ההשחלה, כרכו את הקצה הדק פעם נוספת סביב הלולאה.","Before tucking, wrap the thin end once more around the loop."),
+     st("השחילו מתחת לעצמו ומשכו את שני החבלים.","Tuck under itself and pull both ropes.")],tips:[]},
+  {id:"overhand",difficulty:"easy",icon:_kIcon,title:{he:"קשר עצירה פשוט",en:"Overhand (stopper) knot"},
+   lead:{he:"הקשר הבסיסי ביותר — עוצר קצה חבל שלא ישתחרר או יישמט דרך חור.",en:"The most basic knot — stops a rope end from slipping through or unraveling."},safety:[],
+   steps:[st("צרו לולאה בקצה החבל.","Make a loop at the end of the rope."),
+     st("השחילו את הקצה דרך הלולאה ומשכו.","Pass the end through the loop and pull.")],
+   tips:[{he:"בסיס לקשרים רבים. לעצירה גדולה יותר — קשר שמיני.",en:"The base of many knots. For a bigger stopper — the figure-eight."}]},
+  {id:"slipknot",difficulty:"easy",icon:_kIcon,title:{he:"קשר החלקה",en:"Slip knot"},
+   lead:{he:"קשר שנפתח במשיכה אחת — נוח כשצריך לשחרר מהר.",en:"A knot that releases with a single pull — handy for quick release."},safety:[],
+   steps:[st("צרו לולאה בחבל.","Make a loop in the rope."),
+     st("דחפו לולאה (בייט) מהחבל דרכה — לא את הקצה.","Push a bight of rope through it — not the end."),
+     st("משכו את החבל הראשי להידוק. משיכת הקצה משחררת.","Pull the standing part to tighten. Pulling the end releases it.")],tips:[]},
+  {id:"timberhitch",difficulty:"easy",icon:_kIcon,title:{he:"קשר גרירה",en:"Timber hitch"},
+   lead:{he:"אוחז גזע או ענף לגרירה — ונפתח בקלות אחרי שחרור העומס.",en:"Grips a log or branch for dragging — and unties easily after the load is off."},safety:[],
+   steps:[st("הקיפו את הגזע עם החבל.","Wrap the rope around the log."),
+     st("כרכו את הקצה סביב החבל הראשי, ואז לפפו אותו 3–4 פעמים סביב עצמו.","Wrap the end around the standing part, then coil it 3–4 times around itself."),
+     st("משכו את החבל הראשי — העומס מהדק את הקשר.","Pull the standing part — the load tightens the knot.")],
+   tips:[{he:"מוסיפים חצי מלה קרוב לקצה הגזע כדי לכוון את הגרירה.",en:"Add a half hitch near the log's end to steer the drag."}]},
+  {id:"rollinghitch",difficulty:"med",icon:_kIcon,title:{he:"קשר גלגול",en:"Rolling hitch"},
+   lead:{he:"קושר חבל למוט או לחבל אחר כך שלא יחליק לאורכו תחת מתח.",en:"Ties a rope to a pole or another rope so it won't slide along it under tension."},safety:[],
+   steps:[st("כרכו פעמיים סביב המוט, לכיוון שממנו יבוא המתח.","Wrap twice around the pole, toward the side the tension comes from."),
+     st("כריכה שלישית מעל, וקשרו אותה כחצי מלה.","A third wrap over, and tie it off as a half hitch."),
+     st("משכו — הכריכות תופסות ולא מחליקות.","Pull — the wraps grip and don't slide.")],tips:[]},
+  {id:"truckershitch",difficulty:"med",icon:_kIcon,title:{he:"קשר מוביל (מתיחה חזקה)",en:"Trucker's hitch"},
+   lead:{he:"יוצר 'גלגלת' מהחבל למתיחה חזקה — לקשירת מטען, יריעה או מיתר.",en:"Creates a 'pulley' from the rope for strong tension — for lashing loads, tarps or lines."},
+   safety:[{he:"יש בו מתח רב — שחררו בזהירות ואל תעמדו בקו החבל.",en:"It holds high tension — release carefully and don't stand in line with the rope."}],
+   steps:[st("עשו לולאה באמצע החבל (קשר פרפר או החלקה).","Make a loop in the middle of the rope (butterfly or slip loop)."),
+     st("העבירו את הקצה סביב נקודת עיגון וחזרה דרך הלולאה.","Pass the end around an anchor point and back through the loop."),
+     st("משכו חזק — זה מכפיל את הכוח.","Pull hard — this doubles your force."),
+     st("נעלו במקום בשני חצאי מלה.","Lock it off with two half hitches.")],
+   tips:[{he:"הקשר האהוב על כל מי שקושר מטען לגג הרכב או מותח אוהל.",en:"A favorite for anyone lashing a load to a roof rack or tensioning a tarp."}]},
+  {id:"cleathitch",difficulty:"easy",icon:_kIcon,title:{he:"קשר צינה (סירה)",en:"Cleat hitch"},
+   lead:{he:"קושר חבל לצינה — הקרן הכפולה במזח או בסירה.",en:"Ties a rope to a cleat — the double horn on a dock or boat."},safety:[],
+   steps:[st("כרכו את החבל סביב בסיס הצינה.","Wrap the rope around the base of the cleat."),
+     st("עשו כמה שמיניות סביב שתי הקרניים.","Make a few figure-eights around the two horns."),
+     st("סיימו בלולאה נעולה (הופכת) על הקרן.","Finish with a locking (flipped) loop over a horn.")],tips:[]},
+  {id:"bowlinebight",difficulty:"med",icon:_kIcon,title:{he:"קשר בית כפול",en:"Bowline on a bight"},
+   lead:{he:"יוצר שתי לולאות קבועות — למשל למושב חילוץ מאולתר.",en:"Creates two fixed loops — e.g. for an improvised rescue seat."},
+   safety:[{he:"לחילוץ/משקל אדם — רק בהדרכה ועם חבל תקין.",en:"For rescue/person's weight — only with training and a sound rope."}],
+   steps:[st("קפלו את החבל לבייט כפול.","Fold the rope into a doubled bight."),
+     st("עשו בית רגיל תוך שימוש בבייט הכפול.","Tie a normal bowline using the doubled bight."),
+     st("פתחו את קצה הלולאה והעבירו אותו סביב כל הקשר.","Open the loop's end and pass it around the whole knot."),
+     st("משכו — נוצרות שתי לולאות.","Pull — two loops are formed.")],tips:[]},
+  {id:"constrictor",difficulty:"med",icon:_kIcon,title:{he:"קשר חונק",en:"Constrictor knot"},
+   lead:{he:"תופס חזק מאוד סביב חבילה, שק או צינור — קשה מאוד לפתיחה.",en:"Grips extremely tight around a bundle, bag or tube — very hard to untie."},
+   safety:[{he:"כמעט קבוע — לרוב חותכים אותו במקום לפתוח.",en:"Nearly permanent — usually cut off rather than untied."}],
+   steps:[st("הקיפו את החפץ עם החבל.","Wrap the rope around the object."),
+     st("הצליבו ועשו כריכה שנייה מעל.","Cross over and make a second wrap on top."),
+     st("השחילו את הקצה מתחת להצלבה ומשכו חזק.","Tuck the end under the crossing and pull hard.")],tips:[]},
+  {id:"munter",difficulty:"hard",kidsLock:true,icon:_kIcon,title:{he:"קשר איטלקי (חצי מוט)",en:"Munter hitch"},
+   lead:{he:"קשר לוויסות חבל בבלימה או הורדה, על טבעת מתכת (קרבינר).",en:"A hitch for controlling rope in belaying or lowering, on a metal ring (carabiner)."},
+   safety:[{he:"שימוש טכני בלבד, עם ציוד תקן ובהדרכת גורם מוסמך. כאן להיכרות בלבד.",en:"Technical use only, with certified gear and a qualified instructor. Here for familiarity only."}],
+   steps:[st("עשו לולאה בחבל וקפלו אותה על עצמה.","Make a loop in the rope and fold it back on itself."),
+     st("חברו לקרבינר כך שהחבל רץ דרכו בצורת S.","Clip it to a carabiner so the rope runs through in an S shape."),
+     st("הקשר הופך כיוון בהורדה ובמשיכה — כך הוא בולם.","The hitch flips direction when lowering or pulling — that's how it brakes.")],tips:[]},
+  {id:"waterknot",difficulty:"hard",kidsLock:true,icon:_kIcon,title:{he:"קשר סרט",en:"Water knot"},
+   lead:{he:"מיוחד לחיבור סרט שטוח (וובינג) — לא לחבל עגול.",en:"Special for joining flat webbing — not round rope."},
+   safety:[{he:"לרתמות וסלינגים — השאירו קצוות ארוכים ובדקו שהקשר הדוק לגמרי.",en:"For harnesses and slings — leave long tails and check the knot is fully tight."}],
+   steps:[st("עשו קשר עצירה רופף בקצה הסרט האחד.","Tie a loose overhand knot in one end of the webbing."),
+     st("השחילו את הקצה השני בדיוק לאורכו, בכיוון הפוך.","Thread the other end back through it exactly, in the opposite direction."),
+     st("משכו את שני הקצוות חזק ובדקו.","Pull both ends tight and inspect.")],tips:[]},
+  {id:"fig8bight",difficulty:"med",kidsLock:true,icon:_kIcon,title:{he:"קשר שמינייה על לולאה",en:"Figure-eight on a bight"},
+   lead:{he:"לולאה חזקה ובטוחה בקצה חבל — הקשר הבטיחותי הנפוץ בטיפוס.",en:"A strong, secure loop at a rope's end — the common safety knot in climbing."},
+   safety:[{he:"לחיבור לרתמה — רק בהדרכת גורם מוסמך.",en:"For tying into a harness — only with a certified instructor."}],
+   steps:[st("קפלו בייט בקצה החבל.","Fold a bight at the rope's end."),
+     st("עשו עם הבייט קשר שמיני מלא.","Tie a full figure-eight with the bight."),
+     st("משכו — נוצרת לולאה שקל לבדוק ולא נפתחת מעצמה.","Pull — a loop that's easy to inspect and won't work loose.")],tips:[]},
+  {id:"doublefisherman",difficulty:"hard",kidsLock:true,icon:_kIcon,title:{he:"קשר דייגים כפול",en:"Double fisherman's"},
+   lead:{he:"הגרסה החזקה של קשר הדייגים — לחיבור לולאות פרוסיק וחבלי טיפוס.",en:"The strong version of the fisherman's — for prusik loops and climbing cords."},
+   safety:[{he:"שימוש טעון-בטיחות — עם מדריך וציוד תקין בלבד.",en:"Safety-critical use — only with a guide and sound gear."}],
+   steps:[st("כרכו כל קצה פעמיים סביב החבל השני (במקום פעם אחת).","Wrap each end twice around the other rope (instead of once)."),
+     st("השחילו כל קצה בחזרה דרך הכריכות.","Thread each end back through its wraps."),
+     st("משכו את שני הקשרים זה אל זה.","Pull the two knots together.")],tips:[]},
+  {id:"cowhitch",difficulty:"easy",icon:_kIcon,title:{he:"ראש עפרוני (קשר פרה)",en:"Cow hitch (lark's head)"},
+   lead:{he:"מחבר חבל לטבעת או מוט במהירות — פשוט, אך לא לעומס משתנה.",en:"Attaches a rope to a ring or pole fast — simple, but not for shifting loads."},safety:[],
+   steps:[st("קפלו בייט והעבירו דרך הטבעת.","Fold a bight and pass it through the ring."),
+     st("העבירו את שני הקצוות דרך הבייט ומשכו.","Pass both ends through the bight and pull.")],tips:[]},
+  {id:"highwayman",difficulty:"med",icon:_kIcon,title:{he:"קשר שחרור מהיר",en:"Highwayman's hitch"},
+   lead:{he:"נפתח במשיכה אחת של הקצה — לקשירה זמנית שרוצים לשחרר מהר.",en:"Releases with one pull of the end — for temporary ties you want to free fast."},safety:[],
+   steps:[st("עשו בייט מאחורי המוט.","Make a bight behind the pole."),
+     st("דחפו בייט שני מהחבל הראשי דרך הראשון.","Push a second bight from the standing part through the first."),
+     st("דחפו בייט שלישי מהקצה דרך השני, ומשכו את החבל הראשי להידוק.","Push a third bight from the end through the second, then pull the standing part to set."),
+     st("משיכת הקצה משחררת הכול.","Pulling the end releases everything.")],tips:[]},
+  {id:"squarelashing",difficulty:"med",icon:_kIcon,title:{he:"רתמה מרובעת",en:"Square lashing"},
+   lead:{he:"מחברת שני מוטות בזווית ישרה — הבסיס לבניית מתקנים (גשרים, מגדלים).",en:"Joins two poles at right angles — the basis of pioneering (bridges, towers)."},safety:[],
+   steps:[st("התחילו בקשר מהוי על המוט האנכי, מתחת לנקודת החיבור.","Start with a clove hitch on the vertical pole, below the joint."),
+     st("לפפו את החבל סביב שני המוטות 3–4 סיבובים (מעל אחד, מתחת לשני).","Wrap around both poles 3–4 turns (over one, under the other)."),
+     st("עשו 2–3 'כריכות חנק' בין המוטות כדי להדק.","Make 2–3 'frapping turns' between the poles to tighten."),
+     st("סיימו בקשר מהוי על המוט השני.","Finish with a clove hitch on the other pole.")],
+   tips:[{he:"כריכות החנק (בין המוטות) הן הסוד לחיבור נוקשה שלא מתנדנד.",en:"The frapping turns (between poles) are the secret to a rigid, wobble-free joint."}]},
+  {id:"diagonallashing",difficulty:"med",icon:_kIcon,title:{he:"רתמה אלכסונית",en:"Diagonal lashing"},
+   lead:{he:"מחברת שני מוטות שמצטלבים באלכסון — מחזקת מבנה מפני התמוטטות.",en:"Joins two poles crossing diagonally — braces a structure against racking."},safety:[],
+   steps:[st("התחילו בקשר גרירה סביב שני המוטות יחד.","Start with a timber hitch around both poles together."),
+     st("לפפו 3 סיבובים בכיוון אחד, ואז 3 בכיוון הניצב.","Wrap 3 turns one way, then 3 across the other way."),
+     st("עשו כריכות חנק וסיימו בקשר מהוי.","Add frapping turns and finish with a clove hitch.")],tips:[]},
+  {id:"shearlashing",difficulty:"med",icon:_kIcon,title:{he:"רתמת מוטות (מספריים)",en:"Shear lashing"},
+   lead:{he:"קושרת שני מוטות מקבילים שאחר כך פותחים ל'רגליים' (חצובה/מספריים).",en:"Lashes two parallel poles that then open into 'legs' (a shear/tripod)."},safety:[],
+   steps:[st("הניחו את שני המוטות צמודים. התחילו בקשר מהוי על אחד מהם.","Lay the two poles together. Start with a clove hitch on one."),
+     st("לפפו סביב שניהם 6–8 סיבובים, מעט רופפים.","Wrap around both 6–8 turns, slightly loose."),
+     st("עשו 2 כריכות חנק ביניהם וקשר מהוי על המוט השני.","Add 2 frapping turns between them and a clove hitch on the second pole."),
+     st("פתחו את המוטות — נוצרות 'רגליים' יציבות.","Open the poles apart — stable 'legs' form.")],tips:[]},
+  {id:"chainsinnet",difficulty:"easy",icon:_kIcon,title:{he:"שרשרת קיצור (שרשרת קופים)",en:"Chain sinnet"},
+   lead:{he:"מקצרת ומסדרת חבל ארוך לשרשרת שלא מסתבכת — ונפתחת מיד.",en:"Shortens and organizes a long rope into a chain that won't tangle — and undoes instantly."},safety:[],
+   steps:[st("עשו לולאת החלקה בקצה החבל.","Make a slip loop at the rope's end."),
+     st("דחפו בייט חדש דרך הלולאה, ושוב, ושוב — כמו סריגה.","Push a new bight through the loop, and again, and again — like crochet."),
+     st("בסוף השחילו את הקצה דרך הלולאה האחרונה לנעילה.","At the end, pass the tail through the last loop to lock it.")],
+   tips:[{he:"משיכת הקצה מפרקת את כל השרשרת בבת אחת.",en:"Pulling the tail unravels the whole chain at once."}]}
+);
+
+/* ---- MORE FIRST AID ---- */
+CONTENT.firstaid.items.push(
+  {id:"fracture",difficulty:"med",icon:_aIcon,title:{he:"חבישת שבר וקיבוע",en:"Fracture & splinting"},
+   lead:{he:"מטרת הקיבוע: למנוע תזוזה ולהפחית כאב עד לטיפול רפואי.",en:"The goal of splinting: prevent movement and reduce pain until medical care."},
+   safety:[{he:"אל תיישרו עצם! קבעו במצב שנמצא. חשד לשבר בגב/צוואר/אגן — אל תזיזו כלל, 101 מיד.",en:"Never straighten a bone! Splint it as found. Suspected spine/neck/pelvis injury — don't move at all, call emergency now."}],
+   steps:[st("הרגיעו את הנפגע וייצבו את האיבר בעדינות במצב הנוכחי.","Reassure the person and gently steady the limb as it is."),
+     st("קבעו עם סד מאולתר (מקל, קרטון, מגזין מגולגל) מרופד בבד.","Splint with an improvised support (stick, cardboard, rolled magazine) padded with cloth."),
+     st("קשרו מעל ומתחת לשבר — לא ישירות עליו.","Tie above and below the break — not directly on it."),
+     st("בדקו זרימת דם: אצבעות ורודות וחמות. אם החווירו/קרו — שחררו מעט.","Check circulation: fingers pink and warm. If pale/cold — loosen a little.")],tips:[]},
+  {id:"hypothermia",difficulty:"med",icon:_aIcon,title:{he:"היפותרמיה (קור)",en:"Hypothermia"},
+   lead:{he:"קריטי בלילות מדבר ובחורף — הגוף מאבד חום מהר יותר משנדמה.",en:"Critical on desert nights and in winter — the body loses heat faster than you'd think."},
+   safety:[{he:"רעד שנפסק פתאום, בלבול או ישנוניות = החמרה מסוכנת. 101. טפלו בעדינות.",en:"Shivering that suddenly stops, confusion or drowsiness = dangerous worsening. Call emergency. Handle gently."}],
+   steps:[st("העבירו למחסה מהרוח ומהרטיבות.","Move to shelter from wind and wet."),
+     st("החליפו בגד רטוב ביבש, ועטפו בשכבות — כולל הראש.","Change wet clothes for dry, and wrap in layers — including the head."),
+     st("חום גוף-לגוף, ומשקה חם ומתוק אם בהכרה מלאה.","Body-to-body warmth, and a warm sweet drink if fully conscious."),
+     st("לא אלכוהול — הוא מגביר את איבוד החום.","No alcohol — it increases heat loss.")],tips:[]},
+  {id:"nosebleed",difficulty:"easy",icon:_aIcon,title:{he:"דימום מהאף",en:"Nosebleed"},
+   lead:{he:"כמעט תמיד נעצר בעצמו עם הלחיצה הנכונה.",en:"Almost always stops on its own with the right pinch."},safety:[],
+   steps:[st("שבו והטו את הראש קדימה — לא אחורה (כדי לא לבלוע דם).","Sit and tilt the head forward — not back (so you don't swallow blood)."),
+     st("צבטו את החלק הרך של האף 10 דקות ברציפות, בלי לשחרר לבדוק.","Pinch the soft part of the nose for 10 minutes straight, without releasing to check."),
+     st("נשמו דרך הפה; קרח על גשר האף עוזר.","Breathe through the mouth; ice on the bridge helps."),
+     st("לא נעצר אחרי 20 דקות, או אחרי מכה חזקה → רופא.","Not stopped after 20 minutes, or after a hard blow → see a doctor.")],tips:[]},
+  {id:"dehydration",difficulty:"easy",icon:_aIcon,title:{he:"התייבשות",en:"Dehydration"},
+   lead:{he:"הסימן הראשון: צמא ושתן כהה. בקיץ הישראלי זה מגיע מהר.",en:"First signs: thirst and dark urine. In a hot climate it comes fast."},
+   safety:[{he:"בלבול, עילפון, הפסקת הזעה או שתן → מצב חמור, 101.",en:"Confusion, fainting, no sweating or urine → serious, call emergency."}],
+   steps:[st("עברו לצל ונוחו מיד.","Move to shade and rest immediately."),
+     st("שתו לאט וברציפות — לא הכול בבת אחת.","Drink slowly and steadily — not all at once."),
+     st("אם יש, הוסיפו מעט מלח וסוכר למים (או משקה איזוטוני).","If available, add a little salt and sugar to the water (or an isotonic drink)."),
+     st("המשיכו עד ששתן חוזר להיות בהיר.","Continue until urine returns to pale.")],
+   tips:[{he:"מניעה: שתו לפני שאתם צמאים, במיוחד בשעות החום.",en:"Prevention: drink before you're thirsty, especially in peak heat."}]},
+  {id:"tick",difficulty:"easy",icon:_aIcon,title:{he:"הוצאת קרצייה",en:"Tick removal"},
+   lead:{he:"קרצייה נצמדת לעור בטבע — חשוב להוציא נכון ומהר.",en:"A tick attaches to skin outdoors — remove it correctly and promptly."},safety:[],
+   steps:[st("אחזו את הקרצייה בפינצטה קרוב ככל האפשר לעור.","Grip the tick with tweezers as close to the skin as possible."),
+     st("משכו ישר ובעדינות — בלי לסובב או למעוך אותה.","Pull straight and gently — without twisting or crushing it."),
+     st("נקו וחטאו את האזור, ורחצו ידיים.","Clean and disinfect the area, and wash hands."),
+     st("שמרו את הקרצייה ורשמו תאריך. אדמומיות מתרחבת/חום בימים הבאים → רופא.","Keep the tick and note the date. Spreading redness/fever in the next days → doctor.")],tips:[]}
+);
+
+/* ---- MORE FIRE ---- */
+CONTENT.fire.items.push(
+  {id:"firerules",difficulty:"easy",icon:_fIcon,title:{he:"מתי מותר להבעיר?",en:"When are fires allowed?"},
+   lead:{he:"לדעת את החוקים זה חלק מהבטיחות — ומונע קנסות ושריפות.",en:"Knowing the rules is part of safety — and prevents fines and wildfires."},
+   safety:[{he:'בישראל אסור להבעיר ביערות ובחורש מחוץ למקומות מסומנים, ובימי שרב/איסור. שריפת חורש היא עבירה פלילית.',en:"In many areas open fires are banned outside marked spots and on extreme-heat/ban days. Starting a wildfire is a criminal offense."}],
+   steps:[st("בדקו מראש את חוקי הרשות/קק\"ל/הרשות המקומית למקום.","Check the local authority/forest service rules for the area in advance."),
+     st("אין להבעיר ברוח חזקה או ביום שרב.","Don't light a fire in strong wind or on an extreme-heat day."),
+     st("רק במתקן ייעודי או מעגל אבנים, עם מים/חול מוכנים.","Only in a designated fire ring or stone circle, with water/sand ready.")],tips:[]},
+  {id:"embers",difficulty:"med",kidsLock:true,icon:_fIcon,title:{he:"שמירה והעברת אש",en:"Keeping & carrying fire"},
+   lead:{he:"קל יותר לשמר אש קיימת מאשר להדליק מחדש בבוקר.",en:"It's easier to keep a fire alive than to relight in the morning."},
+   safety:[{he:"תמיד בליווי מבוגר. גחלים חמות מסוכנות — לעולם לא ליד חומר דליק.",en:"Always with an adult. Hot embers are dangerous — never near anything flammable."}],
+   steps:[st("בסוף הערב כסו את הגחלים בשכבת אפר דקה — הן יישארו חמות שעות.","At night, cover the coals with a thin layer of ash — they'll stay hot for hours."),
+     st("בבוקר חשפו אותן, הוסיפו הצתה יבשה ונשפו בעדינות.","In the morning, uncover them, add dry tinder and blow gently."),
+     st("להעברה קצרה: גחלת בקופסת מתכת עם חורי אוורור (זהירות מכוויות).","For a short carry: an ember in a metal tin with air holes (mind burns).")],tips:[]}
+);
+
+/* ---- MORE NAVIGATION ---- */
+CONTENT.navigation.items.push(
+  {id:"pacing",difficulty:"easy",icon:_nIcon,title:{he:"מדידת מרחק בהליכה",en:"Measuring distance by pacing"},
+   lead:{he:"הרגליים שלכם הן סרגל — אם יודעים כמה צעדים יש ב-100 מטר.",en:"Your legs are a ruler — if you know how many paces make 100 m."},safety:[],
+   steps:[st("מדדו מראש כמה 'צעדים כפולים' (כל פעם שרגל ימין נוגעת) יש ב-100 מ'.","Measure in advance how many 'double paces' (each time the right foot lands) make 100 m."),
+     st("בשטח, ספרו צעדים כפולים והמירו למרחק.","On the trail, count double paces and convert to distance."),
+     st("שמרו קצב אחיד — במעלה/במורד מוסיפים תיקון.","Keep a steady rhythm — add a correction uphill/downhill.")],
+   tips:[{he:"אצל רוב המבוגרים יש בערך 60–65 צעדים כפולים ב-100 מ' בשטח מישורי.",en:"Most adults take about 60–65 double paces per 100 m on flat ground."}]},
+  {id:"daylight",difficulty:"easy",icon:_nIcon,title:{he:"כמה אור נשאר עד החושך",en:"How much daylight is left"},
+   lead:{he:"טריק היד: לדעת תוך שניות כמה זמן נשאר לפני שיחשיך.",en:"The hand trick: know in seconds how long until dark."},safety:[],
+   steps:[st("הושיטו יד לכיוון האופק, עם השמש מעל היד.","Reach a hand toward the horizon, with the sun above it."),
+     st("ספרו כמה 'אצבעות' נכנסות בין השמש לאופק.","Count how many 'fingers' fit between the sun and the horizon."),
+     st("כל אצבע ≈ 15 דקות אור. 4 אצבעות = כשעה.","Each finger ≈ 15 minutes of daylight. 4 fingers = about an hour.")],
+   tips:[{he:"תכננו להקים מחנה כשעה לפני החשכה — לא כשכבר חשוך.",en:"Plan to make camp about an hour before dark — not once it's already dark."}]}
+);
+
+/* ---- MORE SIGNALS ---- */
+CONTENT.signals.items.push(
+  {id:"mirror",difficulty:"easy",icon:_sIcon,title:{he:"איתות במראה",en:"Mirror signaling"},
+   lead:{he:"הבזק שמש ממראה נראה קילומטרים — האות היום-יומי החזק ביותר.",en:"A sun flash from a mirror is seen for kilometers — the strongest daytime signal."},safety:[],
+   steps:[st("החזיקו מראה (או כל משטח מבריק) ליד העין.","Hold a mirror (or any shiny surface) near your eye."),
+     st("כוונו את נקודת האור אל היעד דרך סימן V בין האצבעות.","Aim the light spot at your target through a V made with your fingers."),
+     st("הבזיקו בסדרות של 3 לכיוון מטוס, רכב או אדם.","Flash in sets of 3 toward a plane, vehicle or person.")],tips:[]},
+  {id:"phone",difficulty:"easy",icon:_sIcon,title:{he:"חירום בטלפון בשטח",en:"Phone emergencies outdoors"},
+   lead:{he:"גם בלי קליטה מלאה אפשר לפעמים להזעיק עזרה.",en:"Even without full signal you can sometimes call for help."},safety:[],
+   steps:[st("חייגו 112 — עובד גם בלי SIM ודרך כל רשת זמינה, לא רק שלכם.","Dial 112 — works even without a SIM and via any available network, not just yours."),
+     st("אם יש רגע קליטה, שלחו מיקום ב-SMS או וואטסאפ.","If you get a moment of signal, send your location by SMS or messaging app."),
+     st("חסכו סוללה: מצב חיסכון, בהירות נמוכה, וסגירת אפליקציות.","Save battery: power-saving mode, low brightness, close apps.")],
+   tips:[{he:"צלמו מראש צילום מסך של המפה שלכם — נשאר גם בלי אינטרנט.",en:"Screenshot your map in advance — it stays available offline."}]}
+);
+
+/* ---- MORE SHELTER ---- */
+CONTENT.shelter.items.push(
+  {id:"tarp",difficulty:"easy",icon:_shIcon,title:{he:"מחסה יריעה (טארפ)",en:"Tarp shelter"},
+   lead:{he:"יריעה וחבל = מחסה קל ומהיר מגשם ושמש.",en:"A tarp and rope = a fast, light shelter from rain and sun."},safety:[],
+   steps:[st("מתחו חבל בין שני עצים בגובה מותן-חזה (קשר מתיחה!).","Run a line between two trees at waist-chest height (taut-line hitch!)."),
+     st("פרסו את היריעה מעל כ'גג משופע'.","Drape the tarp over it as a sloped roof."),
+     st("יתדו את הפינות כשהן מתוחות; הצד הנמוך לכיוון הרוח/גשם.","Stake the corners taut; the low side toward the wind/rain.")],tips:[]},
+  {id:"sleepwarm",difficulty:"easy",icon:_shIcon,title:{he:"לישון חם בשטח",en:"Sleeping warm outdoors"},
+   lead:{he:"רוב הקור בלילה מגיע מהקרקע — לא מהאוויר.",en:"Most of the night's cold comes from the ground — not the air."},safety:[],
+   steps:[st("בודדו את הקרקע: מזרן, עלים יבשים או קרטון מתחתיכם — קריטי.","Insulate the ground: a mat, dry leaves or cardboard under you — critical."),
+     st("לבשו שכבה יבשה לשינה (לא זו שהזעתם בה).","Wear a dry layer to sleep in (not the one you sweated in)."),
+     st("כובע על הראש — הרבה חום בורח משם.","A hat on your head — a lot of heat escapes from there."),
+     st("אכלו משהו לפני השינה — העיכול מייצר חום.","Eat something before bed — digestion generates heat.")],tips:[]}
+);
+
+/* ---- MORE GEAR ---- */
+CONTENT.gear.items.push(
+  {id:"knifesafety",difficulty:"easy",icon:_gIcon,title:{he:"בטיחות סכין ואולר",en:"Knife safety"},
+   lead:{he:"הכלי הכי שימושי בשטח — וגם הכי מסוכן אם לא זהירים.",en:"The most useful outdoor tool — and the most dangerous if careless."},
+   safety:[{he:"תמיד בליווי או הרשאת מבוגר. סכין היא לא צעצוע.",en:"Always with an adult's supervision or permission. A knife is not a toy."}],
+   steps:[st("חתכו תמיד בכיוון ההפוך מהגוף ומהיד השנייה.","Always cut away from your body and your other hand."),
+     st("שמרו 'מעגל בטיחות' — אף אחד בטווח יד+סכין.","Keep a 'safety circle' — no one within arm+knife reach."),
+     st("סגרו את האולר או נדנו את הסכין כשלא בשימוש.","Close the folding knife or sheathe it when not in use."),
+     st("להב חד בטוח יותר מקהה — קהה מחליק ודורש כוח.","A sharp blade is safer than a dull one — dull slips and needs force.")],tips:[]},
+  {id:"water",difficulty:"med",icon:_gIcon,title:{he:"טיהור מים בשטח",en:"Purifying water outdoors"},
+   lead:{he:"מים מהטבע עלולים להכיל חיידקים וטפילים — לטהר לפני שתייה.",en:"Wild water may carry bacteria and parasites — purify before drinking."},
+   safety:[{he:"אל תשתו ישר ממקור לא ידוע, גם אם המים נראים צלולים.",en:"Never drink straight from an unknown source, even if it looks clear."}],
+   steps:[st("סננו קודם מלכלוך גס דרך בד או מסנן.","First filter out coarse dirt through cloth or a filter."),
+     st("הרתיחו דקה מלאה — השיטה הכי אמינה.","Boil for one full minute — the most reliable method."),
+     st("אין אש? השתמשו בטבליות טיהור או מסנן ייעודי לפי ההוראות.","No fire? Use purification tablets or a dedicated filter per instructions."),
+     st("תנו להצטנן. ספק לגבי המים? אל תשתו.","Let it cool. In doubt about the water? Don't drink.")],tips:[]}
+);
+
+/* ---- MORE NATURE ---- */
+CONTENT.nature.items.push(
+  {id:"weather",difficulty:"easy",icon:_natIcon,title:{he:"קריאת מזג אוויר לפי שמיים",en:"Reading the weather"},
+   lead:{he:"השמיים מספרים מה מתקרב — אם יודעים להסתכל.",en:"The sky tells you what's coming — if you know how to look."},safety:[],
+   steps:[st("עננים גבוהים ודקים ('נוצות') → שינוי מזג אוויר בדרך.","High thin clouds ('feathers') → a weather change on the way."),
+     st("עננים כהים שמתגבהים כמו מגדל → סכנת סופה/גשם, חפשו מחסה.","Dark towering clouds → storm/rain risk, seek shelter."),
+     st("רוח שמתחזקת פתאום וטמפרטורה שיורדת → חזית מתקרבת.","Wind suddenly strengthening and temperature dropping → a front approaching.")],tips:[]},
+  {id:"findwater",difficulty:"med",icon:_natIcon,title:{he:"מציאת מים בטבע",en:"Finding water in nature"},
+   lead:{he:"מים = עדיפות מספר 1 בהישרדות. יש סימנים איפה לחפש.",en:"Water = survival priority number one. There are signs where to look."},
+   safety:[{he:"כל מים מהטבע — לטהר לפני שתייה (ראו 'טיהור מים')!",en:"All wild water — purify before drinking (see 'Purifying water')!"}],
+   steps:[st("חפשו בתחתית ערוצים, בבסיס מצוקים, ובמקומות שהצומח ירוק ושופע.","Look at gully bottoms, cliff bases, and where vegetation is green and lush."),
+     st("עקבו אחרי בעלי חיים וציפורים בשעות הבוקר והערב.","Follow animals and birds at dawn and dusk."),
+     st("אספו טל מעלים בבוקר עם בד. אל תשתו מים עומדים, מוקצפים או עם ריח.","Collect morning dew from leaves with cloth. Avoid stagnant, foamy or smelly water.")],tips:[]}
+);
+
+/* ============================================================
+   ROUND 6 — more content (diagrams added later)
+   ============================================================ */
+CONTENT.knots.items.push(
+  {id:"runningbowline",difficulty:"med",icon:_kIcon,title:{he:"בית רץ (לולאה מתהדקת)",en:"Running bowline"},
+   lead:{he:"בית שהחבל הראשי עובר דרך הלולאה שלו — יוצר עניבה שמתהדקת סביב עצם.",en:"A bowline with the standing part running through its loop — a noose that tightens around an object."},
+   safety:[{he:"מתהדק תחת עומס — לעולם לא סביב יד, צוואר או בעל חיים חי.",en:"Tightens under load — never around a hand, neck or living animal."}],
+   steps:[st("עשו בית רגיל בקצה החבל.","Tie a normal bowline at the rope's end."),
+     st("העבירו את החבל הראשי דרך הלולאה של הבית.","Pass the standing part through the bowline's loop."),
+     st("הלולאה עכשיו נעה ומתהדקת כשמושכים.","The loop now slides and tightens when pulled.")],tips:[]},
+  {id:"anchorbend",difficulty:"med",icon:_kIcon,title:{he:"קשר עוגן",en:"Anchor (fisherman's) bend"},
+   lead:{he:"קושר חבל לטבעת או עוגן ומחזיק חזק תחת מתח מתמשך ורטיבות.",en:"Ties a rope to a ring or anchor and holds firm under steady, wet strain."},safety:[],
+   steps:[st("העבירו את החבל פעמיים דרך הטבעת (שתי כריכות).","Pass the rope twice through the ring (two turns)."),
+     st("עשו חצי מלה סביב החבל הראשי, דרך הכריכות.","Make a half hitch around the standing part, through the turns."),
+     st("חצי מלה שני מעל, ומשכו הדק.","A second half hitch above, and pull tight.")],tips:[]},
+  {id:"carrickbend",difficulty:"med",icon:_kIcon,title:{he:"קשר קאריק",en:"Carrick bend"},
+   lead:{he:"מחבר שני חבלים עבים או נוקשים — ונפתח בקלות גם אחרי עומס כבד.",en:"Joins two thick or stiff ropes — and unties easily even after heavy load."},safety:[],
+   steps:[st("עשו לולאה בחבל אחד.","Make a loop in one rope."),
+     st("ארגו את החבל השני מעל-מתחת-מעל דרך הלולאה, בסימטריה.","Weave the second rope over-under-over through the loop, symmetrically."),
+     st("משכו — הקשר 'מתקפל' לצורתו הקומפקטית.","Pull — the knot 'capsizes' into its compact form.")],tips:[]},
+  {id:"surgeons",difficulty:"easy",icon:_kIcon,title:{he:"קשר מנתחים",en:"Surgeon's knot"},
+   lead:{he:"כמו קשר שטח אך עם כריכה נוספת — לא מחליק בזמן שקושרים. מצוין לחבישה.",en:"Like a reef knot but with an extra twist — it won't slip while you tie. Great for bandaging."},safety:[],
+   steps:[st("בסיבוב הראשון כרכו את הקצוות פעמיים (במקום פעם אחת).","On the first pass, wrap the ends twice (instead of once)."),
+     st("סיימו בסיבוב רגיל מעל.","Finish with a normal single pass on top."),
+     st("משכו — הכריכה הכפולה מחזיקה בזמן שקושרים את הצד השני.","Pull — the double wrap holds while you tie off the other side.")],tips:[]},
+  {id:"marlinspike",difficulty:"easy",icon:_kIcon,title:{he:"קשר מרלין",en:"Marlinspike hitch"},
+   lead:{he:"יוצר 'ידית' זמנית על חבל בעזרת מקל — כדי למשוך חבל בכוח בלי לפצוע את היד.",en:"Makes a temporary 'handle' on a rope with a stick — to pull hard without hurting your hand."},safety:[],
+   steps:[st("עשו לולאה בחבל.","Make a loop in the rope."),
+     st("הכניסו מקל דרך הלולאה, מעל החבל הראשי.","Push a stick through the loop, over the standing part."),
+     st("המקל הופך לידית שאפשר למשוך בה; מסירים במשיכת המקל.","The stick becomes a handle to pull with; remove by pulling the stick out.")],tips:[]},
+  {id:"tripodlashing",difficulty:"med",icon:_kIcon,title:{he:"רתמת חצובה",en:"Tripod lashing"},
+   lead:{he:"קושרת שלושה מוטות לחצובה יציבה — לתליית סיר, כיור שדה או מדף.",en:"Lashes three poles into a stable tripod — for hanging a pot, a wash station or a shelf."},safety:[],
+   steps:[st("הניחו שלושה מוטות זה לצד זה. קשר מהוי על המוט החיצוני.","Lay three poles side by side. Clove hitch on an outer pole."),
+     st("לפפו רופף סביב שלושתם 4–5 סיבובים.","Wrap loosely around all three, 4–5 turns."),
+     st("עשו כריכות חנק בין המוטות וקשר מהוי בקצה.","Add frapping turns between the poles and a clove hitch to finish."),
+     st("פשקו את הרגליים לחצובה יציבה.","Spread the legs into a stable tripod.")],tips:[]},
+  {id:"lasso",difficulty:"easy",icon:_kIcon,title:{he:"קשר פלצור (הונדה)",en:"Lasso (honda knot)"},
+   lead:{he:"יוצר לולאה חלקה שרצה בקלות — הקשר של הלאסו.",en:"Creates a smooth, freely-running loop — the lasso knot."},safety:[],
+   steps:[st("עשו קשר עצירה רופף בקצה החבל.","Tie a loose overhand knot at the rope's end."),
+     st("העבירו בייט של החבל הראשי דרכו והדקו — נוצרת 'עינית'.","Pass a bight of the standing part through it and tighten — a small 'eye' forms."),
+     st("השחילו את החבל הראשי דרך העינית ליצירת הלולאה הרצה.","Thread the standing part through the eye to make the running loop.")],tips:[]},
+  {id:"jugsling",difficulty:"med",icon:_kIcon,title:{he:"קשר בקבוק",en:"Jug sling knot"},
+   lead:{he:"נושא בקבוק או כד חלק בלי ידית — קשר צופים קלאסי.",en:"Carries a smooth bottle or jug with no handle — a classic scout knot."},safety:[],
+   steps:[st("עשו קשר עצירה גדול עם שתי לולאות מעל צוואר הבקבוק.","Make a large two-loop overhand knot over the bottle's neck."),
+     st("הרחיבו את ה'רשת' שנוצרה סביב הצוואר ומשכו הדק מתחת לשפה.","Open the resulting 'net' around the neck and pull tight below the lip."),
+     st("קשרו את הקצוות ללולאת נשיאה.","Tie the ends into a carrying loop.")],tips:[]},
+  {id:"klemheist",difficulty:"hard",kidsLock:true,icon:_kIcon,title:{he:"קשר קלמהייסט",en:"Klemheist knot"},
+   lead:{he:"קשר חיכוך חד-כיווני על חבל — נעים למעלה, ננעל בעומס כלפי מטה.",en:"A one-direction friction hitch — slides up, locks under downward load."},
+   safety:[{he:"שימוש טכני — רק בהדרכה ועם ציוד תקין. כאן להיכרות בלבד.",en:"Technical use — only with training and sound gear. Here for familiarity only."}],
+   steps:[st("כרכו לולאת חבל דקה סביב החבל העבה 3–4 פעמים, כלפי מעלה.","Wrap a thin cord loop around the thick rope 3–4 times, upward."),
+     st("השחילו את הקצה התחתון דרך הלולאה העליונה.","Thread the bottom end through the top loop."),
+     st("משכו כלפי מטה — הקשר ננעל ואינו זז.","Pull downward — the knot locks and won't move.")],tips:[]},
+  {id:"monkeysfist",difficulty:"hard",icon:_kIcon,title:{he:"אגרוף הקוף",en:"Monkey's fist"},
+   lead:{he:"כדור כבד בקצה חבל — כדי לזרוק חבל למרחק (למשל לחילוץ מהמים).",en:"A heavy ball at a rope's end — to throw a line a distance (e.g. a water rescue)."},
+   safety:[{he:"כבד — לעולם אל תכוונו אותו אל אף אחד.",en:"Heavy — never aim it at anyone."}],
+   steps:[st("כרכו את החבל 3 סיבובים סביב האצבעות.","Wrap the rope 3 turns around your fingers."),
+     st("כרכו 3 סיבובים ניצבים סביב הראשונים.","Wrap 3 turns crosswise around the first set."),
+     st("3 סיבובים אחרונים בתוך הראשונים, סביב הניצבים.","3 final turns inside the first set, around the crosswise ones."),
+     st("הדקו לכדור. אפשר להכניס אבן קטנה למרכז למשקל.","Tighten into a ball. You can add a small stone in the center for weight.")],tips:[]}
+);
+
+CONTENT.firstaid.items.push(
+  {id:"beesting",difficulty:"med",icon:_aIcon,title:{he:"עקיצת דבורה / צרעה",en:"Bee / wasp sting"},
+   lead:{he:"לרוב כואב אך לא מסוכן — אבל שימו לב לתגובה אלרגית, שיכולה להיות מסכנת חיים.",en:"Usually painful but not dangerous — but watch for an allergic reaction, which can be life-threatening."},
+   safety:[{he:"נפיחות בפנים/גרון, קושי בנשימה, סחרחורת או פריחה מתפשטת = אלרגיה חמורה. 101 מיד! אם יש מזרק אדרנלין (אפיפן) לפי מרשם — השתמשו.",en:"Facial/throat swelling, breathing difficulty, dizziness or spreading rash = severe allergy. Call emergency now! If a prescribed adrenaline auto-injector (EpiPen) is available — use it."}],
+   steps:[st("נשאר עוקץ (דבורה)? גרדו אותו החוצה בציפורן/כרטיס — לא בפינצטה (לוחצת עוד ארס).","Stinger left (bee)? Scrape it out with a nail/card — not tweezers (that squeezes more venom)."),
+     st("שטפו במים וסבון.","Wash with soap and water."),
+     st("קרח עטוף בבד להפחתת נפיחות וכאב.","Ice wrapped in cloth to reduce swelling and pain."),
+     st("עקבו אחרי הנפגע — כל שינוי במצב → 101.","Watch the person — any change in condition → call emergency.")],tips:[]},
+  {id:"blisters",difficulty:"easy",icon:_aIcon,title:{he:"שלפוחיות (יבלות) מהליכה",en:"Blisters from walking"},
+   lead:{he:"אויב מספר 1 של מטיילים. מניעה הרבה יותר קלה מטיפול.",en:"A hiker's number-one enemy. Prevention is far easier than treatment."},safety:[],
+   steps:[st("מרגישים 'נקודה חמה'? עצרו מיד והדביקו פלסטר/רפידה — לפני שנוצרת יבלה.","Feel a 'hot spot'? Stop at once and apply a plaster/pad — before a blister forms."),
+     st("יבלה קטנה וסגורה — עדיף לא לפוצץ; רפדו סביבה.","A small closed blister — better not to pop; pad around it."),
+     st("החליפו לגרב יבש, ובדקו שהנעל לא לוחצת.","Change to a dry sock, and check the shoe isn't pinching.")],
+   tips:[{he:"מניעה: גרביים מנדפות (לא כותנה), נעליים מותאמות ומורצות מראש.",en:"Prevention: moisture-wicking socks (not cotton), well-fitted broken-in shoes."}]},
+  {id:"splinter",difficulty:"easy",icon:_aIcon,title:{he:"הוצאת קוץ / שבב",en:"Splinter removal"},
+   lead:{he:"קוץ קטן — טיפול פשוט בבית. עמוק או מלוכלך — לרופא.",en:"A small splinter — simple home care. Deep or dirty — see a doctor."},safety:[],
+   steps:[st("נקו את האזור ואת הפינצטה.","Clean the area and the tweezers."),
+     st("אחזו את הקוץ קרוב לעור ומשכו באותה זווית שנכנס.","Grip the splinter near the skin and pull at the same angle it entered."),
+     st("עמוק או שבור? אל תחפרו — פנו לרופא.","Deep or broken? Don't dig — see a doctor."),
+     st("חטאו אחרי ההוצאה. שבב חלוד/מלוכלך → בדקו חיסון טטנוס.","Disinfect afterward. A rusty/dirty splinter → check tetanus vaccination.")],tips:[]},
+  {id:"eye",difficulty:"med",icon:_aIcon,title:{he:"גוף זר בעין",en:"Something in the eye"},
+   lead:{he:"רוב הגרגרים נשטפים לבד. חשוב בעיקר לא לשפשף.",en:"Most specks flush out on their own. The key is not to rub."},
+   safety:[{he:"כימיקל בעין, פגיעה חודרת או חפץ תקוע — אל תשפשפו ואל תוציאו! שטפו (כימיקל) ופנו לרופא/101.",en:"A chemical, a penetrating injury or an embedded object — don't rub or remove it! Flush (chemical) and get to a doctor/emergency."}],
+   steps:[st("אל תשפשפו את העין.","Don't rub the eye."),
+     st("מצמצו כמה פעמים — דמעות עשויות לשטוף גרגר קטן.","Blink a few times — tears may flush a small speck."),
+     st("שטפו בעדינות במים נקיים, מכיוון האף כלפי חוץ.","Rinse gently with clean water, from the nose outward."),
+     st("לא יוצא או כואב מאוד — כסו בעדינות ופנו לרופא.","Won't come out or very painful — cover gently and see a doctor.")],tips:[]},
+  {id:"carrying",difficulty:"med",icon:_aIcon,title:{he:"פינוי פצוע (נשיאה)",en:"Carrying an injured person"},
+   lead:{he:"מזיזים פצוע רק אם חייבים (סכנה מיידית) או לפי הנחיית מוקד.",en:"Move an injured person only if you must (immediate danger) or as dispatch directs."},
+   safety:[{he:"חשד לפגיעת גב או צוואר — אל תזיזו כלל! חכו לצוות. הזזה שגויה עלולה לשתק.",en:"Suspected spine or neck injury — don't move at all! Wait for medics. Wrong movement can paralyze."}],
+   steps:[st("פצוע שיכול ללכת — 'תמיכת כתף': ידו על כתפכם, ידכם סביב מותנו.","A walking casualty — 'shoulder support': their arm over your shoulder, your arm around their waist."),
+     st("שני מחלצים — 'כיסא ידיים' משתי זרועות שלובות.","Two rescuers — a 'two-hand seat' from interlocked arms."),
+     st("תמכו בראש ובצוואר אם יש חשד לפגיעה.","Support the head and neck if injury is suspected."),
+     st("פנו לכיוון הבטוח הקרוב ביותר.","Move toward the nearest safe place.")],tips:[]}
+);
+
+CONTENT.fire.items.push(
+  {id:"featherstick",difficulty:"med",kidsLock:true,icon:_fIcon,title:{he:"מקל נוצה",en:"Feather stick"},
+   lead:{he:"כשהכול רטוב מבחוץ — מגלפים 'נוצות' מהעץ היבש שבפנים כדי להצית.",en:"When everything's wet outside — carve 'feathers' from the dry wood inside to get a flame."},
+   safety:[{he:"גילוף עם סכין — בליווי מבוגר, חותכים מהגוף החוצה.",en:"Carving with a knife — with an adult, cutting away from your body."}],
+   steps:[st("בחרו ענף יבש ופצלו אותו כדי לחשוף את הליבה היבשה.","Pick a dry branch and split it to expose the dry core."),
+     st("גלפו פסים דקים ומתולתלים לאורך המקל — בלי לנתק אותם.","Carve thin curling shavings along the stick — without cutting them off."),
+     st("המקל המלא ב'נוצות' נדלק כמו הצתה. הכינו כמה.","The feathered stick lights like tinder. Prepare several.")],tips:[]},
+  {id:"starfire",difficulty:"med",kidsLock:true,icon:_fIcon,title:{he:"מדורת כוכב וקיר מחזיר",en:"Star fire & reflector"},
+   lead:{he:"שיטות לחסוך עצים ולכוון את החום לאן שצריך.",en:"Ways to save wood and direct the heat where you need it."},
+   safety:[{he:"תמיד בליווי מבוגר, במעגל אבנים, עם מים מוכנים.",en:"Always with an adult, in a stone ring, with water ready."}],
+   steps:[st("מדורת כוכב: הניחו 4–5 בולים כקרני כוכב, הקצוות נפגשים במרכז הבוער.","Star fire: lay 4–5 logs like a star's rays, ends meeting at the burning center."),
+     st("דחפו את הבולים פנימה לפי הצורך — כך חוסכים עצים.","Push the logs inward as needed — this saves wood."),
+     st("קיר מחזיר: ערמת אבנים או בולים בצד המדורה מחזירה חום אליכם ומגנה מרוח.","Reflector: a wall of stones or logs beside the fire bounces heat back to you and blocks wind.")],tips:[]}
+);
+
+CONTENT.navigation.items.push(
+  {id:"lost",difficulty:"easy",icon:_nIcon,title:{he:"הלכתי לאיבוד — מה עושים? (STOP)",en:"Lost — what to do (STOP)"},
+   lead:{he:"הכלל שמציל חיים: לעצור — לא להמשיך ללכת ולהחמיר את המצב.",en:"The life-saving rule: stop — don't keep walking and make it worse."},
+   safety:[{he:"ילדים שאיבדו את הדרך — הישארו במקום! קל בהרבה למצוא מישהו שלא זז.",en:"A lost child — stay put! It's far easier to find someone who stays in place."}],
+   steps:[st("S — עצרו (Stop): שבו, נשמו עמוק, הירגעו.","S — Stop: sit, breathe deeply, calm down."),
+     st("T — חשבו (Think): מאיפה באתם? מה אתם זוכרים?","T — Think: where did you come from? What do you remember?"),
+     st("O — התבוננו (Observe): מפה, סימני שביל, נקודות בולטות.","O — Observe: map, trail markers, landmarks."),
+     st("P — תכננו (Plan): לא בטוחים? הישארו, איתתו (3 צפירות) וחכו לעזרה.","P — Plan: unsure? Stay put, signal (3 blasts) and wait for help.")],tips:[]},
+  {id:"terrain",difficulty:"easy",icon:_nIcon,title:{he:"ניווט לפי צורת השטח",en:"Navigating by the terrain"},
+   lead:{he:"גם בלי מפה מדויקת, השטח עצמו מנחה אתכם.",en:"Even without a precise map, the terrain itself guides you."},safety:[],
+   steps:[st("מים תמיד זורמים למטה — ירידה במורד נחל מובילה לרוב ליישוב.","Water always flows down — following a stream downhill usually leads to civilization."),
+     st("'קווי נחיה': הצמדו לגדר, שביל, קו רכס או נחל — קשה יותר ללכת לאיבוד לאורך קו ברור.","'Handrails': follow a fence, trail, ridgeline or stream — it's harder to get lost along a clear line."),
+     st("זכרו נקודות בולטות מאחוריכם — כך תדעו לחזור.","Remember landmarks behind you — so you can find your way back.")],tips:[]}
+);
+
+CONTENT.signals.items.push(
+  {id:"smokesignals",difficulty:"easy",icon:_sIcon,title:{he:"אותות עשן ואש",en:"Smoke & fire signals"},
+   lead:{he:"אות מצוקה קלאסי שנראה ממרחק גדול.",en:"A classic distress signal seen from far away."},
+   safety:[{he:"רק במקום ובזמן שמותר להבעיר, ובזהירות רבה משריפה!",en:"Only where and when fires are allowed, and with great care against wildfire!"}],
+   steps:[st("שלוש מדורות בשורה או במשולש = אות מצוקה בינלאומי.","Three fires in a line or a triangle = the international distress signal."),
+     st("ביום — עשן: הוסיפו עלים ירוקים לעשן לבן, או גומי לעשן כהה.","By day — smoke: add green leaves for white smoke, or rubber for dark smoke."),
+     st("בלילה — אש בהירה וגלויה, ולסירוגין כסו וחשפו ל'פעימות'.","By night — a bright, visible fire, alternately covered and uncovered for 'pulses'.")],tips:[]},
+  {id:"airsignals",difficulty:"easy",icon:_sIcon,title:{he:"אותות גוף למטוס",en:"Body signals to aircraft"},
+   lead:{he:"כשמטוס חיפוש עובר מעליכם — הגוף שלכם הוא האות.",en:"When a search plane passes over — your body is the signal."},safety:[],
+   steps:[st("שתי ידיים מורמות מעלה (צורת Y) = 'כן, אני צריך עזרה'.","Both arms raised up (a Y shape) = 'Yes, I need help'."),
+     st("יד אחת למעלה ואחת למטה (צורת N) = 'לא, הכול בסדר'.","One arm up and one down (an N shape) = 'No, all is well'."),
+     st("נופפו בבד בהיר וגדול, ועמדו במקום פתוח וגלוי.","Wave a large bright cloth, and stand in an open, visible spot.")],tips:[]}
+);
+
+CONTENT.shelter.items.push(
+  {id:"desertshelter",difficulty:"med",icon:_shIcon,title:{he:"מחסה במדבר",en:"Desert shelter"},
+   lead:{he:"במדבר המחסה נועד קודם כול לצל ולקור הלילה — לא לגשם.",en:"In the desert, shelter is first for shade and the night's cold — not rain."},
+   safety:[{he:"בשעות החום (11:00–16:00) — לא זזים, נשארים בצל. תזוזה בחום שורפת מים וכוח.",en:"In peak heat (11:00–16:00) — don't move, stay in shade. Moving in heat burns water and energy."}],
+   steps:[st("חפשו צל טבעי: מצוק, סלע גדול, או גדת ואדי (רק אם אין סכנת שיטפון!).","Find natural shade: a cliff, a big rock, or a wadi bank (only if there's no flash-flood risk!)."),
+     st("הרימו את גופכם מהחול הלוהט — שכבו על משהו, לא ישר על הקרקע.","Get your body off the scorching sand — lie on something, not directly on the ground."),
+     st("מתחו יריעה/בד מעל עם מרווח אוויר בין שתי שכבות — בידוד מהחום.","Stretch a tarp/cloth above with an air gap between two layers — insulation from heat."),
+     st("שמרו על הגוף מכוסה — בגד מגן מהשמש טוב מעירום.","Keep your body covered — clothing shields from the sun better than bare skin.")],tips:[]},
+  {id:"blanket",difficulty:"easy",icon:_shIcon,title:{he:"שימוש בשמיכת חירום",en:"Using an emergency blanket"},
+   lead:{he:"השמיכה הכסופה קטנה, זולה ומצילת חיים — אם יודעים להשתמש.",en:"The silver blanket is small, cheap and life-saving — if you know how to use it."},safety:[],
+   steps:[st("הצד המבריק פנימה (לכיוון הגוף) לשמירת חום.","Shiny side inward (toward the body) to keep heat in."),
+     st("עטפו את כל הגוף כולל הראש, ובודדו גם מהקרקע.","Wrap the whole body including the head, and insulate from the ground too."),
+     st("אפשר למתוח אותה כגגון צל או מחסה גשם.","You can stretch it as a shade or rain canopy."),
+     st("הצד המבריק החוצה בשמש = אות איתות בוהק.","Shiny side out in the sun = a bright signaling flash.")],tips:[]}
+);
+
+CONTENT.gear.items.push(
+  {id:"layers",difficulty:"easy",icon:_gIcon,title:{he:"עקרון שלוש השכבות",en:"The three-layer principle"},
+   lead:{he:"הסוד ללבוש נכון בשטח: שכבות, לא בגד אחד עבה.",en:"The secret to dressing right outdoors: layers, not one thick garment."},safety:[],
+   steps:[st("שכבת בסיס — מנדפת זיעה מהעור (לא כותנה!).","Base layer — wicks sweat off the skin (not cotton!)."),
+     st("שכבת בידוד — פליז או צמר ששומרת חום.","Insulation layer — fleece or wool that holds warmth."),
+     st("שכבה חיצונית — מגנה מרוח וגשם.","Outer layer — protects from wind and rain."),
+     st("מוסיפים ומורידים שכבות לפי הקור והמאמץ — לא מזיעים ולא קופאים.","Add and shed layers with the cold and effort — neither sweating nor freezing.")],tips:[]},
+  {id:"repairkit",difficulty:"easy",icon:_gIcon,title:{he:"ערכת תיקון וסקוץ'",en:"Repair kit & tape"},
+   lead:{he:"פריטים קטנטנים ששוקלים כלום ומצילים טיול.",en:"Tiny items that weigh nothing and save a trip."},safety:[],
+   steps:[st("גלגלו כמה מטרים של סרט הדבקה חזק סביב בקבוק או מקל.","Wrap a few meters of strong tape around a bottle or stick."),
+     st("שימושים: תיקון נעל, אוהל ותרמיל, כיסוי יבלת, קיבוע סד, סימון שביל.","Uses: fixing a shoe, tent and pack, covering a blister, securing a splint, marking a trail."),
+     st("הוסיפו חוט ומחט, וכמה סיכות ביטחון.","Add a needle and thread, and a few safety pins.")],tips:[]}
+);
+
+CONTENT.nature.items.push(
+  {id:"streamcrossing",difficulty:"med",icon:_natIcon,title:{he:"חציית נחל בבטחה",en:"Crossing a stream safely"},
+   lead:{he:"מים זורמים חזקים ומסוכנים יותר משנראה — גם כשהם רדודים.",en:"Moving water is stronger and more dangerous than it looks — even when shallow."},
+   safety:[{he:"מים מעל הברכיים או זרם חזק — אל תחצו! חפשו מעבר אחר. הרבה טביעות בטבע קורות בחציות.",en:"Water above the knees or a strong current — don't cross! Find another way. Many outdoor drownings happen at crossings."}],
+   steps:[st("חפשו מקום רחב ורדוד עם זרם איטי.","Look for a wide, shallow spot with slow current."),
+     st("שחררו את רצועות התרמיל — כדי להשתחרר ממנו אם נופלים.","Unclip your pack straps — so you can shed it if you fall."),
+     st("חצו באלכסון עם הזרם, לא נגדו, ברגליים פשוקות.","Cross diagonally with the current, not against it, feet apart."),
+     st("השתמשו במקל כנקודת תמיכה שלישית.","Use a stick as a third point of support.")],tips:[]},
+  {id:"insectprotection",difficulty:"easy",icon:_natIcon,title:{he:"הגנה מיתושים וקרציות",en:"Insect & tick protection"},
+   lead:{he:"לא רק מטרד — יתושים וקרציות עלולים להעביר מחלות.",en:"Not just a nuisance — mosquitoes and ticks can carry disease."},safety:[],
+   steps:[st("לבשו שרוולים ומכנס ארוך בשעות הערב ובעשבייה גבוהה.","Wear long sleeves and trousers in the evening and in tall grass."),
+     st("באזורי קרציות — הכניסו את המכנס לתוך הגרביים.","In tick country — tuck trousers into your socks."),
+     st("השתמשו בדוחה חרקים על עור ובגד.","Use insect repellent on skin and clothing."),
+     st("אחרי טיול — בדקו את הגוף (במיוחד קפלים) לקרציות, והורידו מהר.","After a hike — check your body (especially skin folds) for ticks, and remove them promptly.")],tips:[]}
+);
+
+/* ============================================================
+   ROUND 7 — more content (diagrams added later)
+   ============================================================ */
+CONTENT.knots.items.push(
+  {id:"overhandloop",difficulty:"easy",icon:_kIcon,title:{he:"קשר לולאה פשוט",en:"Overhand loop"},
+   lead:{he:"הדרך המהירה ביותר ליצור לולאה קבועה באמצע או בקצה חבל.",en:"The fastest way to make a fixed loop in the middle or end of a rope."},safety:[],
+   steps:[st("קפלו את החבל לבייט.","Fold the rope into a bight."),
+     st("עשו עם הבייט קשר עצירה פשוט.","Tie a simple overhand knot with the bight."),
+     st("משכו — נוצרת לולאה. פשוט, אך נתקע בעומס כבד וקשה לפתיחה.","Pull — a loop forms. Simple, but jams under heavy load and is hard to untie.")],tips:[]},
+  {id:"doubleoverhand",difficulty:"easy",icon:_kIcon,title:{he:"קשר עצירה כפול (חבית)",en:"Double overhand (barrel)"},
+   lead:{he:"קשר עצירה גדול ובטוח יותר — לא נשמט דרך חורים גדולים.",en:"A bigger, more secure stopper — won't slip through larger holes."},safety:[],
+   steps:[st("עשו קשר עצירה פשוט בקצה.","Make a simple overhand knot at the end."),
+     st("לפני ההידוק, כרכו את הקצה פעם נוספת דרך הלולאה.","Before tightening, pass the end once more through the loop."),
+     st("משכו — נוצר 'חבית' קטן וקומפקטי.","Pull — a small, compact 'barrel' forms.")],tips:[]},
+  {id:"handcuff",difficulty:"med",icon:_kIcon,title:{he:"קשר אזיקים",en:"Handcuff knot"},
+   lead:{he:"שתי לולאות שאפשר לכוון — ככלי חילוץ או לגרירת חפץ בשני מוקדים.",en:"Two adjustable loops — as a rescue tool or to drag an object from two points."},
+   safety:[{he:"כאן ככלי חילוץ/גרירה בלבד, בפיקוח מבוגר.",en:"Here as a rescue/hauling tool only, under adult supervision."}],
+   steps:[st("עשו שתי לולאות שחופפות זו לזו.","Make two loops that overlap each other."),
+     st("העבירו כל לולאה דרך השנייה.","Pass each loop through the other."),
+     st("משכו את שני הקצוות — הלולאות נסגרות; אפשר לכוון כל אחת בנפרד.","Pull both ends — the loops close; each can be adjusted separately.")],tips:[]},
+  {id:"firemanchair",difficulty:"hard",kidsLock:true,icon:_kIcon,title:{he:"קשר כיסא (כבאי)",en:"Chair (fireman's) knot"},
+   lead:{he:"שתי לולאות קבועות זו לצד זו — למושב חילוץ להורדת אדם.",en:"Two fixed side-by-side loops — a rescue seat for lowering a person."},
+   safety:[{he:"הורדת אדם — רק בהדרכת גורם מוסמך, עם חבל וציוד תקינים.",en:"Lowering a person — only with a certified instructor and sound rope and gear."}],
+   steps:[st("עשו שני בייטים סמוכים בחבל.","Make two adjacent bights in the rope."),
+     st("קשרו קשר עצירה שאוחז את שני הבייטים יחד.","Tie an overhand that holds both bights together."),
+     st("כוונו לולאה אחת לגב ואחת לישבן.","Size one loop for the back and one for the seat."),
+     st("נעלו בחצי מלה בכל צד.","Lock with a half hitch on each side.")],tips:[]},
+  {id:"whipping",difficulty:"easy",icon:_kIcon,title:{he:"ליפוף קצה חבל",en:"Whipping a rope end"},
+   lead:{he:"מונע מקצה חבל שנחתך להתפרם — מיומנות שכל צופה צריך.",en:"Stops a cut rope end from fraying — a skill every scout needs."},safety:[],
+   steps:[st("הניחו חוט דק לאורך קצה החבל, עם לולאה קטנה שבולטת מהקצה.","Lay a thin cord along the rope end, with a small loop sticking past the end."),
+     st("לפפו את החוט הדוק סביב החבל והלולאה, כ-1 ס\"מ.","Wrap the cord tightly around the rope and loop, about 1 cm."),
+     st("השחילו את הקצה דרך הלולאה, ומשכו את הקצה השני כדי למשוך אותה פנימה. חתכו עודף.","Pass the end through the loop, pull the other end to draw it under, and trim.")],
+   tips:[{he:"חלופה מהירה לחבל סינתטי: להמיס בזהירות את הקצה — עם מבוגר בלבד.",en:"Quick option for synthetic rope: carefully melt the end — with an adult only."}]},
+  {id:"coiling",difficulty:"easy",icon:_kIcon,title:{he:"גלגול, אחסון וזריקת חבל",en:"Coiling, storing & throwing rope"},
+   lead:{he:"חבל מגולגל נכון לא מסתבך, נשמר טוב, וקל לזרוק בעת הצורך.",en:"A properly coiled rope won't tangle, stores well, and is easy to throw when needed."},safety:[],
+   steps:[st("גלגלו לולאות אחידות ביד — לא הדוק מדי.","Coil even loops in your hand — not too tight."),
+     st("קשרו את הסליל בשתי כריכות סביבו ולולאה שננעלת.","Tie off the coil with two wraps around it and a locking loop."),
+     st("לזריקה: חלקו את הסליל לשתי ידיים, זרקו חצי והשאירו חצי לבקרה.","To throw: split the coil between two hands, throw half and keep half to control it.")],tips:[]}
+);
+
+CONTENT.firstaid.items.push(
+  {id:"shock",difficulty:"med",icon:_aIcon,title:{he:"מצב הלם",en:"Shock"},
+   lead:{he:"הגוף מגיב לפציעה, דימום או כאב קשה — ועלול להתדרדר גם בלי פצע גלוי.",en:"The body's reaction to injury, bleeding or severe pain — it can worsen even with no visible wound."},
+   safety:[{he:"עור חיוור וקר, דופק מהיר, בלבול, נשימה מהירה = הלם. 101 מיד.",en:"Pale cold skin, fast pulse, confusion, rapid breathing = shock. Call emergency now."}],
+   steps:[st("השכיבו את הנפגע.","Lay the person down."),
+     st("הרימו את הרגליים כ-30 ס\"מ (אם אין חשד לשבר ברגליים/בגב).","Raise the legs about 30 cm (if no suspected leg/spine fracture)."),
+     st("כסו לשמירת חום והרגיעו.","Cover for warmth and reassure."),
+     st("אל תיתנו לאכול או לשתות. טפלו בגורם (עצירת דימום וכו').","Give nothing to eat or drink. Treat the cause (stop bleeding, etc.).")],tips:[]},
+  {id:"fainting",difficulty:"easy",icon:_aIcon,title:{he:"עילפון",en:"Fainting"},
+   lead:{he:"התעלפות קצרה מירידת דם למוח — לרוב חולפת מהר.",en:"A brief faint from reduced blood to the brain — usually passes quickly."},safety:[],
+   steps:[st("השכיבו והרימו את הרגליים.","Lay them down and raise the legs."),
+     st("שחררו בגדים לוחצים ודאגו לאוויר צח.","Loosen tight clothing and provide fresh air."),
+     st("כשמתעורר — תנו לו לקום לאט.","When they come round — let them get up slowly."),
+     st("לא התעורר תוך דקה, או נפצע בנפילה → 101.","Not awake within a minute, or injured in the fall → call emergency.")],tips:[]},
+  {id:"seizure",difficulty:"med",icon:_aIcon,title:{he:"התקף פרכוסים",en:"Seizure"},
+   lead:{he:"הגוף מתכווץ באופן לא נשלט. רוב ההתקפים חולפים מעצמם.",en:"The body convulses uncontrollably. Most seizures pass on their own."},
+   safety:[{he:"התקף מעל 5 דקות, התקפים חוזרים, פציעה, או התקף ראשון אי-פעם → 101.",en:"A seizure over 5 minutes, repeated seizures, injury, or a first-ever seizure → call emergency."}],
+   steps:[st("הרחיקו חפצים מסוכנים והגנו על הראש (בד מתחתיו).","Move dangerous objects away and protect the head (cloth under it)."),
+     st("אל תרסנו את הנפגע ואל תכניסו כלום לפה.","Do not restrain the person or put anything in their mouth."),
+     st("תזמנו את משך ההתקף.","Time how long the seizure lasts."),
+     st("אחרי ההתקף — הפנו לשכיבה על הצד והישארו לידו עד שמתאושש.","After it ends — turn them on their side and stay until they recover.")],tips:[]},
+  {id:"chemicalburn",difficulty:"med",icon:_aIcon,title:{he:"כווייה כימית",en:"Chemical burn"},
+   lead:{he:"חומר כימי על העור — המים הם התרופה, וכמה שיותר מהר.",en:"A chemical on the skin — water is the treatment, the faster the better."},
+   safety:[{he:"שטפו הרבה ומיד. אל תנטרלו בחומר אחר. כימיקל בעין → שטיפה ממושכת ו-101.",en:"Flush a lot, immediately. Don't neutralize with another chemical. Chemical in the eye → prolonged flushing and call emergency."}],
+   steps:[st("הסירו בזהירות בגד מזוהם (לא מעל הראש).","Carefully remove contaminated clothing (not over the head)."),
+     st("שטפו בשפע מים זורמים 20 דקות ומעלה.","Flush with plenty of running water for 20 minutes or more."),
+     st("אל תמרחו כלום; כסו רופף ופנו לטיפול.","Apply nothing; cover loosely and get medical care."),
+     st("קחו את שם החומר לצוות הרפואי.","Bring the chemical's name to the medical team.")],tips:[]},
+  {id:"animalbite",difficulty:"med",icon:_aIcon,title:{he:"נשיכת בעל חיים",en:"Animal bite"},
+   lead:{he:"נשיכת כלב, חתול או חיית בר — סכנת זיהום, ובישראל גם כלבת.",en:"A dog, cat or wild-animal bite — infection risk, and in some regions rabies."},
+   safety:[{he:"נשיכה עמוקה, בפנים/יד, או מחיה בר/משוטטת → מיון בהקדם (כלבת/טטנוס). דווחו לרשויות.",en:"A deep bite, on face/hand, or from a wild/stray animal → ER promptly (rabies/tetanus). Report it."}],
+   steps:[st("שטפו היטב במים וסבון כמה דקות.","Wash thoroughly with soap and water for several minutes."),
+     st("עצרו דימום בלחץ וחבשו נקי.","Control bleeding with pressure and dress it cleanly."),
+     st("פנו לרופא — ייתכן צורך בחיסון או אנטיביוטיקה.","See a doctor — a vaccine or antibiotics may be needed."),
+     st("נסו לזהות את בעל החיים ומי בעליו.","Try to identify the animal and its owner.")],tips:[]}
+);
+
+CONTENT.fire.items.push(
+  {id:"improvcooking",difficulty:"med",kidsLock:true,icon:_fIcon,title:{he:"בישול מאולתר (בלי סיר)",en:"Improvised cooking (no pot)"},
+   lead:{he:"אין כלים? עדיין אפשר לבשל טוב על גחלים.",en:"No cookware? You can still cook well over coals."},
+   safety:[{he:"תמיד עם מבוגר. משטחים לוהטים וקיטור — זהירות.",en:"Always with an adult. Hot surfaces and steam — be careful."}],
+   steps:[st("על מקל: השחילו אוכל על מקל ירוק וקלו מעל גחלים (לא בלהבה).","On a stick: skewer food on a green stick and cook over coals (not in flames)."),
+     st("בנייר כסף: עטפו אוכל ותפוחי אדמה והניחו בגחלים.","In foil: wrap food and potatoes and set them in the coals."),
+     st("אבן לוהטת: אבן שטוחה נקייה על הגחלים = מחבת מאולתרת.","Hot stone: a clean flat stone on the coals = an improvised griddle."),
+     st("בדקו תמיד שהאוכל מבושל היטב בפנים.","Always check the food is well cooked inside.")],tips:[]}
+);
+
+CONTENT.navigation.items.push(
+  {id:"routeplan",difficulty:"easy",icon:_nIcon,title:{he:"תכנון מסלול לפני יציאה",en:"Planning a route"},
+   lead:{he:"רוב הצרות בשטח נמנעות עוד בבית, עם תכנון טוב.",en:"Most trouble outdoors is avoided at home, with good planning."},safety:[],
+   steps:[st("בדקו מרחק, טיפוס וזמן משוער — התאימו ליכולת החלשה בקבוצה.","Check distance, climb and estimated time — match the group's weakest member."),
+     st("בדקו מזג אוויר ושעת חשכה.","Check the weather and the time of dark."),
+     st("סמנו 'נקודות נסיגה' — איפה אפשר לקצר או לצאת.","Mark 'bail-out points' — where you can shorten or exit."),
+     st("השאירו למישהו אחראי את המסלול ושעת החזרה המשוערת.","Leave your route and expected return time with a responsible person.")],tips:[]},
+  {id:"hiketime",difficulty:"easy",icon:_nIcon,title:{he:"כמה זמן ייקח המסלול",en:"How long a hike takes"},
+   lead:{he:"הערכת זמן טובה מונעת סיום בחושך.",en:"A good time estimate keeps you from finishing in the dark."},safety:[],
+   steps:[st("כלל אצבע: כ-4 ק\"מ לשעה בשטח מישורי.","Rule of thumb: about 4 km/h on flat ground."),
+     st("הוסיפו כשעה על כל 600 מ' טיפוס.","Add about an hour for every 600 m of climb."),
+     st("הוסיפו זמן להפסקות, לצילומים ולעייפות.","Add time for breaks, photos and fatigue."),
+     st("תמיד עדיף להעריך יותר מפחות.","Always better to overestimate than under.")],tips:[]}
+);
+
+CONTENT.signals.items.push(
+  {id:"groupsignals",difficulty:"easy",icon:_sIcon,title:{he:"סימנים מוסכמים בקבוצה",en:"Agreed group signals"},
+   lead:{he:"לפני שיוצאים — סכמו קוד פשוט, כדי לתקשר ממרחק ובתוך רעש.",en:"Before setting out — agree a simple code, to communicate at distance and over noise."},safety:[],
+   steps:[st("קבעו מראש מה אומרת צפירה אחת, שתיים, ושלוש.","Decide in advance what one, two and three blasts mean."),
+     st("סמנו נקודת מפגש ידועה למקרה של היפרדות.","Set a known meeting point in case of separation."),
+     st("קבעו 'מילת קוד' לחירום.","Agree a 'code word' for emergencies."),
+     st("ודאו שכולם — במיוחד הצעירים — יודעים את הקוד.","Make sure everyone — especially the young ones — knows the code.")],tips:[]}
+);
+
+CONTENT.shelter.items.push(
+  {id:"windbreak",difficulty:"easy",icon:_shIcon,title:{he:"מחסת רוח",en:"Windbreak"},
+   lead:{he:"לפעמים לא צריך גג — רק להפסיק את הרוח.",en:"Sometimes you don't need a roof — just to block the wind."},safety:[],
+   steps:[st("מצאו או בנו מחסום מצד הרוח: סלע, ערמת תרמילים, שיח או קיר אבנים נמוך.","Find or build a barrier on the windward side: a rock, a pile of packs, a bush or a low stone wall."),
+     st("שבו או שכבו בצד המוגן.","Sit or lie on the sheltered side."),
+     st("שלבו עם מדורה (קיר מחזיר) לחום נוסף.","Combine with a fire (reflector wall) for extra warmth.")],
+   tips:[{he:"הרוח מקררת את הגוף הרבה יותר מהטמפרטורה עצמה — לחסום אותה זה חצי מהחום.",en:"Wind chills the body far more than the temperature alone — blocking it is half the warmth."}]}
+);
+
+CONTENT.gear.items.push(
+  {id:"footwear",difficulty:"easy",icon:_gIcon,title:{he:"נעליים וגרביים",en:"Footwear & socks"},
+   lead:{he:"הרגליים נושאות אתכם — הטיפול בהן חשוב מכל פריט אחר.",en:"Your feet carry you — caring for them matters more than any other item."},safety:[],
+   steps:[st("נעליים מותאמות ומורצות מראש — לא חדשות בטיול ארוך.","Well-fitted, broken-in shoes — not brand-new on a long trip."),
+     st("גרב מנדף (או שתי שכבות) מפחית חיכוך ויבלות.","A wicking sock (or two layers) reduces friction and blisters."),
+     st("שמרו על הרגליים יבשות — החליפו גרב רטוב.","Keep feet dry — change a wet sock."),
+     st("בהפסקה — הורידו נעליים לאוורור.","At a break — take shoes off to air out.")],tips:[]},
+  {id:"offlinemaps",difficulty:"easy",icon:_gIcon,title:{he:"מפות אופליין בטלפון",en:"Offline maps on your phone"},
+   lead:{he:"אפליקציית מפות שהורדתם מראש עובדת גם בלי קליטה.",en:"A maps app you downloaded in advance works even without signal."},safety:[],
+   steps:[st("לפני היציאה — הורידו את אזור המפה לצפייה לא-מקוונת.","Before you leave — download the map area for offline viewing."),
+     st("שמרו את המסלול ונקודת החניה כסימנייה.","Save your route and parking spot as a bookmark."),
+     st("ה-GPS עובד גם בלי קליטת רשת (רק בלי הורדת מפה חדשה).","GPS works even with no cell signal (just no downloading new maps)."),
+     st("אל תסמכו רק על הטלפון — מפה ומצפן פיזיים כגיבוי.","Don't rely on the phone alone — a paper map and compass as backup.")],tips:[]}
+);
+
+CONTENT.nature.items.push(
+  {id:"biganimals",difficulty:"med",icon:_natIcon,title:{he:"מפגש עם חיה גדולה",en:"Meeting a large animal"},
+   lead:{he:"בישראל: חזירי בר, תנים, וכלבי רועים ליד עדרים.",en:"In this region: wild boar, jackals, and shepherd dogs near flocks."},
+   safety:[{he:"אל תתקרבו, אל תאכילו, ולעולם אל תיגעו בגורים.",en:"Don't approach, don't feed, and never touch the young."}],
+   steps:[st("חזיר בר — אל תברחו בריצה. סגו לאט אחורה ותנו לו מרחב לעבור.","Wild boar — don't run. Back away slowly and give it room to pass."),
+     st("כלבי רועים — אל תעברו דרך העדר; עקפו אותו במרחק ובשקט.","Shepherd dogs — don't walk through the flock; go around at a distance, quietly."),
+     st("בלילה — תאורה חזקה ורעש קל מרחיקים לרוב.","At night — a strong light and a little noise usually keep animals away."),
+     st("חיה תוקפנית — התרוממו, היראו גדולים, ואל תסתובבו לברוח.","An aggressive animal — stand tall, look big, and don't turn to run.")],tips:[]},
+  {id:"hygiene",difficulty:"easy",icon:_natIcon,title:{he:"תברואה בשטח",en:"Hygiene outdoors"},
+   lead:{he:"לשמור על עצמכם, על החברים ועל הטבע — נקיים ובריאים.",en:"Keep yourself, your friends and nature clean and healthy."},safety:[],
+   steps:[st("התרחקו לפחות 60 מ' ממים, שבילים ומהמחנה.","Move at least 60 m from water, trails and camp."),
+     st("חפרו 'בור חתול' בעומק כ-15 ס\"מ, וכסו אחרי השימוש.","Dig a 'cat hole' about 15 cm deep, and cover it after use."),
+     st("נייר טואלט — קחו החוצה בשקית (לא לקבור ולא לשרוף).","Toilet paper — pack it out in a bag (don't bury or burn it)."),
+     st("שטפו/חטאו ידיים היטב — מונע מחלות שמתפשטות בקבוצה.","Wash/sanitize hands well — it prevents illness spreading in the group.")],tips:[]}
+);
+
+/* ============================================================
+   ROUND 8 — more content (diagrams added later)
+   ============================================================ */
+CONTENT.knots.items.push(
+  {id:"knottypes",difficulty:"easy",icon:_kIcon,title:{he:"סוגי הקשרים — מדריך",en:"Types of knots — a guide"},
+   lead:{he:"ארבע משפחות עיקריות — לדעת איזה קשר לאיזו מטרה.",en:"Four main families — knowing which knot for which job."},safety:[],
+   steps:[st("קשר עצירה (Stopper): עוצר קצה חבל. דוגמאות: עצירה פשוט, שמיני.","Stopper: stops a rope end. Examples: overhand, figure-eight."),
+     st("קשר לולאה (Loop): יוצר לולאה. דוגמאות: בית, שמינייה על לולאה.","Loop: makes a loop. Examples: bowline, figure-eight on a bight."),
+     st("קשר חיבור (Bend): מחבר שני חבלים. דוגמאות: דייגים, חיבור, קאריק.","Bend: joins two ropes. Examples: fisherman's, sheet bend, carrick."),
+     st("קשר חבישה (Hitch) ורתמות: קושרים חבל לעצם או מוטות למבנה.","Hitch & lashings: tie a rope to an object, or poles into a structure.")],
+   tips:[{he:"זהו קודם את הצורך — עצירה? לולאה? חיבור? חבישה? — ואז בחרו קשר.",en:"Identify the need first — stopper? loop? bend? hitch? — then pick the knot."}]},
+  {id:"ropecare",difficulty:"easy",icon:_kIcon,title:{he:"סוגי חבלים וטיפוח",en:"Rope types & care"},
+   lead:{he:"חבל טוב ומטופל הוא חבל בטוח.",en:"A good, well-kept rope is a safe rope."},safety:[],
+   steps:[st("חבל טבעי (כותנה/סיזל) — נוח לתרגול, אך נרקב ברטיבות.","Natural rope (cotton/sisal) — nice to practice with, but rots when wet."),
+     st("חבל סינתטי (ניילון/פוליאסטר) — חזק ועמיד למים, אך חלק (קשרים מחליקים יותר).","Synthetic rope (nylon/polyester) — strong and water-resistant, but slick (knots slip more)."),
+     st("שמרו יבש ומגולגל, הרחק משמש ישירה לאורך זמן.","Store dry and coiled, away from long direct sun."),
+     st("בדקו שחיקה וקרעים לפני עומס — חבל פגום = סכנה.","Check for wear and cuts before loading — a damaged rope = danger.")],
+   tips:[{he:"לחבל שנושא משקל אדם — רק חבל טיפוס תקן, לא חבל חצר.",en:"For a rope bearing a person's weight — only certified climbing rope, not garden rope."}]},
+  {id:"catspaw",difficulty:"med",icon:_kIcon,title:{he:"קשר טפרי חתול",en:"Cat's paw"},
+   lead:{he:"קשר לתלייה או הרמה על וו — חזק וסימטרי, לא מחליק.",en:"A knot for hanging or lifting on a hook — strong, symmetric and non-slip."},safety:[],
+   steps:[st("עשו שתי לולאות בחבל, זו לצד זו.","Make two loops in the rope, side by side."),
+     st("סובבו כל לולאה כמה פעמים לכיוונים מנוגדים.","Twist each loop a few times in opposite directions."),
+     st("שלבו את שתי הלולאות על הוו ומשכו — מתהדק סימטרית.","Slip both loops onto the hook and pull — it seats symmetrically.")],tips:[]},
+  {id:"buntline",difficulty:"med",icon:_kIcon,title:{he:"קשר בנטליין",en:"Buntline hitch"},
+   lead:{he:"קשר חבישה קומפקטי לטבעת — מחזיק גם כשהחבל מתנופף ברוח.",en:"A compact hitch to a ring — holds even when the rope flaps in the wind."},safety:[],
+   steps:[st("העבירו את הקצה דרך הטבעת.","Pass the end through the ring."),
+     st("עשו שני חצאי מלה סביב החבל הראשי — אך בתוך הלולאה, לכיוון הטבעת.","Make two half hitches around the standing part — but inside the loop, toward the ring."),
+     st("משכו — הקשר נועל את עצמו.","Pull — the knot locks itself.")],tips:[]}
+);
+
+CONTENT.firstaid.items.push(
+  {id:"headinjury",difficulty:"med",icon:_aIcon,title:{he:"חבטת ראש (זעזוע מוח)",en:"Head injury (concussion)"},
+   lead:{he:"כל חבטת ראש דורשת מעקב — גם אם נראה בסדר בהתחלה.",en:"Every head knock needs watching — even if it seems fine at first."},
+   safety:[{he:"הקאות, בלבול, ישנוניות חריגה, אישונים לא שווים, נוזל מהאף/אוזן או איבוד הכרה = חמור, 101 מיד.",en:"Vomiting, confusion, unusual drowsiness, unequal pupils, fluid from nose/ear, or loss of consciousness = serious, call emergency now."}],
+   steps:[st("הושיבו או השכיבו את הנפגע במנוחה.","Sit or lay the person down to rest."),
+     st("קרח עטוף בבד על מקום החבטה.","Ice wrapped in cloth on the impact spot."),
+     st("אל תיתנו לו לחזור לפעילות או משחק.","Don't let them return to activity or play."),
+     st("עקבו במשך 24 שעות — כל סימן מדאיג → מיון.","Watch for 24 hours — any worrying sign → ER.")],tips:[]},
+  {id:"drowning",difficulty:"med",icon:_aIcon,title:{he:"טביעה וחילוץ ממים",en:"Drowning & water rescue"},
+   lead:{he:"הכלל שמציל את המציל: 'הושט, זרוק — אל תיכנס'.",en:"The rule that saves the rescuer: 'Reach, throw — don't go'."},
+   safety:[{he:"לעולם אל תיכנסו למים לחלץ אם אינכם מצילים מיומנים — טובע נאבק וימשוך אתכם למטה. הזעיקו עזרה (101/מציל).",en:"Never enter the water to rescue unless you're a trained lifeguard — a drowning person struggles and will pull you under. Call for help (emergency/lifeguard)."}],
+   steps:[st("הושיטו מקל, ענף או מגבת מהיבשה.","Reach out a stick, branch or towel from land."),
+     st("זרקו חפץ צף (בקבוק, גלגל הצלה).","Throw a floating object (bottle, ring buoy)."),
+     st("דברו והרגיעו את הטובע, כוונו אותו לכיוון היבשה.","Talk and calm the person, guide them toward shore."),
+     st("הוצא מהמים — בדקו נשימה, ובמידת הצורך התחילו החייאה, 101.","Out of the water — check breathing, start CPR if needed, call emergency.")],tips:[]},
+  {id:"asthma",difficulty:"med",icon:_aIcon,title:{he:"התקף אסתמה",en:"Asthma attack"},
+   lead:{he:"דרכי הנשימה מצטמצמות — צפצופים, קוצר נשימה ושיעול.",en:"The airways narrow — wheezing, shortness of breath and coughing."},
+   safety:[{he:"לא משתפר אחרי משאף, שפתיים כחולות, או לא מסוגל לומר משפט = חירום, 101.",en:"No improvement after the inhaler, blue lips, or can't say a full sentence = emergency, call now."}],
+   steps:[st("הושיבו את הנפגע זקוף ורגוע — לא לשכב.","Sit the person upright and calm — not lying down."),
+     st("עזרו לו להשתמש במשאף שלו (לרוב הכחול).","Help them use their own inhaler (usually the blue one)."),
+     st("רווח בין שאיפות לפי ההנחיה על המשאף.","Space the puffs per the inhaler's instructions."),
+     st("הרחיקו גורמים מעוררים: אבק, עשן, קור.","Remove triggers: dust, smoke, cold air.")],tips:[]},
+  {id:"sunburn",difficulty:"easy",icon:_aIcon,title:{he:"כוויית שמש",en:"Sunburn"},
+   lead:{he:"קלה למראה אך כואבת ומזיקה — ובקיץ מגיעה מהר מאוד.",en:"Looks minor but is painful and harmful — and in summer it comes fast."},safety:[],
+   steps:[st("צאו מהשמש מיד.","Get out of the sun immediately."),
+     st("קררו את העור במים פושרים.","Cool the skin with cool water."),
+     st("מרחו לחות (אלוורה/קרם) ושתו הרבה מים.","Apply moisturizer (aloe/cream) and drink plenty of water."),
+     st("אל תפוצצו שלפוחיות. כוויות נרחבות/עם חום → רופא.","Don't pop blisters. Extensive burns/with fever → doctor.")],
+   tips:[{he:"מניעה: כובע, בגד ארוך, וקרם הגנה מחדש כל שעתיים.",en:"Prevention: hat, long clothing, and re-apply sunscreen every two hours."}]}
+);
+
+CONTENT.fire.items.push(
+  {id:"firewood",difficulty:"easy",icon:_fIcon,title:{he:"איזה עץ בוער טוב",en:"Which wood burns best"},
+   lead:{he:"הבחירה בעצים קובעת אם האש תבער יפה או רק תעשן.",en:"Your wood choice decides whether the fire burns well or just smokes."},safety:[],
+   steps:[st("רק עץ יבש — עץ לח מעשן, מפצפץ ולא בוער.","Only dry wood — wet wood smokes, crackles and won't burn."),
+     st("עץ קשה (אלון, זית) — בוער לאט וארוך, מצוין לגחלים.","Hardwood (oak, olive) — burns slow and long, great for coals."),
+     st("עץ רך (אורן) — נדלק מהר אך נגמר מהר, טוב להתחלה.","Softwood (pine) — lights fast but burns out fast, good to start."),
+     st("אספו ענפים מהקרקע — אל תשברו מעצים חיים (לא בוערים, ואסור).","Gather branches from the ground — don't break from living trees (they won't burn, and it's forbidden).")],tips:[]}
+);
+
+CONTENT.navigation.items.push(
+  {id:"watchcompass",difficulty:"med",icon:_nIcon,title:{he:"כיוון בעזרת שעון",en:"Direction using a watch"},
+   lead:{he:"שעון אנלוגי (עם מחוגים) יכול לשמש מצפן מאולתר.",en:"An analog watch (with hands) can act as an improvised compass."},safety:[],
+   steps:[st("בחצי הכדור הצפוני: כוונו את מחוג השעות אל השמש.","Northern hemisphere: point the hour hand at the sun."),
+     st("חצו את הזווית בין מחוג השעות ל-12.","Bisect the angle between the hour hand and 12 o'clock."),
+     st("הקו החוצה מצביע דרומה; ההפך ממנו — צפון.","The bisecting line points south; the opposite way is north.")],
+   tips:[{he:"אין שעון מחוגים? דמיינו אותו לפי השעה הדיגיטלית.",en:"No dial watch? Picture one based on the digital time."}]}
+);
+
+CONTENT.shelter.items.push(
+  {id:"raincaught",difficulty:"easy",icon:_shIcon,title:{he:"נתפסתם בגשם — מה עושים",en:"Caught in the rain"},
+   lead:{he:"להישאר יבש = להישאר בטוח. רטיבות + רוח = היפותרמיה.",en:"Staying dry = staying safe. Wet + wind = hypothermia."},
+   safety:[{he:"בסופת ברקים — הימנעו מפסגות, מעצים בודדים גבוהים וממים פתוחים.",en:"In a lightning storm — avoid peaks, lone tall trees and open water."}],
+   steps:[st("לבשו את שכבת הגשם לפני שנרטבתם — לא אחרי.","Put on your rain layer before you get wet — not after."),
+     st("חפשו מחסה מיידי: צוק בולט, חורש צפוף, או מתחו יריעה.","Find quick shelter: an overhang, dense woods, or rig a tarp."),
+     st("שמרו ציוד יבש בשקית ניילון בתוך התרמיל.","Keep dry gear in a plastic bag inside your pack.")],tips:[]}
+);
+
+CONTENT.gear.items.push(
+  {id:"firstaidkit",difficulty:"easy",icon:_gIcon,title:{he:"תכולת ערכת עזרה ראשונה",en:"First-aid kit contents"},
+   lead:{he:"ערכה קטנה וטובה שווה יותר מערכה גדולה שחסר בה הנחוץ.",en:"A small, good kit beats a big one missing what you need."},safety:[],
+   steps:[st("תחבושות, פדים סטריליים וסרט הדבקה.","Bandages, sterile pads and adhesive tape."),
+     st("פלסטרים (כולל ליבלות) וחומר חיטוי.","Plasters (including for blisters) and antiseptic."),
+     st("משכך כאב, פינצטה ומספריים קטנים.","Pain reliever, tweezers and small scissors."),
+     st("כפפות חד-פעמיות, שמיכת חירום, ותרופות אישיות (משאף/אפיפן) לפי צורך.","Disposable gloves, an emergency blanket, and personal meds (inhaler/EpiPen) as needed.")],tips:[]}
+);
+
+CONTENT.nature.items.push(
+  {id:"tracks",difficulty:"easy",icon:_natIcon,title:{he:"זיהוי עקבות בעלי חיים",en:"Reading animal tracks"},
+   lead:{he:"השטח מלא סימנים — לומדים לקרוא מי עבר כאן.",en:"The ground is full of signs — you learn to read who passed by."},safety:[],
+   steps:[st("חפשו טביעות בבוץ, בחול או ליד מים.","Look for prints in mud, sand or near water."),
+     st("ספרו אצבעות וחפשו טפרים (כלב/שועל) או פרסה (צבי/יעל).","Count toes and look for claws (dog/fox) or hooves (deer/ibex)."),
+     st("סימנים נוספים: גללים, נוצות, שערות, וצמחייה שנאכלה.","Other signs: droppings, feathers, hair, and nibbled plants."),
+     st("עקבות טריים = החיה קרובה. שמרו מרחק וכבוד.","Fresh tracks = the animal is near. Keep distance and respect.")],tips:[]},
+  {id:"reserves",difficulty:"easy",icon:_natIcon,title:{he:"שמורות טבע וכללים",en:"Nature reserves & rules"},
+   lead:{he:"הטבע שייך לכולם — צריך לשמור עליו לפי הכללים.",en:"Nature belongs to everyone — we protect it by the rules."},safety:[],
+   steps:[st("בשמורה: נשארים בשבילים, לא קוטפים ולא לוקחים דבר (אבן, פרח, קונכייה).","In a reserve: stay on trails, don't pick or take anything (a rock, flower, shell)."),
+     st("לא מבעירים אש מחוץ למקומות מסומנים.","No fires outside marked spots."),
+     st("לא מטרידים ולא מאכילים בעלי חיים.","Don't disturb or feed wildlife."),
+     st("מוציאים את כל האשפה. יש קנסות — וזה פשוט הדבר הנכון.","Pack out all trash. There are fines — and it's simply the right thing.")],tips:[]}
+);
+
 </script>
 
 <script>
@@ -1303,6 +2235,8 @@ function go(screen){
   window.scrollTo(0,0);
   if(screen==='settings') renderSettings();
   if(screen==='checklist') renderChecklist();
+  if(screen==='favorites') renderFavorites();
+  if(screen==='achievements') renderAchievements();
 }
 
 /* ============================================================
@@ -1316,6 +2250,13 @@ function renderHome(){
   html+=`<button class="cat emergency" onclick="openEmergency()">
     <span class="bar"></span><span class="emoji">🚨</span>
     <h3>${T('emergency')}</h3><small>${T('emergencyDesc')}</small></button>`;
+  // favorites + achievements
+  html+=`<button class="cat" onclick="go('favorites')">
+    <span class="bar"></span><span class="emoji">⭐</span>
+    <h3>${T('favTitle').replace('⭐ ','')}</h3><small>${S.favorites.length} ${L({he:"נושאים",en:"items"})}</small></button>`;
+  html+=`<button class="cat" onclick="go('achievements')">
+    <span class="bar"></span><span class="emoji">🏅</span>
+    <h3>${T('achTitle').replace('🏅 ','')}</h3><small>${S.quizBadges.length}/${Object.keys(QUIZ).length} ${L({he:"תגים",en:"badges"})}</small></button>`;
   for(const key of Object.keys(CONTENT)){
     const c=CONTENT[key];
     const earned=S.quizBadges.includes(key);
@@ -1348,7 +2289,7 @@ function openCat(key){
     const locked = it.kidsLock && S.age==='kids';
     const fav = S.favorites.includes(it.id);
     html+=`<div class="item" onclick="${locked?'':`openItem('${key}','${it.id}')`}" style="${locked?'opacity:.6':''}">
-      <div class="ic">${it.icon}</div>
+      ${visualThumb(it)}
       <div class="meta"><h3>${L(it.title)}
         ${it.difficulty==='easy'?`<span class="tag easy">${T('easy')}</span>`:''}
         ${locked?`<span class="tag lock">🔒 ${T('adultsLock')}</span>`:''}
@@ -1364,18 +2305,29 @@ function openCat(key){
    RENDER: ITEM DETAIL
    ============================================================ */
 function openItem(key,id){
+  const requested=CONTENT[key]?.items.find(x=>x.id===id);
+  if(!requested)return;
+  if(requested.kidsLock && S.age==='kids'){toast(T('adultsLock'));return;}
+  // one-time safety acknowledgment for sensitive categories
+  if(['fire','firstaid','nature'].includes(key) && !store.get('sg_safetyack')){
+    pendingItem=[key,id]; showSafetyAck(); return;
+  }
   currentCat=key; currentItem=id;
   const it=CONTENT[key].items.find(x=>x.id===id);
   let html=`<h1>${L(it.title)}</h1><p class="lead">${L(it.lead)}</p>`;
   html+=`<button class="readbtn" onclick="readAloud('${key}','${id}')">🔊 ${T('readAloud')}</button>`;
+  // per-item interactive tools
+  if(id==='compass') html+=`<button class="readbtn" onclick="openCompass()">🧭 ${T('liveCompass')}</button>`;
+  if(id==='morse'||id==='whistle-sig') html+=`<button class="readbtn" onclick="openSOS()">🔦 ${T('sosBtn')}</button>`;
   if(it.safety && it.safety.length){
     html+=`<div class="safety"><h4>⚠️ ${T('safetyTitle')}</h4><ul>`;
     it.safety.forEach(s=>html+=`<li>${L(s)}</li>`);
     html+=`</ul></div>`;
   }
-  it.steps.forEach((st,i)=>{
+  html+=visualGuide(it);
+  if(!BASIC_GUIDES[id]) it.steps.forEach((st,i)=>{
     html+=`<div class="step"><span class="num">${i+1}</span>`;
-    if(st.svg) html+=`<div class="diagram">${st.svg}</div>`;
+    if(st.svg && (!SCOUT_VISUALS[id] || id==='leanto')) html+=`<div class="diagram">${st.svg}</div>`;
     html+=`<p>${L(st.text)}</p></div>`;
   });
   if(it.tips && it.tips.length){
@@ -1424,7 +2376,7 @@ function doSearch(q){
   let results=[];
   for(const key of Object.keys(CONTENT)){
     CONTENT[key].items.forEach(it=>{
-      const hay=(L(it.title)+' '+L(it.lead)).toLowerCase();
+      const hay=searchableTopic(it);
       if(hay.includes(q)) results.push({key,it});
     });
   }
@@ -1433,7 +2385,7 @@ function doSearch(q){
   results.forEach(r=>{
     const locked=r.it.kidsLock&&S.age==='kids';
     html+=`<div class="item" onclick="${locked?'':`openItem('${r.key}','${r.it.id}')`}" style="${locked?'opacity:.6':''}">
-      <div class="ic">${r.it.icon}</div>
+      ${visualThumb(r.it)}
       <div class="meta"><h3>${L(r.it.title)} ${locked?`<span class="tag lock">🔒</span>`:''}</h3><p>${L(r.it.lead)}</p></div></div>`;
   });
   box.innerHTML=html;
@@ -1449,6 +2401,7 @@ function openEmergency(){
   html+=`</ul></div>`;
   html+=`<div class="step"><p><b>${L({he:"עד שמגיעה עזרה:",en:"Until help arrives:"})}</b><br>
     ${L({he:"1. שמרו על קור רוח ורחקו מהסכנה.\\n2. אם הנפגע לא מגיב — בדקו נשימה.\\n3. תארו למוקד: מיקום מדויק, מה קרה, כמה נפגעים.\\n4. אל תנתקו עד שהמוקדן אומר.",en:"1. Stay calm and move away from danger.\\n2. If unresponsive — check breathing.\\n3. Tell dispatch: exact location, what happened, how many injured.\\n4. Don't hang up until told to."})}</p></div>`;
+  html+=`<button class="btn danger" style="margin-top:6px" onclick="openSOS()">🔦 ${T('sosBtn')}</button>`;
   $('detailBody').innerHTML=html;
   lastList=null;
   go('detail');
@@ -1500,6 +2453,8 @@ function renderSettings(){
   $('themeSwatches').innerHTML=THEMES.map(t=>
     `<button class="swatch ${S.theme===t?'on':''}" style="background:${THEME_COLORS[t]}" onclick="setTheme('${t}')"></button>`).join('');
   $('darkToggle').textContent = S.mode==='dark'?'🌙':'☀️';
+  if($('redToggle')) $('redToggle').classList.toggle('on', store.get('sg_red')==='1');
+  if($('redToggle')) $('redToggle').textContent = store.get('sg_red')==='1'?'on':'off';
   $('usernameInput').value=S.username;
   // ai
   $('aiProvider').value=S.ai.provider;
@@ -1532,7 +2487,7 @@ function applyLang(){
    ============================================================ */
 function exportBackup(){
   const data={app:"scout-guide",version:"1.0",user:S.username,date:new Date().toISOString(),
-    lang:S.lang,theme:S.theme,mode:S.mode,age:S.age,favorites:S.favorites,checklist:S.checklist,badges:S.badges};
+    lang:S.lang,theme:S.theme,mode:S.mode,age:S.age,favorites:S.favorites,checklist:S.checklist,badges:S.badges,personalGear,basicPractised};
   const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
   a.download=`scout-backup-${S.username||'user'}-${new Date().toISOString().slice(0,10)}.json`; a.click();
@@ -1545,7 +2500,9 @@ function importBackup(input){
     if(d.favorites) {S.favorites=d.favorites; saveJSON('sg_fav',S.favorites);}
     if(d.checklist) {S.checklist=d.checklist; saveJSON('sg_check',S.checklist);}
     if(d.badges) {S.badges=d.badges; saveJSON('sg_badges',S.badges);}
-    if(d.username!==undefined){S.username=d.username; store.set('sg_user',S.username);}
+    if(typeof (d.username??d.user)==='string'){S.username=d.username??d.user;store.set('sg_user',S.username);}
+    if(Array.isArray(d.basicPractised)){basicPractised=[...new Set(d.basicPractised.filter(id=>Object.hasOwn(BASIC_GUIDES,id)))];store.set('sg_basic_practised',JSON.stringify(basicPractised));}
+    if(Array.isArray(d.personalGear)){personalGear=d.personalGear.filter(g=>g&&typeof g.name==='string').slice(0,100).map(g=>({name:g.name.slice(0,100),checked:!!g.checked}));store.set('sg_personal_gear',JSON.stringify(personalGear));}
     if(d.lang){setLang(d.lang);} if(d.theme){setTheme(d.theme);} if(d.age){setAge(d.age);}
     toast(L({he:"הגיבוי שוחזר",en:"Backup restored"}));
   }catch(e){ toast(L({he:"קובץ לא תקין",en:"Invalid file"})); } };
@@ -1558,8 +2515,8 @@ function shareApp(){
 function resetAll(){
   if(!confirm(L({he:"למחוק את כל הנתונים? פעולה בלתי הפיכה.",en:"Delete all data? This cannot be undone."}))) return;
   if(!confirm(L({he:"בטוח? אישור אחרון.",en:"Are you sure? Final confirmation."}))) return;
-  ['sg_fav','sg_check','sg_badges','sg_user','sg_ai'].forEach(k=>store.del(k));
-  S.favorites=[];S.checklist={};S.badges=[];S.username='';S.ai={provider:'gemini',key:'',model:''};
+  ['sg_fav','sg_check','sg_badges','sg_user','sg_ai','sg_personal_gear','sg_basic_practised'].forEach(k=>store.del(k));
+  personalGear=[];basicPractised=[];S.favorites=[];S.checklist={};S.badges=[];S.username='';S.ai={provider:'gemini',key:'',model:''};
   saveJSON('sg_ai',S.ai);
   toast(L({he:"הנתונים נמחקו",en:"Data deleted"})); renderSettings(); renderHome();
 }
@@ -1637,18 +2594,18 @@ async function testAi(){
     $('aiStatus').textContent = ans ? '🟢 '+L({he:"חיבור תקין",en:"Connection OK"}) : '🔴 '+L({he:"אין תשובה",en:"No response"});
   }catch(e){ $('aiStatus').textContent='🔴 '+e.message; }
 }
-async function callAI(prompt){
+async function callAI(prompt,signal){
   const p=S.ai.provider, key=(S.ai.key||'').split(/[,\n]/)[0].trim(), model=S.ai.model||AI_PROVIDERS[p].default;
   const sys=L({he:"אתה מדריך צופים מנוסה ובטיחותי. ענה קצר, מעשי ובשפה של המשתמש. תמיד הדגש בטיחות; במקרה חירום הפנה למספרי חירום ולמבוגר אחראי. אינך מחליף ייעוץ רפואי מקצועי.",en:"You are an experienced, safety-first scouting guide. Answer briefly and practically in the user's language. Always emphasize safety; in emergencies refer to emergency numbers and a responsible adult. You do not replace professional medical advice."});
   if(p==='gemini'){
     const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',signal,headers:{'Content-Type':'application/json'},
       body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:[{parts:[{text:prompt}]}]})});
     const d=await r.json(); if(d.error) throw new Error(d.error.message);
     return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
   }
   if(p==='claude'){
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',signal,
       headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
       body:JSON.stringify({model,max_tokens:800,system:sys,messages:[{role:'user',content:prompt}]})});
     const d=await r.json(); if(d.error) throw new Error(d.error.message);
@@ -1659,7 +2616,7 @@ async function callAI(prompt){
   if(p==='openai') hdr.Authorization='Bearer '+key;
   if(p==='local') url='http://localhost:11434/v1/chat/completions';
   if(p==='custom'){ const parts=(S.ai.key||'').split('|'); url=parts[0]; if(parts[1]) hdr.Authorization='Bearer '+parts[1].trim(); }
-  const r=await fetch(url,{method:'POST',headers:hdr,body:JSON.stringify({model,messages:[{role:'system',content:sys},{role:'user',content:prompt}]})});
+  const r=await fetch(url,{method:'POST',signal,headers:hdr,body:JSON.stringify({model,messages:[{role:'system',content:sys},{role:'user',content:prompt}]})});
   const d=await r.json(); if(d.error) throw new Error(d.error.message||'API error');
   return d.choices?.[0]?.message?.content||'';
 }
@@ -1736,10 +2693,12 @@ function init(){
   $('modeBtn').textContent=S.mode==='dark'?'🌙':'☀️';
   document.querySelector('meta[name=theme-color]').content=S.mode==='dark'?'#0d0d0d':'#f4efe4';
   applyLang();
+  applyRed();
+  updateStreak();
   if(!store.get('sg_onboarded')) showOnboarding();
   if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 }
-init();
+document.addEventListener("DOMContentLoaded", init);
 </script>
 
 <script>
@@ -1859,5 +2818,173 @@ function animateDiagrams(){
   const el=$(id); if(el) el.addEventListener('click',e=>{ if(e.target===el){ if(id==='timerOverlay')closeTimers(); else if(id==='quizOverlay')closeQuiz(); else closeOnboarding(); }});
 });
 </script>
+
+<script>
+/* ============================================================
+   ROUND 3 — favorites, achievements, streak, compass, SOS, red mode
+   ============================================================ */
+function itemCat(id){ for(const k in CONTENT){ if(CONTENT[k].items.some(x=>x.id===id)) return k; } return null; }
+
+/* ---- FAVORITES ---- */
+function renderFavorites(){
+  const box=$('favItems');
+  if(!S.favorites.length){ box.innerHTML=`<p class="hint" style="text-align:center; padding:34px 12px">${T('favEmpty')}</p>`; return; }
+  let html='';
+  S.favorites.forEach(id=>{
+    const key=itemCat(id); if(!key) return;
+    const it=CONTENT[key].items.find(x=>x.id===id); if(!it) return;
+    html+=`<div class="item" onclick="openItem('${key}','${id}')">
+      <div class="ic">${it.icon}</div>
+      <div class="meta"><h3>${L(it.title)}</h3><p>${catEmoji(key)} ${L(CONTENT[key].title)}</p></div>
+      <button class="star on" onclick="event.stopPropagation();favRemove('${id}')">★</button></div>`;
+  });
+  box.innerHTML=html;
+}
+function favRemove(id){ const i=S.favorites.indexOf(id); if(i>=0) S.favorites.splice(i,1); saveJSON('sg_fav',S.favorites); renderFavorites(); }
+
+/* ---- STREAK + ACHIEVEMENTS ---- */
+function updateStreak(){
+  const today=new Date().toISOString().slice(0,10);
+  const last=store.get('sg_lastactive');
+  let streak=parseInt(store.get('sg_streak')||'0');
+  if(!last){ streak=1; }
+  else if(last===today){ /* already counted today */ }
+  else { const y=new Date(Date.now()-864e5).toISOString().slice(0,10); streak=(last===y)?streak+1:1; }
+  store.set('sg_streak',String(streak)); store.set('sg_lastactive',today);
+  S.streak=streak;
+}
+function renderAchievements(){
+  const totalCats=Object.keys(QUIZ).length, earned=S.quizBadges.length, viewed=S.badges.length;
+  let html=`<div class="grid" style="grid-template-columns:1fr 1fr 1fr; margin-bottom:18px">
+    <div class="card" style="text-align:center;margin:0;padding:14px 6px"><div style="font-size:1.6em">🔥</div><div style="font-size:1.7em;font-weight:800;color:var(--accent)">${S.streak||1}</div><small class="hint">${T('achStreak')}</small></div>
+    <div class="card" style="text-align:center;margin:0;padding:14px 6px"><div style="font-size:1.6em">🏅</div><div style="font-size:1.7em;font-weight:800;color:var(--accent)">${earned}/${totalCats}</div><small class="hint">${T('achBadges')}</small></div>
+    <div class="card" style="text-align:center;margin:0;padding:14px 6px"><div style="font-size:1.6em">📖</div><div style="font-size:1.7em;font-weight:800;color:var(--accent)">${viewed}</div><small class="hint">${T('achViewed')}</small></div>
+  </div>`;
+  html+=`<h3 style="color:var(--accent);margin:4px 0 12px">${T('achBadgeWall')}</h3><div class="badgebar" style="justify-content:flex-start">`;
+  Object.keys(QUIZ).forEach(key=>{
+    const e=S.quizBadges.includes(key);
+    html+=`<div class="badge ${e?'earned':''}" onclick="openCat('${key}')"><div class="b-ic">${e?'🏅':catEmoji(key)}</div><small>${L(CONTENT[key].title)}</small></div>`;
+  });
+  html+=`</div>`;
+  $('achBody').innerHTML=html;
+}
+
+/* ---- RED NIGHT-VISION MODE ---- */
+function toggleRed(){ const on=store.get('sg_red')==='1'; store.set('sg_red',on?'0':'1'); applyRed(); if($('redToggle')){ $('redToggle').classList.toggle('on',!on); $('redToggle').textContent=!on?'on':'off'; } }
+function applyRed(){ document.documentElement.classList.toggle('redmode', store.get('sg_red')==='1'); }
+
+/* ---- SAFETY ACKNOWLEDGMENT ---- */
+let pendingItem=null;
+function showSafetyAck(){
+  $('safetyModal').innerHTML=`<div class="ob-emoji">⚠️</div><h2>${T('safetyAckTitle')}</h2>
+    <p>${T('safetyAckText')}</p>
+    <button class="btn" onclick="acceptSafety()">${T('safetyAckBtn')}</button>
+    <button class="btn ghost" style="margin-top:8px" onclick="$('safetyOverlay').classList.remove('show')">${T('close')}</button>`;
+  $('safetyOverlay').classList.add('show');
+}
+function acceptSafety(){ store.set('sg_safetyack','1'); $('safetyOverlay').classList.remove('show'); if(pendingItem){ const p=pendingItem; pendingItem=null; openItem(p[0],p[1]); } }
+
+/* ---- LIVE COMPASS ---- */
+let compassHandler=null;
+function openCompass(){ renderCompass(null); $('compassOverlay').classList.add('show'); startCompass(false); }
+function renderCompass(heading){
+  const deg=heading==null?'--':Math.round(heading)+'°';
+  const card=heading==null?'—':cardinal(heading);
+  $('compassModal').innerHTML=`<h2>${T('compassTitle')}</h2>
+    <div class="compassHeading">${deg}</div><div class="compassCard">${card}</div>
+    <svg class="compassRose" id="rose" viewBox="0 0 200 200" style="transform:rotate(${heading==null?0:-heading}deg)">
+      <circle cx="100" cy="100" r="92" fill="none" stroke="var(--line)" stroke-width="3"/>
+      <circle cx="100" cy="100" r="78" fill="none" stroke="var(--line)" stroke-width="1"/>
+      <polygon points="100,22 111,100 100,90 89,100" fill="var(--danger)"/>
+      <polygon points="100,178 89,100 100,110 111,100" fill="var(--muted)"/>
+      <text x="100" y="17" text-anchor="middle" fill="var(--text)" font-size="15" font-weight="800">N</text>
+      <text x="100" y="195" text-anchor="middle" fill="var(--muted)" font-size="12">S</text>
+      <text x="190" y="105" text-anchor="middle" fill="var(--muted)" font-size="12">E</text>
+      <text x="10" y="105" text-anchor="middle" fill="var(--muted)" font-size="12">W</text>
+    </svg>
+    <p class="hint" id="compassMsg"></p>
+    <button class="btn" id="compassPerm" style="display:none" onclick="startCompass(true)">${T('compassPermBtn')}</button>
+    <button class="btn ghost" style="margin-top:8px" onclick="closeCompass()">${T('close')}</button>`;
+}
+function cardinal(h){ return ['N','NE','E','SE','S','SW','W','NW'][Math.round(h/45)%8]; }
+function startCompass(userGesture){
+  const need=(typeof DeviceOrientationEvent!=='undefined' && typeof DeviceOrientationEvent.requestPermission==='function');
+  if(need && userGesture){
+    DeviceOrientationEvent.requestPermission().then(r=>{ if(r==='granted') bindCompass(); else compassMsg(T('compassNo')); }).catch(()=>compassMsg(T('compassNo')));
+    return;
+  }
+  if(need && !userGesture){ const b=$('compassPerm'); if(b) b.style.display='block'; compassMsg(T('compassPermMsg')); return; }
+  bindCompass();
+}
+function bindCompass(){
+  if(!('DeviceOrientationEvent' in window)){ compassMsg(T('compassNo')); return; }
+  const b=$('compassPerm'); if(b) b.style.display='none';
+  compassHandler=(e)=>{ let h=(e.webkitCompassHeading!=null)?e.webkitCompassHeading:(e.alpha!=null?360-e.alpha:null); if(h==null) return; updateCompass(h); };
+  window.addEventListener('deviceorientationabsolute',compassHandler,true);
+  window.addEventListener('deviceorientation',compassHandler,true);
+  compassMsg('');
+}
+function updateCompass(h){
+  const rose=$('rose'); if(rose) rose.style.transform=`rotate(${-h}deg)`;
+  const hd=document.querySelector('#compassModal .compassHeading'); if(hd) hd.textContent=Math.round(h)+'°';
+  const cd=document.querySelector('#compassModal .compassCard'); if(cd) cd.textContent=cardinal(h);
+}
+function compassMsg(m){ const el=$('compassMsg'); if(el) el.textContent=m; }
+function closeCompass(){
+  if(compassHandler){ window.removeEventListener('deviceorientationabsolute',compassHandler,true); window.removeEventListener('deviceorientation',compassHandler,true); compassHandler=null; }
+  $('compassOverlay').classList.remove('show');
+}
+
+/* ---- SOS FLASHER (screen + sound + vibrate) ---- */
+let sosTimers=[], sosRunning=false, sosAC=null;
+function openSOS(){ $('sosScreen').classList.add('show'); $('sosHint').textContent=T('sosStop'); runSOS(); }
+function runSOS(){
+  sosRunning=true;
+  const dot=220, dash=640, sym=220, letter=560, word=1300, seq=[];
+  const add=(on,off)=>seq.push([on,off]);
+  [dot,dot,dot].forEach((d,i)=>add(d,i<2?sym:letter));
+  [dash,dash,dash].forEach((d,i)=>add(d,i<2?sym:letter));
+  [dot,dot,dot].forEach((d,i)=>add(d,i<2?sym:word));
+  let idx=0;
+  const step=()=>{
+    if(!sosRunning) return;
+    if(idx>=seq.length) idx=0;
+    const [on,off]=seq[idx++];
+    flashOn(true); beep(on);
+    const t1=setTimeout(()=>{ flashOn(false); const t2=setTimeout(step,off); sosTimers.push(t2); }, on);
+    sosTimers.push(t1);
+  };
+  step();
+}
+function flashOn(on){ $('sosScreen').classList.toggle('flash',on); }
+function beep(ms){
+  try{ if(!sosAC) sosAC=new(window.AudioContext||window.webkitAudioContext)();
+    const o=sosAC.createOscillator(), g=sosAC.createGain(); o.connect(g); g.connect(sosAC.destination);
+    o.frequency.value=800; o.type='sine'; const t=sosAC.currentTime, dur=ms/1000;
+    g.gain.setValueAtTime(0.25,t); g.gain.setValueAtTime(0.25,t+Math.max(0,dur-0.02)); g.gain.exponentialRampToValueAtTime(0.001,t+dur);
+    o.start(t); o.stop(t+dur);
+  }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate(ms); }catch(e){}
+}
+function closeSOS(){ sosRunning=false; sosTimers.forEach(clearTimeout); sosTimers=[]; $('sosScreen').classList.remove('show','flash'); }
+
+/* backdrop close for new overlays */
+['compassOverlay','safetyOverlay'].forEach(id=>{
+  const el=$(id); if(el) el.addEventListener('click',e=>{ if(e.target===el){ if(id==='compassOverlay')closeCompass(); else el.classList.remove('show'); }});
+});
+</script>
+<script src="visual-data.js"></script>
+<script src="morse-library.js"></script>
+<script src="visual-upgrade.js"></script>
+<script src="basics-data.js"></script>
+<script src="basics.js"></script>
+<script src="field-art.js"></script>
+<script src="pro-content.js"></script>
+<script src="pro-medical.js"></script>
+<script src="pro-safety.js"></script>
+<script src="pro-ui.js"></script>
+<script src="illustration-data.js"></script>
+<script src="illustrations.js"></script>
+<script src="pro-core.js"></script>
 </body>
 </html>
