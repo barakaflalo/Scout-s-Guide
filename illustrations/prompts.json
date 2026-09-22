@@ -1,0 +1,763 @@
+[
+  {
+    "id": "reef",
+    "file": "illustrations/reef.webp",
+    "frames": [
+      "illustrations/frames/reef-1.webp",
+      "illustrations/frames/reef-2.webp",
+      "illustrations/frames/reef-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Edit target image 1 is an authoritative reef-knot instruction plate. Convert its THREE drawings into a premium realistic 3D technical illustration, preserving EXACTLY every rope route, crossing, gap, endpoint and blue direction arrow. Same sequence left to right in THREE equal-width panels in one wide 3:1 image. All rope fully inside each panel with comfortable margins. Red rope becomes richly textured terracotta red braided cord; green rope becomes olive-green braided cord. Rounded cylindrical volume, fine fiber texture, realistic soft contact shadows, warm ivory background, exquisite outdoor-equipment editorial product photography quality. No black outlines, no flat cartoon, no text, no numbering, no added objects or hands. Do not reinterpret or 'improve' knot topology. Show all THREE reference stages exactly, preserve rope red/green identities and all blue arrows.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "bowline",
+    "file": "illustrations/bowline.webp",
+    "frames": [
+      "illustrations/frames/bowline-1.webp",
+      "illustrations/frames/bowline-2.webp",
+      "illustrations/frames/bowline-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Edit target image 1 is a bowline instruction plate. Convert its THREE drawings into a premium photorealistic 3D technical illustration, preserving EXACTLY each rope route, loop orientation, crossing order, endpoint and direction arrow. Same sequence left to right in THREE equal-width panels, one wide 3:2 image, all parts of each stage within panel bounds with generous margins. The outlined white rope becomes one continuous realistic golden tan braided rope with cylindrical volume and visible woven fibers. Soft studio side lighting and realistic subtle contact shadows on warm ivory background. Blue arrows retained accurately as thin navy curved arrows separate from rope. No black outlines, no text, no numbers, no added objects/hands, no altered geometry. Crucially preserve the small loop and the working end returning to the inside of the large loop in final stage. This is accurate educational rendering, not artistic improvisation.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "clove",
+    "file": "illustrations/clove.webp",
+    "frames": [
+      "illustrations/frames/clove-1.webp",
+      "illustrations/frames/clove-2.webp",
+      "illustrations/frames/clove-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly THREE equal panels in one horizontal row, landscape 3:1. Preserve the three clove hitch stages, first wrap, second crossed wrap with tuck, final seated hitch.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-clovehitch1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "halfhitch",
+    "file": "illustrations/halfhitch.webp",
+    "frames": [
+      "illustrations/frames/halfhitch-1.webp",
+      "illustrations/frames/halfhitch-2.webp",
+      "illustrations/frames/halfhitch-3.webp",
+      "illustrations/frames/halfhitch-4.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly FOUR equal panels in a 2x2 grid: top-left, top-right, bottom-left, bottom-right match reference ordering. Overall landscape 3:2. This is TWO HALF HITCHES around the standing rope after a turn around a pole. Reproduce all four reference stages precisely.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-twohalfhitches1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "tautline",
+    "file": "illustrations/tautline.webp",
+    "frames": [
+      "illustrations/frames/tautline-1.webp",
+      "illustrations/frames/tautline-2.webp",
+      "illustrations/frames/tautline-3.webp",
+      "illustrations/frames/tautline-4.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly FOUR equal panels in a 2x2 grid: top-left, top-right, bottom-left, bottom-right match reference ordering. Overall landscape 3:2. Taut line hitch. Keep the two inner turns and one outer half hitch in their EXACT reference locations. Keep final pull arrow but omit word PULL.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-tautlinehitch1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "sheetbend",
+    "file": "illustrations/sheetbend.webp",
+    "frames": [
+      "illustrations/frames/sheetbend-1.webp",
+      "illustrations/frames/sheetbend-2.webp",
+      "illustrations/frames/sheetbend-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly THREE equal panels in one horizontal row landscape 3:1. COLOR OVERRIDE: thicker rope olive green, thinner rope deep BLUE, retain those identities in each of the three sheet bend stages. Green bight stays identical, blue working end passes behind BOTH green parts and finally under ITSELF. Match reference exactly; no added arrows.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-sheetbend2.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "overhandloop",
+    "file": "illustrations/overhandloop.webp",
+    "frames": [
+      "illustrations/frames/overhandloop-1.webp",
+      "illustrations/frames/overhandloop-2.webp",
+      "illustrations/frames/overhandloop-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly THREE equal panels left-to-right in one 3:2 landscape image. Overhand knot on a BIGHT. The first drawing is a doubled strand folded into a long bight, not a single rope. Show the two parallel strands distinctly throughout, with a small gap. Second stage passes the folded bight through the doubled overhand loop. Final stage doubled overhand knot above a closed long bight. Follow the reference.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-overhand-on-bight-1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "slipknot",
+    "file": "illustrations/slipknot.webp",
+    "frames": [
+      "illustrations/frames/slipknot-1.webp",
+      "illustrations/frames/slipknot-2.webp",
+      "illustrations/frames/slipknot-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly THREE equal panels left-to-right in one 3:1 landscape image. Slipped overhand knot: a bight is pushed through an overhand loop. Match the reference THREE stages precisely. No extra strands.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-overhand-slip-1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "overhand",
+    "file": "illustrations/overhand.webp",
+    "frames": [
+      "illustrations/frames/overhand-1.webp",
+      "illustrations/frames/overhand-2.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly TWO equal panels side-by-side, landscape 2:1. Replicate reference overhand stopper knot stages; first loosely tied clear overhand knot, second gently tightened knot with long tail. Golden tan braided rope. Remove old numbers and divider. Leave enough negative space to trace every strand.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/trail-knot_overhand.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "cowhitch",
+    "file": "illustrations/cowhitch.webp",
+    "frames": [
+      "illustrations/frames/cowhitch-1.webp",
+      "illustrations/frames/cowhitch-2.webp",
+      "illustrations/frames/cowhitch-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Use image 1 as the EXACT final cow hitch geometry. Create a THREE-panel tying sequence in a single 3:1 landscape plate, same view of vertical oak pole each panel. Left: cord doubled into a long U-shaped bight passing behind the pole, both free ends together. Center: bring bight around the pole and pass both free ends through that bight, show loose routing. Right: exact final hitch as reference, with paired tails extending right, two turns embracing pole and a single crossing bight. Both legs remain distinct. Absolutely no decorative knots or joined three-way strands.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-larkshead1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "tarp",
+    "file": "illustrations/tarp.webp",
+    "frames": [
+      "illustrations/frames/tarp-1.webp",
+      "illustrations/frames/tarp-2.webp",
+      "illustrations/frames/tarp-3.webp",
+      "illustrations/frames/tarp-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: pitching an A-frame camping tarp. Panel1: two healthy vertical tree trunks with wide protective webbing at each anchor and a single taut ridge cord between them above a flat well-drained ground patch, no tarp yet. Panel2: olive ripstop rectangular tarp draped centrally over same ridge, two sloping faces, corners loose. Panel3: same tarp with FOUR corner guy-lines tensioned down to short tent pegs in ground outside corners. Show open front and air gap. Panel4: identical complete tarp, front angle reveals groundsheet and one insulating sleeping mat underneath. No fire, stove, watercourse or dead branches. Clear instructional progression.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "leanto",
+    "file": "illustrations/leanto.webp",
+    "frames": [
+      "illustrations/frames/leanto-1.webp",
+      "illustrations/frames/leanto-2.webp",
+      "illustrations/frames/leanto-3.webp",
+      "illustrations/frames/leanto-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: building an open-front lean-to demonstration on a small bare forest-floor patch. Panel1: sturdy horizontal wooden ridgepole securely supported at BOTH ends by sturdy forked posts firmly set in ground. Panel2: same ridgepole and posts plus wooden ribs leaning from ridge down to ground on the rear side, front open. Panel3: layered permitted fallen dry branches and thatch covering placed bottom to top overlapping on ribs, no cutting vegetation. Panel4: same completed stable lean-to, open front reveals insulating mat on groundsheet, realistic thick sloping covering. No fire or tools.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "pitchtent",
+    "file": "illustrations/pitchtent.webp",
+    "frames": [
+      "illustrations/frames/pitchtent-1.webp",
+      "illustrations/frames/pitchtent-2.webp",
+      "illustrations/frames/pitchtent-3.webp",
+      "illustrations/frames/pitchtent-4.webp"
+    ],
+    "prompt": "Use case: precise-object-edit. Correct ONLY the dark separate groundsheet footprint in all four panels. It must be tucked fully UNDER the tent floor and must NEVER extend beyond the tent's floor edge where rain can collect. In first two panels the floor remains visible; the separate sheet underneath cannot protrude. In final two panels remove every dark groundsheet flap extending beyond the olive tent body footprint and replace exposed area with natural gravel. Keep the tent, poles, background, layout, seams and lighting otherwise exactly unchanged. Four-panel sequence remains.",
+    "referenceFiles": [
+      "C:\\Users\\NEC_VK210\\.codex\\generated_images\\01a0c2e9-9dff-7ab0-9f96-1b508f1a7cf5\\exec-51ce9662-c3aa-48ef-8e26-f747983cf8b6.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "build",
+    "file": "illustrations/build.webp",
+    "frames": [
+      "illustrations/frames/build-1.webp",
+      "illustrations/frames/build-2.webp",
+      "illustrations/frames/build-3.webp",
+      "illustrations/frames/build-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: construction of a SMALL tipi-style campfire in an established circular black STEEL fire ring on broad bare gravel, full water bucket nearby every panel. Panel1: dry tinder bundle in cold fire ring, kindling outside. Panel2: thin dry kindling leaned in a small teepee around tinder, air gaps and small opening, UNLIT. Panel3: tinder catches a tiny contained flame inside same structure, no hands or liquid fuels. Panel4: slightly larger thin fuel sticks around small controlled fire, all material inside ring. No large blaze, combustible objects near flame or reflector wall. Realistic dry wood grain and restrained orange flame.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "featherstick",
+    "file": "illustrations/featherstick.webp",
+    "frames": [
+      "illustrations/frames/featherstick-1.webp",
+      "illustrations/frames/featherstick-2.webp",
+      "illustrations/frames/featherstick-3.webp"
+    ],
+    "prompt": "undefinedTHREE equal vertical panels side-by-side within 3:1 plate showing progressive carving results on the SAME upright short split wooden stick angled on ivory work surface: left plain dry split stick with exposed pale inner wood; centre a few very thin curly shavings attached at their bases; right many delicate curls still attached to the stick like a feather plume. Detailed curled wood fibers. No knife, no hands, no fire, no tools. This compares the material before, during and after controlled adult carving, not a cutting demonstration.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "extinguish",
+    "file": "illustrations/extinguish.webp",
+    "frames": [
+      "illustrations/frames/extinguish-1.webp",
+      "illustrations/frames/extinguish-2.webp",
+      "illustrations/frames/extinguish-3.webp",
+      "illustrations/frames/extinguish-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: putting out a small campfire completely. Consistent round black steel fire ring on broad bare gravel. Panel1: small remaining red embers, no additional fuel or flames, full metal water bucket nearby. Panel2: water pouring gently from bucket into embers, small realistic steam rising, no person visible. Panel3: long-handled metal stirring tool with tip spreading wet ash, bucket nearby, all coals dark and saturated. Panel4: entirely cold dark wet ash in the fire ring, no glow, no smoke, bucket and tool set safely beside it. No hand touching ash, no soil burying fire, no flames outside ring.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "compass",
+    "file": "illustrations/compass.webp",
+    "frames": [
+      "illustrations/frames/compass-1.webp",
+      "illustrations/frames/compass-2.webp",
+      "illustrations/frames/compass-3.webp",
+      "illustrations/frames/compass-4.webp"
+    ],
+    "prompt": "Use case: precise-object-edit. Correct the compass instrument print in ALL FOUR panels while preserving photographic layout and hands. Replace malformed bezel lettering and numbers with a SIMPLE accurate dial: exactly N at the TOP, E at RIGHT, S at BOTTOM, W at LEFT, clockwise in that order; small regular tick marks and NO degree numbers. Red needle tip points to N at TOP of dial, white opposite half toward S, single pivot. The baseplate direction-of-travel arrow is a SINGLE straight red arrow centered along the long axis of baseplate, pointing toward its top edge. In BOTTOM LEFT panel remove the diagonal red arrow and replace with a centered straight vertical arrow, and align bezel N precisely with red needle tip. This whole plate illustrates a NORTH bearing consistently. Preserve four panels and all non-instrument details. Do not add captions.",
+    "referenceFiles": [
+      "C:\\Users\\NEC_VK210\\.codex\\generated_images\\01a0c2e9-9dff-7ab0-9f96-1b508f1a7cf5\\exec-cbf952c4-2549-418d-8ad2-a1f17b14df67.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "map",
+    "file": "illustrations/map.webp",
+    "frames": [
+      "illustrations/frames/map-1.webp",
+      "illustrations/frames/map-2.webp",
+      "illustrations/frames/map-3.webp",
+      "illustrations/frames/map-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: reading a topographic map, realistic tabletop details with four DISTINCT instructional views. Panel1: folded topo map beside level baseplate compass, prominent map north arrow printed N at top. Panel2: macro view of a simple legend showing a blue stream stroke, black dashed footpath and small black building square in three clear rows, no words. Panel3: one sloped 3D hillside terrain model with brown contour lines projected onto it and matching printed contours on a small map next to it, closely spaced on steep side and wide on gentle side. Panel4: macro paper map with a straight scale bar printed exactly '0' at left and '500 m' at right, a compass/divider ruler set to same length above. No false geographic place names, no excessive typography.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "suncompass",
+    "file": "illustrations/suncompass.webp",
+    "frames": [
+      "illustrations/frames/suncompass-1.webp",
+      "illustrations/frames/suncompass-2.webp",
+      "illustrations/frames/suncompass-3.webp"
+    ],
+    "prompt": "Use case: precise-object-edit. Correct ONLY the LEFTMOST panel of this three-panel shadow-tip lesson. The stone marked 1 must stay in the SAME position relative to the stick as stone 1 in the middle and right panels. Move stone 1 in the leftmost panel to near bottom-left of that panel (about 29% across and 82% down), matching the middle panel's white stone. Redraw the first shadow as a single straight shadow starting at the stick's base and ending exactly at this moved white stone 1. Remove old first shadow and old first stone location, fill sand naturally. Keep the stick in place. Leave middle and right panels completely unchanged, including the 1 and 2 stones and final scratched arrow. No added objects or text.",
+    "referenceFiles": [
+      "C:\\Users\\NEC_VK210\\.codex\\generated_images\\01a0c2e9-9dff-7ab0-9f96-1b508f1a7cf5\\exec-e9377303-52ec-4536-a30f-04c9e768b58f.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "mirror",
+    "file": "illustrations/mirror.webp",
+    "frames": [
+      "illustrations/frames/mirror-1.webp",
+      "illustrations/frames/mirror-2.webp",
+      "illustrations/frames/mirror-3.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium photorealistic outdoor field-manual plate in EXACTLY THREE equal panels side-by-side, landscape 3:1, fine natural materials, warm neutral daylight, olive sleeve, clear educational composition. Panel1: close-up adult hand holds small rectangular signaling mirror with central sighting hole, sunlight reflected onto pale nearby rock as one bright spot, no eyes visible. Panel2: over-shoulder view of adult holding same mirror near cheek while other arm extends two fingers in a V toward a distant orange rescue marker across open ground; sunlight comes from BEHIND observer, NOT from target; no laser beam, no staring at sun. Panel3: wider view same adult safely standing on flat ground, using small hand mirror toward distant orange rescue marker in open landscape, subtle reflected glint, no aircraft. Exactly two hands per person, no extra fingers, no written text, no arrows or panel numbers. An illustrative overview, avoid anatomical close-up distortion.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "constrictor",
+    "file": "illustrations/constrictor.webp",
+    "frames": [
+      "illustrations/frames/constrictor-1.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Faithfully render this SINGLE constrictor-knot diagram as realistic 3D with ONE golden tan braided rope around a smooth oak pole, ivory background, soft shadows. CRITICAL: the two parallel black outline lines are the EDGES of ONE rope, NOT two separate ropes. Fill each enclosed white rope ribbon with a SINGLE round rope cylinder. Preserve all crossing orders and paths exactly. There are exactly TWO OPEN rope ends: ONE short end at the LEFT pointing left and ONE long standing part at the RIGHT pointing right. The rope tail at left must have a flat cut rope end, not a closed loop. There must NOT be two separate rope strands running toward the right. No extra strands, no arrows, text or labels. Single landscape 3:2 high detail specimen.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/knots-constrictor1.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "doublesheetbend",
+    "file": "illustrations/doublesheetbend.webp",
+    "frames": [
+      "illustrations/frames/doublesheetbend-1.webp",
+      "illustrations/frames/doublesheetbend-2.webp",
+      "illustrations/frames/doublesheetbend-3.webp",
+      "illustrations/frames/doublesheetbend-4.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly FOUR equal panels in a 2x2 grid, landscape 3:2. Double sheet bend. Keep blue-grey thicker bight in reference as olive cord, yellow thinner rope as golden-tan cord. Preserve the two wraps around both parts of the thicker bight and the exact final tuck. There is NO pole in this image, just two ropes lying on ivory. Remove reference numbering and dark panel borders.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/trail-knot_double_sheet_bend.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "truckershitch",
+    "file": "illustrations/truckershitch.webp",
+    "frames": [
+      "illustrations/frames/truckershitch-1.webp",
+      "illustrations/frames/truckershitch-2.webp",
+      "illustrations/frames/truckershitch-3.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly THREE equal panels in one horizontal row, landscape 3:2. Reproduce reference trucker's hitch rope routing, fixing a light camp load to an anchor: first fixed upper loop and rope around round anchor; second working end passed through fixed loop; third secured end. The dark circular anchor should be a smooth rounded wooden peg seen end-on at bottom. No other poles or objects. Match the reference loops exactly. Remove numbers and black grid.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/trail-knot_truckers_hitch.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "squarelashing",
+    "file": "illustrations/squarelashing.webp",
+    "frames": [
+      "illustrations/frames/squarelashing-1.webp",
+      "illustrations/frames/squarelashing-2.webp",
+      "illustrations/frames/squarelashing-3.webp",
+      "illustrations/frames/squarelashing-4.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly FOUR equal panels 2x2, landscape 3:2, wooden dowels crossed at right angles: faithful square-lashing sequence, initial clove hitch, square wrapping turns around both poles, frapping turns between poles, finishing hitch. Preserve original rope routing and each stage geometry. Remove source numbers and grid. All cord wraps visible with subtle tan color variation and realistic shadows.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/trail-knot_square_lashing.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "shearlashing",
+    "file": "illustrations/shearlashing.webp",
+    "frames": [
+      "illustrations/frames/shearlashing-1.webp",
+      "illustrations/frames/shearlashing-2.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Image 1 is the authoritative technical edit target. Re-render its entire sequence as premium photorealistic 3D educational illustration. Preserve EXACTLY every path, loop, crossing over/under order, endpoints and direction arrows. Rounded cylindrical golden-tan braided rope with meticulous woven fibers, realistic depth, soft side lighting, subtle contact shadows. Pole becomes pale natural oak with understated wood grain. Seamless warm ivory studio background. No flat cartoon outlines. No hands, no extra ropes, no invented geometry. All objects must fit well INSIDE each equal-sized panel with margins. Arrows as thin blue curved arrows; no labels or numbers. Exactly TWO equal panels side-by-side, landscape 2:1. Two parallel oak poles in each. Left: snug wrapping turns encircling both poles exactly as reference. Right: same wrappings plus frapping turns in gap between poles. No opening legs, no extra third pole, no numbers. Match original turns and hitches precisely.",
+    "referenceFiles": [
+      "C:/Users/NEC_VK210/Documents/Codex/2026-09-21/new-chat/outputs/scout-guide-v2/assets/trail-knot_shear_lashing.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "nomatches",
+    "file": "illustrations/nomatches.webp",
+    "frames": [
+      "illustrations/frames/nomatches-1.webp",
+      "illustrations/frames/nomatches-2.webp",
+      "illustrations/frames/nomatches-3.webp"
+    ],
+    "prompt": "Use case: precise-object-edit. Remove ALL black caption rectangles, all letters and all typography from this three-panel equipment photograph. Fill removed caption areas naturally with the same wood background. Keep the three distinct tools and all their components exactly unchanged. Preserve the three equal panels, camera, realistic materials and lighting. No new captions, labels, numbers, words or logo. Absolutely no text anywhere.",
+    "referenceFiles": [
+      "C:\\Users\\NEC_VK210\\.codex\\generated_images\\01a0c2e9-9dff-7ab0-9f96-1b508f1a7cf5\\exec-f79400e4-ebe8-48a1-9528-b00ed88bbd88.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "materials",
+    "file": "illustrations/materials.webp",
+    "frames": [
+      "illustrations/frames/materials-1.webp",
+      "illustrations/frames/materials-2.webp",
+      "illustrations/frames/materials-3.webp"
+    ],
+    "prompt": "undefinedExactly THREE equal columns in one 3:1 image, overhead macro comparison of fire materials. Left: small nest of dry fine tinder fibers and delicate wood shavings. Centre: loose parallel finger-thin dry kindling twigs. Right: neatly stacked small split hardwood fuel pieces noticeably thicker. Same scale, warm ivory tabletop, clearly separate piles with no touching or overlap between columns. Detailed wood and fiber textures, no flame, no tools, no arrows or text.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "logcabin",
+    "file": "illustrations/logcabin.webp",
+    "frames": [
+      "illustrations/frames/logcabin-1.webp",
+      "illustrations/frames/logcabin-2.webp",
+      "illustrations/frames/logcabin-3.webp",
+      "illustrations/frames/logcabin-4.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A premium realistic 3D outdoor field-manual instruction plate, FOUR equal panels in a 2x2 grid, landscape 3:2. Sequence reading order top-left, top-right, bottom-left, bottom-right. Detailed tangible materials, olive-green outdoor fabrics, natural wood, warm ivory studio backdrop, soft natural side lighting, realistic contact shadows. Each panel contains a complete small diorama with generous borders. Same camera, same scene geometry and equipment in all four panels; only construction stage changes. No captions, letters, numbers, logos, watermark, frame boxes or humans. Never crop the objects at the edges. Subject: an UNLIT small log-cabin campfire structure, same established black steel fire ring and water bucket throughout. Panel1: tinder in centre and two parallel small split pieces flanking it. Panel2: two additional small pieces placed perpendicular across first pair, creating open square. Panel3: another sparse alternating layer, clear central space and ventilation gaps, no tall tower. Panel4: finished compact low criss-cross wood structure around tinder, all inside the ring, all still unlit. Bare gravel, no nearby fabric or branches. Natural realistic wood grain.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "weather",
+    "file": "illustrations/weather.webp",
+    "frames": [
+      "illustrations/frames/weather-1.webp",
+      "illustrations/frames/weather-2.webp",
+      "illustrations/frames/weather-3.webp",
+      "illustrations/frames/weather-4.webp",
+      "illustrations/frames/weather-5.webp",
+      "illustrations/frames/weather-6.webp",
+      "illustrations/frames/weather-7.webp",
+      "illustrations/frames/weather-8.webp",
+      "illustrations/frames/weather-9.webp",
+      "illustrations/frames/weather-10.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Create one premium photographic CLOUD ATLAS, high detail 1536x3840 portrait, EXACTLY 10 equally sized rectangular panels in TWO columns and FIVE rows, thin warm ivory gutters. Read left to right then down. Each panel is a different realistic atmospheric photograph, no text or numbers, horizon below bottom 10% if any. Row1 left CIRRUS: delicate high feathery white filaments in blue sky; right CIRROSTRATUS: thin uniform translucent high veil with solar halo, no fluffy heaps. Row2 left CIRROCUMULUS: very small fine white ripples without shadows, blue gaps; right ALTOCUMULUS: larger rounded patches with gray shading in a middle-level mackerel sky. Row3 left ALTOSTRATUS: continuous gray translucent middle sheet, sun a dim disk; right STRATUS: low featureless uniform gray cloud layer over soft hills. Row4 left STRATOCUMULUS: broad low rolling lumpy cloud bank with gray bases and a few gaps; right NIMBOSTRATUS: thick dark gray featureless rain-bearing sheet with distant steady rain streaks. Row5 left CUMULUS: separate cotton heaps with crisp white tops and flat bases under blue sky; right CUMULONIMBUS: tall thundercloud with vertical cauliflower tower and spreading flat anvil at top, seen from a safe distant landscape. ALL TEN types distinct. Editorial atmospheric photography, natural exposure, no artificial glow, no collage within cells.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "repairkit",
+    "file": "illustrations/repairkit.webp",
+    "frames": [
+      "illustrations/frames/repairkit-1.webp",
+      "illustrations/frames/repairkit-2.webp",
+      "illustrations/frames/repairkit-3.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Exactly THREE equal panels side by side in one 3:1 landscape macro instructional plate, photographed close up on light ivory background. Each panel a tan canvas fabric sample sewn with dark olive thread. Left: running stitch, simple even separated straight dash stitches along a seam. Centre: backstitch, continuous overlapping end-to-end straight stitched seam without gaps. Right: whip stitch wrapping regularly over the aligned edges of two fabric pieces. One blunt sewing needle resting safely beside each swatch. Crisp visibly accurate thread routes, no hands, no extra stitch patterns, no labels.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "ground",
+    "file": "illustrations/ground.webp",
+    "frames": [
+      "illustrations/frames/ground-1.webp",
+      "illustrations/frames/ground-2.webp",
+      "illustrations/frames/ground-3.webp"
+    ],
+    "prompt": "Use case: scientific-educational. One premium photorealistic top-down field signaling plate with EXACTLY THREE equal panels side by side, landscape 3:1, generous clear margin. Warm pale gravel in each panel. Left: vivid orange fabric strips arranged as one enormous simple capital V, two straight arms with vertex downward. Centre: orange fabric strips arranged as one enormous capital X, exactly two diagonal crossing arms. Right: orange fabric strips arranged as one clear directional arrow pointing straight toward the top edge, with shaft and two diagonal arrowhead arms. Crisp fabric weave, real shadow, consistent scale, high overhead viewpoint. No people, rocks spelling letters, no additional letters, no captions or numbers. These shapes are the entire subject.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "ropecare",
+    "file": "illustrations/ropecare.webp",
+    "frames": [
+      "illustrations/frames/ropecare-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Overhead educational still life: three neatly separated small coils showing three-strand natural-fiber rope, olive braided cord, and blue kernmantle rope. Beside them short sample segments with ends visible, one very short worn sample with obvious fuzzy abrasion set separately. Folded soft cleaning cloth and a mesh storage bag. No knots, humans, hanging ropes, load equipment or poles. Meticulous tactile rope textures, clean comparison layout.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "starfire",
+    "file": "illustrations/starfire.webp",
+    "frames": [
+      "illustrations/frames/starfire-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Single detailed 3D diorama of a small controlled campfire entirely within a designated black steel fire ring on a broad bare-gravel area, just three small pieces of wood with low orange flames and air gaps. Full extinguishing bucket and long metal rake well outside ring. Sparse meadow scenery far in background, no tent nearby, no wood reflector wall, no burning logs extending outside the ring. Subject is controlling a small fire, not a large construction.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "improvcooking",
+    "file": "illustrations/improvcooking.webp",
+    "frames": [
+      "illustrations/frames/improvcooking-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Simple safe camp meal setup: stainless heat-rated camping pot with fitted lid and folding handle, metal food skewers with smooth handles, heat-resistant tongs, closed food storage container, a small packet of dry trail food. Arranged neatly on a dry camp table. No flames, no improvised wood bowl, no heated stones or unknown plant material. Professional practical outdoor still life.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "terrain",
+    "file": "illustrations/terrain.webp",
+    "frames": [
+      "illustrations/frames/terrain-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. A beautifully detailed small 3D topographic terrain model, isometric view, one rounded ridge and two hills separated by a shallow valley, natural muted olive vegetation and pale rock. Fine brown contour lines follow constant elevations across the model. Beside it lies a flat paper topographic map of the SAME two-hill terrain with corresponding concentric contour shapes and valley. Matching landform readable at a glance, no arbitrary text or giant arrows. Professional museum cartographic teaching model.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "watchcompass",
+    "file": "illustrations/watchcompass.webp",
+    "frames": [
+      "illustrations/frames/watchcompass-1.webp"
+    ],
+    "prompt": "Use case: sketch-to-render. Create a photorealistic educational rendering of ONLY THE TOP northern-hemisphere clock example from this reference, not its bottom southern example. One round realistic wristwatch lying flat on warm ivory surface, clean white dial, black numerals 1–12 in correct order, black hour hand precisely toward 3, longer minute hand toward 12. A small warm sun disk far to the RIGHT of watch aligned with hour hand, no face. Thin clean graphic overlay from lower-left through centre to upper-right, the upper-right half bisects 12 and 3 and is labeled S, the lower-left opposite labeled N. This is approximate STANDARD TIME northern-hemisphere illustration, not a working compass. Brushed steel case, olive fabric strap, realistic shadows. No other hands, clocks, captions or southern example.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "stars",
+    "file": "illustrations/stars.webp",
+    "frames": [
+      "illustrations/frames/stars-1.webp"
+    ],
+    "prompt": "Use case: photorealistic-natural. Wide landscape 3:2 photograph for the background of a scientific constellation chart: pristine deep midnight navy sky with very few faint tiny stars, subtle dark forest horizon confined to lowest 12 percent of frame. Empty clean dark sky over upper 85 percent for precise constellation labels to be overlaid later. Refined atmospheric outdoor editorial photography, natural and quiet. No moon, no Milky Way band, no bright star clusters, no dominant star pattern, no text, no connecting lines, no arrows. Crisp rather than blurry.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "daylight",
+    "file": "illustrations/daylight.webp",
+    "frames": [
+      "illustrations/frames/daylight-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Outdoor editorial illustration: adult hiker's single hand held at arm's length with four straight fingers joined horizontally, palm facing viewer, thumb bent out of the way, placed just above a distant clear ridge at golden sunset. Low sun visible ABOVE the four fingers but not obscured, an analogue watch with olive strap on wrist as secondary object. Hand proportions anatomically correct, comfortable pose, no looking directly into sun depicted. Image illustrates approximate daylight estimation, no numerical claims, no labels, no giant sun.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "whistle-sig",
+    "file": "illustrations/whistle-sig.webp",
+    "frames": [
+      "illustrations/frames/whistle-sig-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. A single bright orange purpose-made pealess emergency whistle, realistic double air channels and mouthpiece, with a short olive cord coiled loosely BESIDE it. Detail close-up in a diagonal composition on cream canvas, one folded trail map corner barely visible. No person blowing it, no sound-wave icons, no acorn, no text. Professional outdoor product still life.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "water",
+    "file": "illustrations/water.webp",
+    "frames": [
+      "illustrations/frames/water-1.webp"
+    ],
+    "prompt": "Use case: precise-object-edit. This is an equipment still-life, not a connected filtration setup. REMOVE the transparent hoses completely so there are NO hoses attached between filter and bag or anywhere else. Keep the filter as an upright standalone product with capped connection ports, with the olive water bag visibly separate behind it, bottle left and lidded pot right. Remove the single loose white tablet; keep the sealed tablet packaging. Preserve all other composition, materials, shadows, ivory background and photographic quality.",
+    "referenceFiles": [
+      "C:\\Users\\NEC_VK210\\.codex\\generated_images\\01a0c2e9-9dff-7ab0-9f96-1b508f1a7cf5\\exec-c1fa49bf-a5b2-41a7-a6d5-67c85bc49404.png"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "layers",
+    "file": "illustrations/layers.webp",
+    "frames": [
+      "illustrations/frames/layers-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Exploded view of a three-layer hiking clothing system, exactly three separate headless torso garments arranged left to right with clear spaces: lightweight charcoal synthetic long-sleeve base layer; warm ochre zip fleece mid-layer; olive hooded waterproof shell with taped seams. Same size and camera angle, fabric drape gives tangible three dimensional volume without visible mannequin, skin or human. These are three separate garments, not attached. High-end product catalogue clarity.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "footwear",
+    "file": "illustrations/footwear.webp",
+    "frames": [
+      "illustrations/frames/footwear-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. One pair of sturdy olive and brown hiking boots, realistic laces, gusseted tongues and textured rubber soles. One boot upright, the other slightly angled to reveal outsole. Beside boots one pair of merino hiking socks and a neatly folded dry spare pair. Show padded heel and toe zones on socks. Clean field equipment still life, dry and intact, no feet or people.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "offlinemaps",
+    "file": "illustrations/offlinemaps.webp",
+    "frames": [
+      "illustrations/frames/offlinemaps-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Outdoor navigation backup kit arranged on light stone tabletop: smartphone in olive protective case showing a plausible downloaded topographic map with contour lines and blue location dot, screen no words; folded physical topographic map beside it, compact power bank with short unplugged cable, transparent baseplate compass set away from phone. Balanced overhead three-quarter composition. Paper and device are separate tools, no magical floating icons or arrows.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "firstaidkit",
+    "file": "illustrations/firstaidkit.webp",
+    "frames": [
+      "illustrations/frames/firstaidkit-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Neatly organised open RED first aid pouch with plain white cross, visibly packed sealed sterile gauze packets, sealed adhesive plasters, rolled bandages, small medical tape roll, folded blue nitrile gloves, trauma scissors with blunt tips, unopened silver emergency blanket. Components arranged neatly in and just outside pouch. Clinical cleanliness without surgery, no needles, no medicine bottles or pills, no text, no injuries. Accurate realistic packaging.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "essentials",
+    "file": "illustrations/essentials.webp",
+    "frames": [
+      "illustrations/frames/essentials-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Meticulous top-down flat lay of a compact hiking essentials kit: sealed water bottle, headlamp, spare battery case, folded topographic map, baseplate compass, red first aid pouch, folded olive rain shell, silver emergency blanket in packet, whistle, sun hat, small unbranded sunscreen tube, wrapped food bar and resealable trail mix bag. Each item separate with clear breathing room on warm ivory canvas. No knife, fire or extra decorative objects. Natural material detail.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "raincaught",
+    "file": "illustrations/raincaught.webp",
+    "frames": [
+      "illustrations/frames/raincaught-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Single outdoor editorial scene of an adult hiker standing securely under a dry enclosed cabin porch out of rain, wearing an olive waterproof hooded rain shell zipped closed, backpack with fitted rain cover beside them. Hands organise a bright waterproof roll-top dry bag containing visibly dry folded fleece. Outside doorway is rain, no lightning in frame, no cliffs or stream. Face calm, realistic proportions. Emphasis dry clothing, rain layer, safe shelter and protected gear. No text.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "sleepwarm",
+    "file": "illustrations/sleepwarm.webp",
+    "frames": [
+      "illustrations/frames/sleepwarm-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Realistic educational CUTAWAY of one comfortable layered sleeping system: dark waterproof groundsheet flat on ground; thick foam insulating sleeping mat directly above groundsheet; inflatable sleeping pad above foam; ochre mummy sleeping bag fully resting on the pads, opened slightly at upper third to reveal insulated inner lining. Each layer offset just enough at lower corner to be visible, otherwise aligned. Folded dry warm socks and a wool hat at side. No human or face, no hot bottle or fire. Three-quarter side perspective with accurate physical thickness.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "fig8",
+    "file": "illustrations/fig8.webp",
+    "frames": [
+      "illustrations/frames/fig8-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A single premium photorealistic 3D knot study on a clean warm ivory surface, seen directly from above, landscape 3:2, golden tan braided practice cord with exquisite woven fibers and physically accurate soft shadows. One continuous cord, no wooden poles, no hands, people, attachments or extra objects. Very clear open spaces between strands, show all crossings, do not hide topology with tight bunching. No text, arrows, border or watermark. Reference image is a teaching plate. Re-render ONLY the completed figure-eight STOPPER knot shown in its BOTTOM RIGHT panel, as a single large detailed study. Preserve that final knot's rope routing and turquoise whipping on free tail. Remove all other panels, frame, numbers and text. Exactly two visible rope ends, one continuous rope with the characteristic three-crossing figure-eight structure, NOT a figure-eight loop or doubled rope.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "fisherman",
+    "file": "illustrations/fisherman.webp",
+    "frames": [
+      "illustrations/frames/fisherman-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A single premium photorealistic 3D knot study on a clean warm ivory surface, seen directly from above, landscape 3:2, golden tan braided practice cord with exquisite woven fibers and physically accurate soft shadows. One continuous cord, no wooden poles, no hands, people, attachments or extra objects. Very clear open spaces between strands, show all crossings, do not hide topology with tight bunching. No text, arrows, border or watermark. Subject: a SINGLE fisherman's bend joining TWO cords, one olive-green and one golden tan (override one cord). The two cords run horizontally, standing ends extending to opposite sides. Each cord forms exactly ONE simple overhand knot AROUND the other cord's standing part. The two small overhand knots have been slid together and sit adjacent, visibly distinct, with short but adequate free tails projecting out the opposite directions. Exactly four visible ends total, two standing ends and two tails. Not double fisherman's, not reef knot, not fishing hook, no ring.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "butterfly",
+    "file": "illustrations/butterfly.webp",
+    "frames": [
+      "illustrations/frames/butterfly-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A single premium photorealistic 3D knot study on a clean warm ivory surface, seen directly from above, landscape 3:2, golden tan braided practice cord with exquisite woven fibers and physically accurate soft shadows. One continuous cord, no wooden poles, no hands, people, attachments or extra objects. Very clear open spaces between strands, show all crossings, do not hide topology with tight bunching. No text, arrows, border or watermark. Subject: a completed correctly dressed ALPINE BUTTERFLY knot, a mid-line loop. Standing parts extend horizontally left and right from the compact symmetric knot. A SINGLE upright oval bight rises above the central knot, with two distinct legs joining the two interlocking collars of the butterfly. Exactly two open rope ends and ONE closed middle loop, one continuous cord. Anatomically faithful to the alpine butterfly structure, not an overhand on a bight, bowline or tied bow. Deliberately leave central interlocking crossings loose enough to trace.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "sheepshank",
+    "file": "illustrations/sheepshank.webp",
+    "frames": [
+      "illustrations/frames/sheepshank-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. A single premium photorealistic 3D knot study on a clean warm ivory surface, seen directly from above, landscape 3:2, golden tan braided practice cord with exquisite woven fibers and physically accurate soft shadows. One continuous cord, no wooden poles, no hands, people, attachments or extra objects. Very clear open spaces between strands, show all crossings, do not hide topology with tight bunching. No text, arrows, border or watermark. Subject: the traditional SHEEPSHANK rope-shortening knot displayed horizontally as a historical scout specimen, completely unloaded. Middle of a single rope folded back and forth into a long S shape, forming three parallel lengths. Each of the two folded bight ends secured by exactly ONE half hitch in the adjacent standing part. Each bight tip visibly protrudes through its own half hitch. Standing ends extend to the left and right, one continuous rope. No extra overhand knots, no pole or person, not a tension system.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "spot",
+    "file": "illustrations/spot.webp",
+    "frames": [
+      "illustrations/frames/spot-1.webp"
+    ],
+    "prompt": "undefinedOne high three-quarter wide landscape view of a designated campground fire area: fixed empty steel fire ring on an expansive clear gravel pad, one bucket filled with water and a long extinguishing tool ready well outside the ring. Trees and olive tent are far in background beyond the broad clear zone. Open sky above ring, no overhanging branches, no dry grass or leaf litter on gravel, no fire burning. Professional field-guide location illustration, clear safety spacing, natural daylight.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "morse",
+    "file": "illustrations/morse.webp",
+    "frames": [
+      "illustrations/frames/morse-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. A compact olive handheld LED flashlight laid diagonally on a warm ivory tabletop, beam softly illuminating empty paper field notebook with entirely BLANK pages, small pencil resting alongside. At the back a compact headlamp. The foreground upper half leaves generous clean empty cream space for a timing chart to be added later. No generated Morse symbols, no letters or numbers, no screen, no cables, no phones. Realistic LED lens, knurled aluminium, detailed outdoor equipment photography.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  },
+  {
+    "id": "semaphore",
+    "file": "illustrations/semaphore.webp",
+    "frames": [
+      "illustrations/frames/semaphore-1.webp"
+    ],
+    "prompt": "Use case: scientific-educational. Premium photorealistic outdoor equipment editorial illustration for a professional scout field manual. Warm ivory backdrop, olive green and ochre kit, soft natural studio light, extraordinarily detailed fabric weave, brushed metal and realistic shadows, restrained composed styling, landscape 3:2. No logos, no written labels, no watermark. Generous negative space and no cropped equipment. Two authentic hand-held semaphore signaling flags, each a square split DIAGONALLY into exactly two solid triangular halves, red and yellow. Two short straight light wood flag staffs arranged parallel on cream canvas, flags lying flat with soft folds fully visible, natural fabric weave and stitched edges. Outdoor scout manual educational product photograph. No person, alphabet chart, text or arbitrary flag combinations. Exactly TWO flags, each red-and-yellow diagonal split.",
+    "referenceFiles": [],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "processing": "Mechanical grid extraction and WebP encoding; no semantic postprocessing."
+  }
+]

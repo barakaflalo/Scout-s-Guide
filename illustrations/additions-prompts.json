@@ -1,0 +1,1216 @@
+[
+  {
+    "id": "bleeding",
+    "frames": [
+      "illustrations/additions/bleeding-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Close-up adult first-aid learner demonstrating firm direct pressure on another adult's forearm using a thick clean white gauze pad. Both helper hands wear blue nitrile gloves, one palm directly over pad and second on top applying steady pressure. Forearm supported on table, wound entirely covered, no tourniquet, no lifting of dressing. Clear practical anatomy, no visible injury.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.sja.org.uk/first-aid-advice/severe-bleeding/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "burn",
+    "frames": [
+      "illustrations/additions/burn-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Edit this cooling-a-minor-burn illustration only to align running tap water with the mild pink patch. Shift the forearm left/right as necessary so stream contacts CENTRE of pink patch on MID-FOREARM and flows across the entire affected patch into sink. Remove any pink patch outside area receiving water. Preserve natural hand, intact non-graphic skin, sink, cool clean water, no ice or cream, no text.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/burns-and-scalds/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "sprain",
+    "frames": [
+      "illustrations/additions/sprain-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult seated resting with ankle gently supported on cushion, helper holds a blue cold pack entirely wrapped in a thin white cloth gently against outer ankle. Skin intact normal colour, no brace adjustment, no massage, no direct ice contact. Clear view of cloth layer between cold pack and skin and relaxed foot alignment.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/sprains-and-strains/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "heat",
+    "frames": [
+      "illustrations/additions/heat-1.webp",
+      "illustrations/additions/heat-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Two equal side-by-side panels. Adult hiker experiencing heat illness, eyes open seated supported safely under shade canopy. Left companion speaks on phone, patient's pack removed, clothing loosened at collar. Right companion gently sprays cool water on exposed forearms using clear spray bottle while another hand fans air with flat folding fan. No forced drinking, no unconscious person, no ice bath, calm first-aid educational setting.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/heat-exhaustion-heatstroke/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "sting",
+    "frames": [
+      "illustrations/additions/sting-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Suspected snakebite response without showing snake or wound: adult hiker resting still on ground in safe shaded area, lower leg comfortably supported without compression, companion kneels nearby talking on phone and calmly reassures them. Both fully clothed with boots off affected leg but foot relaxed. No squeezing, tourniquet, cutting, suction or ice. Focus on keeping still and summoning help.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.mdais.org/101/snake-bite?page=186",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "cpr",
+    "frames": [
+      "illustrations/additions/cpr-1.webp",
+      "illustrations/additions/cpr-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Edit both panels of this adult CPR TRAINING manikin illustration. Correct hand CONTACT placement so the HEEL OF THE LOWER HAND contacts the LOWER HALF OF THE STERNUM, in centre of chest around nipple level, clearly BELOW its current position and well above upper abdomen. Fingers of lower hand lift free of chest; second hand interlocks on top. In right panel shoulders directly vertically above hands, elbows straight. Preserve artificial plastic manikin, olive clothing, side-by-side layout, ivory room, no text. Clinical anatomical accuracy takes priority. Do not move heel near throat or collarbones.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.redcross.org/take-a-class/cpr/performing-cpr/hands-only-cpr",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "choking",
+    "frames": [
+      "illustrations/additions/choking-1.webp",
+      "illustrations/additions/choking-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Edit LEFT panel only in this two-panel adult choking first-aid TRAINING illustration. Helper's supporting left hand must come around the recipient's side and be placed on UPPER FRONT CHEST to support forward lean. Remove the helper hand currently resting on her upper back/shoulder. His other open right hand remains raised poised to strike BETWEEN her shoulder blades. Woman continues to lean well forward. Show accurate two arms belonging to helper; woman's hands can rest on her thighs so chest support is clearly helper's hand. Preserve right panel abdominal-thrust positioning, composition, clothing, adult identities, colour and lighting. No text.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.redcross.org/take-a-class/resources/learn-first-aid/adult-child-choking",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "fracture",
+    "frames": [
+      "illustrations/additions/fracture-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult seated after suspected forearm fracture, uninjured normal-looking arm bent comfortably supported from below by folded soft towel across lap. Helper gently supports below wrist and elbow WITHOUT twisting or straightening. No visible deformity or wound, no hard improvised splint, no graphic injury. Focus on support as found and calm waiting.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.sja.org.uk/first-aid-advice/fractures-and-broken-bones/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "hypothermia",
+    "frames": [
+      "illustrations/additions/hypothermia-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult hiker resting horizontally on thick foam sleeping pad inside sheltered open tent, fully clothed in dry fleece and wool hat, covered with dry wool blankets from shoulders to feet, face unobstructed. Companion kneels calmly beside head checking responsiveness. No campfire, hot water bottle, vigorous rubbing or alcohol. Clear visible insulating pad and layered blanket edges.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/hypothermia/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "nosebleed",
+    "frames": [
+      "illustrations/additions/nosebleed-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Accurate close three-quarter side portrait of adult seated leaning clearly FORWARD with head slightly down and mouth open. Their own thumb and index finger pinch BOTH SOFT NOSTRILS immediately below bony bridge, fingertips at lower fleshy part not upper bridge. Other hand holds clean tissue below nose, no blood. No head tilt backward. Anatomical hand placement must be clear.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/nosebleed/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "dehydration",
+    "frames": [
+      "illustrations/additions/dehydration-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Alert adult hiker comfortably seated upright in cool shade taking a SMALL SIP from reusable water bottle, relaxed open eyes, companion nearby watching attentively. Backpack placed aside, sunlit terrain in distance. No unconscious person, no force feeding, no large pouring stream into mouth. Focus on modest drinking and rest.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/dehydration/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "tick",
+    "frames": [
+      "illustrations/additions/tick-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Clinical macro photograph-style educational illustration of tiny tick on adult forearm intact skin. Fine-point stainless tweezers enter diagonally, tips meeting at tick MOUTHPARTS exactly at skin level, below oval body. Oval brown tick body remains visibly uncompressed above tips, eight tiny legs. Gentle removal direction upward, no twisting, oil, heat, incision or blood. Extreme macro makes grasp location unambiguous. Natural proportions.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/insect-bites-and-stings/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "beesting",
+    "frames": [
+      "illustrations/additions/beesting-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Clinical macro of adult forearm with tiny superficial bee stinger remaining in intact skin, no bee. Straight thin edge of clean plain plastic card held almost parallel to skin is sliding SIDEWAYS against base of stinger to scrape it away, tiny translucent venom sac above not pinched. Fine close-up, no tweezers squeezing sac, no wound or blood. Realistic readable simple action.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/insect-bites-and-stings/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "cooking",
+    "frames": [
+      "illustrations/additions/cooking-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Show close three-quarter view of a small permitted steel campfire cooking grate on bare mineral ground. A stainless cooking pot firmly seated above low embers, a gloved adult hand safely holding the long cool-side handle while other hand holds a digital food-probe thermometer correctly inserted into a thick food portion in pot; blank screen facing away. Clean utensil and raw-food container kept apart on a distant camp table, water bucket nearby. No large flame or forest debris under the fire, no food held in bare fingers. Focus on stability and checking food temperature.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "firerules",
+    "frames": [
+      "illustrations/additions/firerules-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. An established campsite steel fire ring completely unlit and empty on a broad gravel clearing. Beside it a FULL water bucket and shovel. In foreground adult hands holding an open printed campground-rule leaflet with simple fire pictogram and blank horizontal lines (no legible text). A modest windsock in middle distance shows moderate wind, no flames or smoke anywhere, tents far away. Educational preparation before deciding whether fire is allowed, dry controlled conditions.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "embers",
+    "frames": [
+      "illustrations/additions/embers-1.webp",
+      "illustrations/additions/embers-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Exactly TWO equal panels side by side, 2:1 ratio, thin ivory gutter. Same close view of established metal campfire ring in broad gravel clearing. LEFT an adult pours plentiful water from watering can onto ash while long shovel stirs, only a wisp of steam, no flame. RIGHT same completely soaked grey ash bed after cooling, bare adult hand held visibly well ABOVE the ash without touching it, water can nearby. Show the hand separated from the ash by about 20cm. Safe finished extinguishing; no burial with dirt.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "firewood",
+    "frames": [
+      "illustrations/additions/firewood-1.webp",
+      "illustrations/additions/firewood-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Exactly TWO equal square panels in a 2:1 horizontal image, a material comparison on warm ivory tabletop. LEFT a tidy small stack of dry split untreated logs, with dry cracked end grain and no greenery. RIGHT separate damp mossy deadwood and a small painted scrap plank, clearly wet sheen and peeling green paint, no fire, no smoke, no people, no tools. High-detail wood structure, examples for the app to label as appropriate versus inappropriate; no printed symbols or text.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "campsite",
+    "frames": [
+      "illustrations/additions/campsite-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. High oblique aerial view of a realistic small outdoor landscape teaching campsite choice. A single olive dome tent sits on an established flat elevated gravel terrace. A shallow dry drainage gully is visibly far below to the left, a stream still farther in distance, forest set back with no branches above the tent. Clearly readable topography, gentle slopes draining AWAY from the tent; no cliff overhang, no fire, no flood, no people. Calm Mediterranean pine hills. Make safe elevated campsite the focal point.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "desertshelter",
+    "frames": [
+      "illustrations/additions/desertshelter-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Side three-quarter cutaway-like view of a freestanding double-layer shade tarp on a broad flat arid gravel campsite, away from cliffs and dry riverbeds. Two pale tan fabric roofs separated by a clearly visible 25cm ventilated air gap, four stable poles and visible pegged guy lines. Open sides, an adult fully clothed with hat resting on a foam mat in the deep shade, capped water bottles. Heat haze only in distant landscape, no fire, no exposed skin, no tent sauna. Architecture clear and physically plausible.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "blanket",
+    "frames": [
+      "illustrations/additions/blanket-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. A seated alert adult in dry olive fleece and wool hat rests on a thick insulating foam pad at a sheltered dry campsite. Reflective silver emergency blanket wrapped loosely OVER dry clothing and legs, face and mouth fully exposed, breathing space, a companion sitting nearby attentively. Show foam pad clearly separating body from cold ground. No direct heat or fire, no drinks, no medical devices. Clear full-body view focused on layered insulation and leaving head unobstructed.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "windbreak",
+    "frames": [
+      "illustrations/additions/windbreak-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Educational side view of a low freestanding olive fabric camping windbreak firmly pegged on gravel. Wind blows FROM LEFT TO RIGHT shown naturally by grasses bending right on its left windward side. On the right sheltered side a seated adult in jacket rests with backpack. Fabric panel upright with stable support posts and cords; show both sides and ground, open sky above. No fire, stove, wall of loose stones or enclosed shelter. Natural hillside photography.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "pacing",
+    "frames": [
+      "illustrations/additions/pacing-1.webp",
+      "illustrations/additions/pacing-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal side-by-side panels separated by a thin ivory gutter. Topic: calibrating hiking pace count. Left full adult hiker walks flat straight measured gravel track between two low orange cones, measuring tape laid along edge of path. Right close view walking boots and hand holding small mechanical tally counter, no readable display. Consistent same olive trousers and brown boots; focus on practical measured walking, not map navigation.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "lost",
+    "frames": [
+      "illustrations/additions/lost-1.webp",
+      "illustrations/additions/lost-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal side-by-side panels. Lost hiker response: same adult woman olive jacket tan pack safely seated beside marked trail, not wandering. Left rests calmly with paper topographic map open across knees, compass in hand and distant trail junction. Right remains in same safe place talking on smartphone, bright orange jacket unfolded visibly beside her, pack nearby. No invented map labels. Practical pause, locate, communicate.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "routeplan",
+    "frames": [
+      "illustrations/additions/routeplan-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Top-down tabletop route-planning still life. Large realistic unlabeled topographic paper map with a simple red route connecting start/end coloured dots and two exit branch points. Adult hands point at the route with a pencil and clear baseplate compass. Beside map a filled water bottle, watch, small open weather icon card with sun/cloud only, blank field notebook. Sharp map contours, no words or numbers, no GPS fabricated coordinate claims.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "hiketime",
+    "frames": [
+      "illustrations/additions/hiketime-1.webp",
+      "illustrations/additions/hiketime-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equally sized side-by-side panels about hiking time planning. Left adult hands over unlabeled route map and simple elevation-profile line on paper with a wristwatch beside it; clear rising hill profile and three coloured checkpoint dots, no text or numbers. Right same adults resting with backpacks and water at a safe trail bench, long trail winding uphill in background under afternoon daylight. Practical sense of terrain plus breaks; no running or dramatic sunset danger.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "phone",
+    "frames": [
+      "illustrations/additions/phone-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Adult hiker seated safely beside path, holding smartphone at ear, other hand points at their position on unfolded paper trail map held by companion. Bright orange pack and whistle nearby. Over-shoulder three-quarter perspective; phone screen not visible. Teach communicating location from a safe stationary spot, no imagined reception guarantee. Both adults calm and focused.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "smokesignals",
+    "frames": [
+      "illustrations/additions/smokesignals-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Premium sharp close overhead field equipment layout on a light flat rock: bright orange signal fabric unfolded, small polished signalling mirror with central sight hole, safety whistle, headlamp switched off, smartphone screen dark. Adult hand reaches toward whistle. Background dry scrub deliberately WITHOUT smoke or fire. Educational safe signalling alternatives, objects separated neatly and realistically scaled.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "airsignals",
+    "frames": [
+      "illustrations/additions/airsignals-1.webp",
+      "illustrations/additions/airsignals-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal side-by-side full-body front views of SAME adult mountain hiker on open flat ground in bright orange jacket. Educational international ground-to-air body signals. LEFT subject stands upright feet together, BOTH straight arms raised diagonally at 45 degrees above horizontal making exact Y silhouette. RIGHT subject stands upright feet together, their RIGHT arm straight diagonally 45 degrees upward and their LEFT arm straight diagonally 45 degrees downward making an asymmetric diagonal N signal. Entire hands and feet within each frame, arms clearly separated from torso. No helicopter or text, no other people, no arrow. Exact body positioning is essential.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "groupsignals",
+    "frames": [
+      "illustrations/additions/groupsignals-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Three adult hikers at safe trailhead gathered around an unfolded topographic map atop low wooden table. Leader points to single meeting point on map and holds small whistle visibly; others listen with their own whistles clipped to backpack shoulder straps. Everyone close together, fully clothed olive/tan hiking gear, no branding. Composition prioritizes shared map, gestures and signalling kit.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "fit",
+    "frames": [
+      "illustrations/additions/fit-1.webp",
+      "illustrations/additions/fit-2.webp",
+      "illustrations/additions/fit-3.webp",
+      "illustrations/additions/fit-4.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Four equal panels in a 2x2 grid, consistent adult in olive shirt wearing tan hiking backpack. Close practical views of fit adjustments. Top left front waist view hands tightening padded hip belt centred across iliac crest, top right side shoulder closeup tightening lower shoulder strap, bottom left shoulder side closeup lifting hand adjusting load lifter strap from top of shoulder to top of pack, bottom right front upper chest view hand fastening horizontal sternum strap below collarbones. Distinct instructional detail per panel, anatomically correct hands and complete straps, no text.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "knifesafety",
+    "frames": [
+      "illustrations/additions/knifesafety-1.webp",
+      "illustrations/additions/knifesafety-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Edit this two-panel camp safety illustration. Preserve photorealistic style and entire right panel with closed folding knife. Correct LEFT panel only: remove the supporting bare hand near blade entirely. Clamp wooden stick firmly in a small padded tabletop woodworking vise at LEFT side; stick projects to the RIGHT. A single adult RIGHT hand grips a small knife BEHIND blade and carves the free wooden tip toward RIGHT, away from hand and body. Other hand is completely absent from panel. Wood cutting edge ahead of grip, fingers safely curled around handle. Do not depict any finger ahead of cutting edge. Anatomically realistic, no other changes, no text.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "animals",
+    "frames": [
+      "illustrations/additions/animals-1.webp",
+      "illustrations/additions/animals-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal side-by-side safety education panels, not species identification. Left wide trail perspective: adult hikers stopped well back while small snake crosses far ahead, snake clearly tiny relative to distance, nobody approaches it. Right closeup of adult holding an empty hiking boot by heel tilted opening down over bare ground, inspecting inside with small flashlight; no hands inside dark hole. Natural muted earthy palette.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "plants",
+    "frames": [
+      "illustrations/additions/plants-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Adult botanical observer on a marked nature trail crouched at a safe respectful distance from mixed wild leaves, small berries and blossoms growing undisturbed beside trail. Observer photographs plants with phone without touching or picking them. Sharp foreground plant textures, no mouth contact, no sampling, no basket. Educational respect and avoidance of unknown plants, not species diagnostic plate.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "leavenotrace",
+    "frames": [
+      "illustrations/additions/leavenotrace-1.webp",
+      "illustrations/additions/leavenotrace-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal panels Leave No Trace education. Left gloved adult hands place litter into a reusable refuse bag at tidy campsite; separated bottle and wrapper recognizable but unbranded. Right two adult hikers remain on clearly defined rocky path surrounded by undisturbed delicate flowering plants, no trampling. Soft daylight, attractive realistic ecological illustration.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "buddy",
+    "frames": [
+      "illustrations/additions/buddy-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two adult hiking partners stopped together at trail marker, one courteously offers water bottle while other checks shared paper map; both close within arm's length, calm natural eye contact, visible small first aid pouch clipped to pack. Clear path ahead, no isolated third person or rescue drama. Outdoor buddy system with practical check-in.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "findwater",
+    "frames": [
+      "illustrations/additions/findwater-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Outdoor trailhead potable-water station: modern clean drinking-water tap fills reusable hiking bottle; second capped full bottle and map in hand beside it. A simple official blue drinking-water cup pictogram on station, no letters. Adult hands and natural stone basin, clean clear water. No collecting wild stream water, no survival folklore.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "streamcrossing",
+    "frames": [
+      "illustrations/additions/streamcrossing-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Wide landscape adult hiking pair cross a sturdy established pedestrian bridge with secure handrails over visibly fast rocky stream. Both stay entirely on bridge, hold railing lightly, bridge deck continuous and realistic. Foreground riverbank reveals current; no person in water. Practical safe route selection, natural editorial photograph.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "insectprotection",
+    "frames": [
+      "illustrations/additions/insectprotection-1.webp",
+      "illustrations/additions/insectprotection-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal side-by-side close practical panels. Left adult lower legs, lightweight olive hiking trousers tucked into tall socks above boots, gloved? NO gloves needed, hands simply checking cuffs. Right adult applies a small amount of unbranded pump insect repellent to own exposed forearm outdoors, spray away from eyes and mouth, wearing same long-sleeved olive shirt pushed slightly back. No children or skin disease.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "biganimals",
+    "frames": [
+      "illustrations/additions/biganimals-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Wide realistic Mediterranean woodland trail. Two adult hikers quietly stopped in near foreground with several metres of open ground separating them from a small wild boar well in middle distance. Boar free to move sideways into woodland, no feeding or approaching, no raised sticks, no chase. Clear scale makes safe separation the visual lesson. Peaceful natural scene, animals realistic.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "hygiene",
+    "frames": [
+      "illustrations/additions/hygiene-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Close view of outdoor camp handwashing station away from natural water: one adult washes both hands with soap under low flow from portable water container spigot over a catch basin. Soap bottle, clean towel, sealed rubbish bag separated farther back. Practical hygienic campsite on dry gravel, no food touching dirty ground, no stream discharge. Anatomically correct pair of hands.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "tracks",
+    "frames": [
+      "illustrations/additions/tracks-1.webp",
+      "illustrations/additions/tracks-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Two equal macro natural-history panels on identical fine damp earth under soft side light. Left crisp realistic canine-style paw impression with FOUR oval toe impressions, subtle claw impressions and central triangular heel pad. Right crisp realistic ungulate cloven-hoof impression with TWO paired elongated pointed hoof lobes and no paw pads. Small blank wooden scale bar beside each impression. No labels, animal body, exaggerated sizes or invented hybrid tracks.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "reserves",
+    "frames": [
+      "illustrations/additions/reserves-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Asset for a premium Hebrew outdoor field guide. Photorealistic editorial illustration, accurate practical details, tactile natural materials, subtle olive-green/tan outdoor gear, soft daylight, refined natural colours. Landscape image, no decorative border, logos, watermark or text. Scene must clearly teach the specified practical concept, with clean uncluttered composition. Adults only, anatomically correct people and hands. Adult hiker pauses by tasteful wooden nature reserve trail information post with clear small pictograms of marked footpath, no picking flower and pack-out-trash, no words. Background well-defined marked trail through protected Mediterranean wildflowers; hiker carries a small sealed trash bag attached to pack and leaves plants untouched. Realistic conservation education, uncluttered composition.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "prusik",
+    "frames": [
+      "illustrations/additions/prusik-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle this photograph into a premium realistic educational studio macro plate. Preserve the exact Prusik cord geometry and crossings seen in reference: green vertical main rope becomes muted blue; red accessory cord becomes braided warm golden cord. Preserve wrap count and all crossings precisely. Remove the human hand, wristwatch and arrow, replace timber background with smooth warm ivory studio surface and soft natural contact shadows. Keep cord tails extended to right exactly as in reference, all rests on tabletop, no load. Camera and routing must remain identical. Show the complete hitch close up, no letters, numbers, logos, text or arrows. Landscape 3:2.",
+    "referenceCredit": "Stewart Adcock · https://www.yogicllama.com/about",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Prusikhowto6.saa.jpeg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://www.animatedknots.com/prusik-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "timberhitch",
+    "frames": [
+      "illustrations/additions/timberhitch-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Premium photorealistic 3D knot teaching study, tactile braided golden-tan cord, clearly separated strands with visible routing and realistic contact shadows on warm ivory studio surface. Crisp macro detail, uncluttered composition, generous margins and no text, numbers, logos or watermark. For light equipment practice only: no people, body parts, animals, climbing, suspended load, necks or figures. Accurate timber hitch around short thick horizontal wooden log resting on ivory tabletop. Rope encircles log once, working end goes around straight standing part then twists back around ITSELF three full turns along the encircling section pressed against bark. Show three self-wraps clearly at front, not three turns around whole log, standing part exits to upper right. Only short log and cord, macro clear topology.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.animatedknots.com/timber-hitch-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "rollinghitch",
+    "frames": [
+      "illustrations/additions/rollinghitch-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithfully restyle the supplied reference into one premium realistic educational 3D macro illustration. This is rollinghitch. Preserve EXACT geometry, all visible rope paths, every over-under crossing, number of loops, wraps, tails and object positions. DO NOT improvise or correct the reference geometry. Rope becomes textured golden-tan braided cord, second rope where present muted blue with consistent entire color. Warm ivory matte background with soft studio shadows. Carabiner or wood stays same exact geometry. Preserve open/loose form where shown so route is legible. Generous margin. No people, added props, text, logos or arrows. One landscape 3:2 frame; no collage.",
+    "referenceCredit": "David J. Fred; cropped and retouched by Ibn Battuta",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Rolling_hitch_final.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": "https://www.animatedknots.com/rolling-hitch-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "cleathitch",
+    "frames": [
+      "illustrations/additions/cleathitch-1.webp",
+      "illustrations/additions/cleathitch-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Premium photorealistic 3D knot teaching study, tactile braided golden-tan cord, clearly separated strands with visible routing and realistic contact shadows on warm ivory studio surface. Crisp macro detail, uncluttered composition, generous margins and no text, numbers, logos or watermark. For light equipment practice only: no people, body parts, animals, climbing, suspended load, necks or figures. Two equal side-by-side panels of accurate cleat hitch on same small dark bronze two-horn boat cleat mounted on tabletop oak board. Left rope passes once around base under both horns then diagonally across top. Right completed cleat hitch has base wrap, ONE full figure-eight crossing and a locking reversed half hitch over final horn; two parallel strands cross top over a single diagonal. Three-quarter overhead view, no excessive coils or rope pile, no boat under load.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.animatedknots.com/cleat-hitch-halyard-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "bowlinebight",
+    "frames": [
+      "illustrations/additions/bowlinebight-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied knot reference into premium photorealistic 3D educational macro illustration. Preserve EXACT rope routing, loop count, every over/under crossing, placement, viewpoint and geometry from this reference. Do not invent extra turns, fuse strands, simplify knot, add or remove segments. Tactile braided golden-tan cord; if two separate ropes, preserve distinct colors using golden tan and muted blue. Replace background with warm ivory matte studio tabletop, clean soft light, crisp distinct contact shadows at crossings, generous margins. Any bar or metal ring remains in exactly same position, realistically textured. No hands, text, logos, watermark, arrows or labels. One image, landscape 3:2, showing bowlinebight. Fidelity of actual rope path takes priority over aesthetics.",
+    "referenceCredit": "Lwan98",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Bowline-bight-animated.gif",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://www.animatedknots.com/bowline-on-a-bight-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "munter",
+    "frames": [
+      "illustrations/additions/munter-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithfully restyle the supplied reference into one premium realistic educational 3D macro illustration. This is munter. Preserve EXACT geometry, all visible rope paths, every over-under crossing, number of loops, wraps, tails and object positions. DO NOT improvise or correct the reference geometry. Rope becomes textured golden-tan braided cord, second rope where present muted blue with consistent entire color. Warm ivory matte background with soft studio shadows. Carabiner or wood stays same exact geometry. Preserve open/loose form where shown so route is legible. Generous margin. No people, added props, text, logos or arrows. One landscape 3:2 frame; no collage.",
+    "referenceCredit": "Mark in the wiki",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:HMS_complete.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://www.animatedknots.com/munter-mule-combination-hitch-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "waterknot",
+    "frames": [
+      "illustrations/additions/waterknot-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Premium photorealistic educational studio restyling of provided waterknot knot reference. Preserve exact visible rope geometry, every over-under crossing, loop and end; do not tighten or change configuration. Turn round cord into golden-tan braided cord; if reference is FLAT WEBBING, preserve flat webbing and its original BLUE color, stripes and all ribbon paths. Warm ivory matte tabletop and soft crisp contact shadows. Entire knot centered, ample margins. Keep existing practice tool if any. NO additional objects, people, hands, body diagrams, animals, writing, arrows, numbers or watermarks. This is a neutral rope-only museum identification study, not human support or restraint. Landscape 3:2.",
+    "referenceCredit": "Markus Bärlocher",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Bandschlingenknoten.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://www.animatedknots.com/water-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "fig8bight",
+    "frames": [
+      "illustrations/additions/fig8bight-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithfully restyle the supplied reference into one premium realistic educational 3D macro illustration. This is fig8bight. Preserve EXACT geometry, all visible rope paths, every over-under crossing, number of loops, wraps, tails and object positions. DO NOT improvise or correct the reference geometry. Rope becomes textured golden-tan braided cord, second rope where present muted blue with consistent entire color. Warm ivory matte background with soft studio shadows. Carabiner or wood stays same exact geometry. Preserve open/loose form where shown so route is legible. Generous margin. No people, added props, text, logos or arrows. One landscape 3:2 frame; no collage.",
+    "referenceCredit": "Hella",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Achtknoten_als_Schlinge.png",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://www.animatedknots.com/figure-8-follow-through-loop-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "doublefisherman",
+    "frames": [
+      "illustrations/additions/doublefisherman-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithfully restyle the supplied reference into one premium realistic educational 3D macro illustration. This is doublefisherman. Preserve EXACT geometry, all visible rope paths, every over-under crossing, number of loops, wraps, tails and object positions. DO NOT improvise or correct the reference geometry. Rope becomes textured golden-tan braided cord, second rope where present muted blue with consistent entire color. Warm ivory matte background with soft studio shadows. Carabiner or wood stays same exact geometry. Preserve open/loose form where shown so route is legible. Generous margin. No people, added props, text, logos or arrows. One landscape 3:2 frame; no collage.",
+    "referenceCredit": "Markus Bärlocher",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Doppelter_Spierenstich-4.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://www.animatedknots.com/double-fishermans-bend-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "highwayman",
+    "frames": [
+      "illustrations/additions/highwayman-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Photorealistic educational macro restyle of exact supplied reference, premium warm ivory studio tabletop, detailed realistic braid, physically separate rope strands and clear crossing shadows. Preserve EXACT geometry and topology as reference. Keep the actual blue rope and its every loop exactly. Wooden horizontal bar stays. No tension or load. Landscape 3:2. No hands, text, logos or arrows.",
+    "referenceCredit": "Tom Murphy VII",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Highwayman's_Hitch.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://www.animatedknots.com/highwaymans-hitch-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "diagonallashing",
+    "frames": [
+      "illustrations/additions/diagonallashing-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Photorealistic educational macro restyle of exact supplied reference, premium warm ivory studio tabletop, detailed realistic braid, physically separate rope strands and clear crossing shadows. Preserve EXACT geometry and topology as reference. Keep the two crossing wooden poles and every rope turn exactly as photo. Golden tan cord, rustic poles against warm ivory. This is completed final lashing only. Landscape 3:2. No hands, text, logos or arrows.",
+    "referenceCredit": "Duk (Wikimedia Commons uploader)",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Lashing_diagonal.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": "https://www.animatedknots.com/diagonal-lashing-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "chainsinnet",
+    "frames": [
+      "illustrations/additions/chainsinnet-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied reference as a premium photorealistic braided-rope educational macro plate, warm ivory tabletop and soft studio light. CRITICAL keep all rope routes, every over-under crossing, knot shapes, count of turns and entire composition identical to the reference. No additional rope pieces, no fused strands. Preserve the chain section EXACTLY with the cord entering and exiting outside both side edges, golden tan cord, no invented terminations. No text, no labels, no hands. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Chain-sinnet-ABOK-1144.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": "https://www.animatedknots.com/chain-sinnet-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "runningbowline",
+    "frames": [
+      "illustrations/additions/runningbowline-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Photorealistic educational macro restyle of exact supplied reference, premium warm ivory studio tabletop, detailed realistic braid, physically separate rope strands and clear crossing shadows. Preserve EXACT geometry and topology as reference. Transform the line drawing to photoreal braided golden tan cord. Keep exact silhouette and every under-over crossing and bowline collar from diagram unchanged. No extra strands. Landscape 3:2. No hands, text, logos or arrows.",
+    "referenceCredit": "Whidou",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Running_bowline.svg",
+    "license": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "source": "https://www.animatedknots.com/running-bowline-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "anchorbend",
+    "frames": [
+      "illustrations/additions/anchorbend-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied knot reference into premium photorealistic 3D educational macro illustration. Preserve EXACT rope routing, loop count, every over/under crossing, placement, viewpoint and geometry from this reference. Do not invent extra turns, fuse strands, simplify knot, add or remove segments. Tactile braided golden-tan cord; if two separate ropes, preserve distinct colors using golden tan and muted blue. Replace background with warm ivory matte studio tabletop, clean soft light, crisp distinct contact shadows at crossings, generous margins. Any bar or metal ring remains in exactly same position, realistically textured. No hands, text, logos, watermark, arrows or labels. One image, landscape 3:2, showing anchorbend. Fidelity of actual rope path takes priority over aesthetics.",
+    "referenceCredit": "Sawims",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Ankersteek.svg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": "https://www.animatedknots.com/anchor-hitch-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "carrickbend",
+    "frames": [
+      "illustrations/additions/carrickbend-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithful photographic restoration and premium 3D restyle of the supplied Carrick bend reference. Preserve the original green rope and steel gray blue rope colors exactly. Each continuous rope keeps its own color from one end through every crossing to its other end. Two ends green and two ends gray blue. Preserve every original over-under crossing and exact routing, do not redesign or simplify. Change ONLY background to warm ivory tabletop and enhance braided rope texture and studio lighting. Same camera viewpoint, entire knot and four ends visible, no hands, no labels, landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Knife-lanyard-knot-ABOK-787-Carrick-start.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": "https://www.animatedknots.com/carrick-bend-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "blisters",
+    "frames": [
+      "illustrations/additions/blisters-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Close-up of intact heel on adult foot supported comfortably. Clean hands apply smooth hydrocolloid blister plaster over small intact blister area; peeling backing partly visible, dressing edges flat, hiking sock and shoe beside foot. No puncturing tools, no opened blister, no gore. Emphasize gentle protection from rubbing.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/blisters/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "splinter",
+    "frames": [
+      "illustrations/additions/splinter-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Macro close-up of small superficial wooden splinter tip protruding shallowly from side of adult fingertip. Fine clean tweezers grasp exposed wooden tip close to intact skin, aligned with shallow angle of splinter for straight removal. No needle, cutting, digging, blood or deep wound. Visible delicate hand anatomy, clinical clear focus.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.sja.org.uk/first-aid-advice/splinter/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "eye",
+    "frames": [
+      "illustrations/additions/eye-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. One close-up FIRST AID eye irrigation illustration. Side PROFILE of an adult woman's face leaning forward over a sink, camera sees exactly ONE eye, her other eye is fully occluded behind bridge of nose and not visible. Her face points left. She gently holds visible eyelids open with two fingers of one hand above and below eye, fingers do not touch eyeball. A thin low-pressure clean water stream from an eyewash squeeze bottle approaches from upper LEFT and gently runs across visible eye from nasal inner corner toward outer temple and into sink. No cup. Correct normal facial anatomy. Only one eye visible. Neutral calm demonstration, no injuries or blood. Show tilted side profile prominently, no extra eyes or duplicate facial features. Landscape 3:2.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/eye-injuries/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "carrying",
+    "frames": [
+      "illustrations/additions/carrying-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Outdoor injury response scene adult resting in comfortable supported position on level safe ground with folded jacket under arm, one companion stays kneeling beside them reassuringly, second companion a few paces away on phone points to clear access path for rescue. No lifting, carrying, makeshift stretcher, dragging or spinal manipulation. Composition teaches coordination and staying with the injured person.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.sja.org.uk/first-aid-advice/fractures-and-broken-bones/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "shock",
+    "frames": [
+      "illustrations/additions/shock-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult resting lying supine comfortably on flat floor with olive wool blanket covering chest to feet, head unobstructed and neutral, eyes open, calm helper kneeling beside their shoulder observing breathing while holding phone. No raised legs, pillows under head, food, drink or mouth procedures. Clear blanket and supportive monitoring; no visible injury.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.sja.org.uk/first-aid-advice/shock/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "fainting",
+    "frames": [
+      "illustrations/additions/fainting-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult who has fainted now responsive with eyes open lying flat on clean floor, legs gently elevated on low folded cushion, helper kneels beside shoulder speaking reassuringly, one hand near shoulder without shaking. Fully clothed; no traumatic injury, no drink offered, no slapping or smelling salts. Wide enough to show safe lying posture and slightly raised lower legs.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/fainting/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "seizure",
+    "frames": [
+      "illustrations/additions/seizure-1.webp",
+      "illustrations/additions/seizure-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Two equal panels of first-aid simulation with clothed adult lying on clear floor. Left helper places folded soft jacket under head while leaving arms and legs unrestrained, chair pushed well away. Right same person lies safely with soft jacket under head, helper keeps respectful space looking at stopwatch in hand, no physical restraint. Mouth unobstructed, nothing between teeth, no spoon. Calm non-graphic instructional demonstration, no active violent convulsions.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/symptoms/what-to-do-if-someone-has-a-seizure-fit/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "chemicalburn",
+    "frames": [
+      "illustrations/additions/chemicalburn-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Clean wash-station scene after liquid chemical exposure: adult forearm held under copious cool flowing tap water over deep sink, helper wearing chemical-resistant protective gloves supports arm from clean upper area. Contaminated long sleeve removed from forearm, no visible burn or chemical colour, no powder remaining. Neutral unlabelled closed chemical container sits far away on separate surface, no creams, neutralising liquid or mixing. Clear sustained irrigation.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/acid-and-chemical-burns/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "animalbite",
+    "frames": [
+      "illustrations/additions/animalbite-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult washing own forearm after minor animal bite, under clean running tap water with soap lather nearby. Skin intact-looking with only tiny faint red marks, no visible wound or blood, no animal in frame, no attempt to capture animal. Composition differs from thermal burn: soap dispenser and careful washing with opposite hand are prominent. Calm clinical education.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/animal-and-human-bites/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "headinjury",
+    "frames": [
+      "illustrations/additions/headinjury-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult hiker after minor bump seated still in safe sheltered position with back supported against low backpack, eyes open and speaking, helper beside them observes attentively and uses phone. No neck twisting, no helmet removal, no tight neck collar, no wound. Clear calm monitoring rather than returning to activity.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/head-injury-and-concussion/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "drowning",
+    "frames": [
+      "illustrations/additions/drowning-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Outdoor water-safety training simulation at calm lake. Adult helper securely kneels on broad solid jetty well back from edge holding free end of an UNWRAPPED loose rescue line; orange lifebuoy at other end already floats within easy reach of adult swimmer a few metres away wearing buoyancy vest. Second helper behind calls for help. No rescuer enters water, no rope around body, no drama or submersion. Clear stable base and flotation assist.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/water-safety.html",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "asthma",
+    "frames": [
+      "illustrations/additions/asthma-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult with asthma seated upright, calmly using their own blue metered-dose inhaler correctly attached to clear spacer chamber. Spacer mouthpiece sealed between lips, chamber horizontal in front of face, inhaler canister upright at far end of spacer, one hand supports spacer and other rests on canister. Clinical accurate inhaler arrangement, no medicine brand or dosage text, companion nearby.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/asthma/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "sunburn",
+    "frames": [
+      "illustrations/additions/sunburn-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Professional first-aid education illustration, calm realistic editorial photography style, warm ivory uncluttered background, muted olive clothing, soft daylight, clear accurate anatomy and practical hand placement. Adults only. No blood, graphic injury, distress, text, labels, logos or watermark. Depict only the specified action, no additional treatment. Landscape 3:2, high detail, enough margin around all subjects. Adult seated under deep shade wearing light long-sleeved clothing, gently lays cool damp folded soft cloth over exposed mildly pink forearm. Broad sun hat, water bottle beside chair. No ice directly on skin, no severe redness or blisters, no creams being applied. Soothing realistic first aid for mild sunburn.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.nhs.uk/conditions/sunburn/",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "surgeons",
+    "frames": [
+      "illustrations/additions/surgeons-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied knot reference into premium photorealistic 3D educational macro illustration. Preserve EXACT rope routing, loop count, every over/under crossing, placement, viewpoint and geometry from this reference. Do not invent extra turns, fuse strands, simplify knot, add or remove segments. Tactile braided golden-tan cord; if two separate ropes, preserve distinct colors using golden tan and muted blue. Replace background with warm ivory matte studio tabletop, clean soft light, crisp distinct contact shadows at crossings, generous margins. Any bar or metal ring remains in exactly same position, realistically textured. No hands, text, logos, watermark, arrows or labels. One image, landscape 3:2, showing surgeons. Fidelity of actual rope path takes priority over aesthetics.",
+    "referenceCredit": "Tom Murphy VII",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Surgeon%27s_knot_(tying).jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "marlinspike",
+    "frames": [
+      "illustrations/additions/marlinspike-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Premium photorealistic educational studio restyling of provided marlinspike knot reference. Preserve exact visible rope geometry, every over-under crossing, loop and end; do not tighten or change configuration. Turn round cord into golden-tan braided cord; if reference is FLAT WEBBING, preserve flat webbing and its original BLUE color, stripes and all ribbon paths. Warm ivory matte tabletop and soft crisp contact shadows. Entire knot centered, ample margins. Keep existing practice tool if any. NO additional objects, people, hands, body diagrams, animals, writing, arrows, numbers or watermarks. This is a neutral rope-only museum identification study, not human support or restraint. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Marlinespike-hitch-ABOK-2030-Step4.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "tripodlashing",
+    "frames": [
+      "illustrations/additions/tripodlashing-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Edit this exact educational tripod lashing image. Change ONLY the short blue rope segments between the wooden poles to match the identical golden tan rope color and braided texture of all the other rope. The blue currently incorrectly suggests a second rope. Preserve absolutely all geometry, turns, shadows, poles, framing and background. Uniform golden cord everywhere, no blue. No text.",
+    "referenceCredit": "Rembert Andy / Scoutopedia",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Tripodlashing2.gif",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "jugsling",
+    "frames": [
+      "illustrations/additions/jugsling-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Premium photorealistic educational studio restyling of provided jugsling knot reference. Preserve exact visible rope geometry, every over-under crossing, loop and end; do not tighten or change configuration. Turn round cord into golden-tan braided cord; if reference is FLAT WEBBING, preserve flat webbing and its original BLUE color, stripes and all ribbon paths. Warm ivory matte tabletop and soft crisp contact shadows. Entire knot centered, ample margins. Keep existing practice tool if any. NO additional objects, people, hands, body diagrams, animals, writing, arrows, numbers or watermarks. This is a neutral rope-only museum identification study, not human support or restraint. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Jug-sling-ABOK-1142.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "monkeysfist",
+    "frames": [
+      "illustrations/additions/monkeysfist-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Premium photorealistic 3D knot teaching study, tactile braided golden-tan cord, clearly separated strands with visible routing and realistic contact shadows on warm ivory studio surface. Crisp macro detail, uncluttered composition, generous margins and no text, numbers, logos or watermark. For light equipment practice only: no people, body parts, animals, climbing, suspended load, necks or figures. Macro product teaching photograph of one soft decorative monkey's fist knot made from golden-tan braided cord only, no weighted core. A compact cube-rounded ball with THREE adjacent parallel strands in each of three perpendicular wrapping directions; accurately interlocking familiar monkey fist shape. Single cord tail emerges lower right and rests on tabletop. Subtle three-quarter view, all rope not metal. No props. Landscape 3:2.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://www.animatedknots.com/monkeys-fist-knot",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "doubleoverhand",
+    "frames": [
+      "illustrations/additions/doubleoverhand-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Faithfully restyle the supplied reference into one premium realistic educational 3D macro illustration. This is doubleoverhand. Preserve EXACT geometry, all visible rope paths, every over-under crossing, number of loops, wraps, tails and object positions. DO NOT improvise or correct the reference geometry. Rope becomes textured golden-tan braided cord, second rope where present muted blue with consistent entire color. Warm ivory matte background with soft studio shadows. Carabiner or wood stays same exact geometry. Preserve open/loose form where shown so route is legible. Generous margin. No people, added props, text, logos or arrows. One landscape 3:2 frame; no collage.",
+    "referenceCredit": "Markus Bärlocher",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Doppelter_%C3%9Cberhandknoten-1.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "handcuff",
+    "frames": [
+      "illustrations/additions/handcuff-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Premium photorealistic educational studio restyling of provided handcuff knot reference. Preserve exact visible rope geometry, every over-under crossing, loop and end; do not tighten or change configuration. Turn round cord into golden-tan braided cord; if reference is FLAT WEBBING, preserve flat webbing and its original BLUE color, stripes and all ribbon paths. Warm ivory matte tabletop and soft crisp contact shadows. Entire knot centered, ample margins. Keep existing practice tool if any. NO additional objects, people, hands, body diagrams, animals, writing, arrows, numbers or watermarks. This is a neutral rope-only museum identification study, not human support or restraint. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Handcuff-knot-ABOK-1140.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "firemanchair",
+    "frames": [
+      "illustrations/additions/firemanchair-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Premium photorealistic educational studio restyling of provided firemanchair knot reference. Preserve exact visible rope geometry, every over-under crossing, loop and end; do not tighten or change configuration. Turn round cord into golden-tan braided cord; if reference is FLAT WEBBING, preserve flat webbing and its original BLUE color, stripes and all ribbon paths. Warm ivory matte tabletop and soft crisp contact shadows. Entire knot centered, ample margins. Keep existing practice tool if any. NO additional objects, people, hands, body diagrams, animals, writing, arrows, numbers or watermarks. This is a neutral rope-only museum identification study, not human support or restraint. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Handcuff-knot-ABOK-1140-Hitch-finish.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "whipping",
+    "frames": [
+      "illustrations/additions/whipping-1.webp",
+      "illustrations/additions/whipping-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Premium photorealistic 3D knot teaching study, tactile braided golden-tan cord, clearly separated strands with visible routing and realistic contact shadows on warm ivory studio surface. Crisp macro detail, uncluttered composition, generous margins and no text, numbers, logos or watermark. For light equipment practice only: no people, body parts, animals, climbing, suspended load, necks or figures. Two equal side-by-side macro panels separated by thin ivory gutter. LEFT detailed common whipping on thick tan three-strand natural rope tip: thin dark teal twine U-bight laid lengthwise along rope under eight closely adjacent wrapping turns, U-bight protrudes beyond band at tip, twine tail passed through U-bight, other tail emerges at back of band. RIGHT finished same whipping band around rope near neatly cut tip with no protruding twine, tiny rope fibres at cut end. This is thin twine binding rope end, not knot with large loop. Left-to-right sequence, no hands, no blade. 3:2 landscape.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": "https://en.wikibooks.org/wiki/Adventist_Youth_Honors_Answer_Book/Recreation/Knot_Tying",
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "coiling",
+    "frames": [
+      "illustrations/additions/coiling-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Use case: scientific-educational. Premium photorealistic 3D knot teaching study, tactile braided golden-tan cord, clearly separated strands with visible routing and realistic contact shadows on warm ivory studio surface. Crisp macro detail, uncluttered composition, generous margins and no text, numbers, logos or watermark. For light equipment practice only: no people, body parts, animals, climbing, suspended load, necks or figures. One photorealistic overhead teaching still life showing a neatly coiled golden-tan rope resting flat on ivory workbench, about seven even open elliptical coils, held together with simple small olive webbing keeper near top. One clear loose working end trails to lower right, no tangles, generous margins. Emphasize even loops, clean dry intact sheath, broad loose bends not tight kinks. Adjacent plain open canvas rope bag. Landscape 3:2.",
+    "referenceCredit": null,
+    "referenceSource": null,
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "catspaw",
+    "frames": [
+      "illustrations/additions/catspaw-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied knot reference into premium photorealistic 3D educational macro illustration. Preserve EXACT rope routing, loop count, every over/under crossing, placement, viewpoint and geometry from this reference. Do not invent extra turns, fuse strands, simplify knot, add or remove segments. Tactile braided golden-tan cord; if two separate ropes, preserve distinct colors using golden tan and muted blue. Replace background with warm ivory matte studio tabletop, clean soft light, crisp distinct contact shadows at crossings, generous margins. Any bar or metal ring remains in exactly same position, realistically textured. No hands, text, logos, watermark, arrows or labels. One image, landscape 3:2, showing catspaw. Fidelity of actual rope path takes priority over aesthetics.",
+    "referenceCredit": "Securiger",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Catspawknot.png",
+    "license": "https://creativecommons.org/licenses/by-sa/3.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "lasso",
+    "frames": [
+      "illustrations/additions/lasso-1.webp",
+      "illustrations/additions/lasso-2.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied reference as a premium photorealistic braided-rope educational macro plate, warm ivory tabletop and soft studio light. CRITICAL keep all rope routes, every over-under crossing, knot shapes, count of turns and entire composition identical to the reference. No additional rope pieces, no fused strands. Two equal panels left and right as reference, clear ivory gutter in exact center. Golden braided rope. Preserve left loose and right tightened forms including stopper. Not a full lasso, only the small eye knot. No text, no labels, no hands. Landscape 3:2.",
+    "referenceCredit": "Ben Hodges / Rracecarr",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Hondaknot.jpg",
+    "license": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "klemheist",
+    "frames": [
+      "illustrations/additions/klemheist-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied reference as a premium photorealistic braided-rope educational macro plate, warm ivory tabletop and soft studio light. CRITICAL keep all rope routes, every over-under crossing, knot shapes, count of turns and entire composition identical to the reference. No additional rope pieces, no fused strands. Keep the thick rope white and thin rope golden tan, with the same two stopper ends and silver carabiner, no branding. This is a static identification sample only. No text, no labels, no hands. Landscape 3:2.",
+    "referenceCredit": "Cobanyastigi",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Klemheist.JPG",
+    "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  },
+  {
+    "id": "knottypes",
+    "frames": [
+      "illustrations/additions/knottypes-1.webp",
+      "illustrations/additions/knottypes-2.webp",
+      "illustrations/additions/knottypes-3.webp",
+      "illustrations/additions/knottypes-4.webp"
+    ],
+    "generator": "Comparison using existing edition-3 ImageGen artwork",
+    "created": "2026-09-21",
+    "prompt": "Educational comparison assembled from four existing edition-3 illustrations; one example for each functional knot family. No new rope geometry generated.",
+    "referenceCredit": "ImageGen; rkdarst / knots (CC0) for bowline, sheet bend and clove hitch references",
+    "referenceSource": "credits.html#edition3",
+    "license": "credits.html#edition4",
+    "source": null,
+    "processing": "Four selected existing views, paired with new teaching captions."
+  },
+  {
+    "id": "buntline",
+    "frames": [
+      "illustrations/additions/buntline-1.webp"
+    ],
+    "generator": "Built-in ImageGen",
+    "created": "2026-09-21",
+    "prompt": "Restyle the supplied reference as a premium photorealistic braided-rope educational macro plate, warm ivory tabletop and soft studio light. CRITICAL keep all rope routes, every over-under crossing, knot shapes, count of turns and entire composition identical to the reference. No additional rope pieces, no fused strands. Golden tan rope around realistic silver ring. Keep this open knot clear enough to trace its route. No text, no labels, no hands. Landscape 3:2.",
+    "referenceCredit": "David J. Fred",
+    "referenceSource": "https://commons.wikimedia.org/wiki/File:Buntline-hitch-ABOK-1711.jpg",
+    "license": "https://creativecommons.org/licenses/by-sa/2.5/",
+    "source": null,
+    "processing": "AI restyle or generation; mechanical grid extraction and WebP encoding. No semantic postprocessing."
+  }
+]
